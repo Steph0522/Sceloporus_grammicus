@@ -1,0 +1,78 @@
+---
+title: "Venn Diagram"
+author:
+- Stephanie Hereira, Centro Tlaxcala de Biología de la Conducta, UATx
+- Mauricio Hernández, Doctorado en CB, Centro Tlaxcala de Biología de la Conducta, UATx
+date: "`r format(Sys.time(), '%d - %m - %Y')`"
+output:
+  pdf_document:
+    toc: yes
+    toc_depth: '2'
+  html_document:
+    theme: spacelab
+    highlight: pygments
+    toc: yes
+    toc_depth: 2
+    toc_float: yes
+---
+# Venn Diagram
+
+```{r, warning=FALSE, message=FALSE}
+library(tidyverse)
+# Loading files
+# Core microbiota (50%)
+swab_50 <- read.delim("../Data/core_otus_50swab.txt",
+                      check.names = F, skip = 1) %>%rownames_to_column(
+                        var = "ids") 
+feces_50 <- read.delim("../Data/core_otus_50_feces.txt",
+                       check.names = F, skip = 1) %>%rownames_to_column(
+                         var = "ids") 
+rectum_50 <- read.delim("../Data/core_otus_50_rectum.txt",
+                        check.names = F, skip = 1) %>%rownames_to_column(
+                          var = "ids") 
+smallint_50 <- read.delim("../Data/core_otus_50_smallintestine.txt",
+                          check.names = F, skip = 1) %>%rownames_to_column(
+                            var = "ids") 
+stomach_50 <- read.delim("../Data/core_otus_50_stomach.txt",
+                         check.names = F, skip = 1) %>%rownames_to_column(
+                           var = "ids") 
+
+# Create Venn Diagramm
+
+library(VennDiagram)
+
+venn.plot_50 <- venn.diagram(
+  x = list(Swab = swab_50$ids,
+           Feces = feces_50$ids,
+           Rectum = rectum_50$ids,
+           Intestine = smallint_50$ids,
+           Stomach = stomach_50$ids),
+  category.names = c(
+    expression(bold("Swab")),
+    expression(bold("Feces")),
+    expression(bold("Rectum")),
+    expression(bold("Intestine")),
+    expression(bold("Stomach"))),
+  filename = "viendo_50.tiff",
+  output = TRUE,
+  height = 3000,
+  width = 3000,
+  resolution = 300,
+  compression = "lzw",
+  units = "px",
+  lwd = 6,
+  lty = "blank",
+  fill = c("yellow", "purple", "green", "black", "red"),
+  cex = 1.5,
+  fontface = "bold",
+  fontfamily = "sans",
+  cat.cex = 2,
+  cat.fontface = "bold",
+  cat.default.pos = "outer",
+  cat.pos = c(-27, 27, 135, -125, -125),
+  cat.dist = c(0.055, 0.055, 0.085, 0.060, 0.06),
+  cat.fontfamily = "sans")
+
+
+```
+

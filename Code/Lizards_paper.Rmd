@@ -1,0 +1,42 @@
+---
+title: "Two Common Non-lethal Methods for the Study of the Gut Bacterial Communities in Wild Lizards"
+author:
+- Stephanie Hereira-Pacheco, Centro Tlaxcala de Biología de la Conducta, UATx
+- Mauricio Hernández, Doctorado en CB, Centro Tlaxcala de Biología de la Conducta, UATx
+date: "`r format(Sys.time(), '%d - %m - %Y')`"
+output:
+  pdf_document:
+    toc: yes
+    toc_depth: '2'
+  html_document:
+    theme: spacelab
+    highlight: pygments
+    toc: yes
+    toc_depth: 2
+    toc_float: yes
+---
+```{r child = './qiime2_Mauricio.Rmd'}
+```
+
+```{r child = './Barplots_phylum_genera.Rmd'}
+```
+
+
+```{r child = './Aldex.Rmd'}
+```
+
+```{r child = './Linear_Regression.Rmd'}
+```
+
+```{r child = './TurnOver.Rmd'}
+```
+
+```{r child = './Venn-Diagram.Rmd'}
+```
+
+```{r child = './Beta_diversity.Rmd'}
+```
+
+```{r child = './Alpha_diversity.Rmd'}
+```
+

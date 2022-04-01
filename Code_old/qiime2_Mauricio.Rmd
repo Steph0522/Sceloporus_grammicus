@@ -1,0 +1,386 @@
+---
+title: "QIIME2 scripts - Sequences processing"
+author:
+- Stephanie Hereira, Centro Tlaxcala de Biología de la Conducta, UATx
+- Mauricio Hernández, Doctorado en CB, Centro Tlaxcala de Biología de la Conducta, UATx
+date: "`r format(Sys.time(), '%d - %m - %Y')`"
+output:
+  pdf_document:
+    toc: yes
+    toc_depth: '2'
+  html_document:
+    theme: spacelab
+    highlight: pygments
+    toc: yes
+    toc_depth: 2
+    toc_float: yes
+---
+
+
+# Qiime2 Scripts-16S 
+
+## Step 1: EXTRACT BARCODES
+
+For this step, It will be used the 'extract_barcodes.py' script used in qiime1.
+
+``` {.bash}
+#I'll use one library called "Ste1" with Ste1_1.fastq and Ste2_1.fastq 
+
+extract_barcodes.py  -f Sg_16S-5_1.fastq -r Sg_16S-5_2.fastq --bc1_len 8
+--bc2_len 8 -c barcode_paired_end -o library5_extract_barcodes
+
+extract_barcodes.py  -f Sg_16S-6_1.fastq -r Sg_16S-6_2.fastq --bc1_len 8 
+--bc2_len 8 -c barcode_paired_end -o library6_extract_barcodes
+
+extract_barcodes.py  -f Sg_16S-7_1.fastq -r Sg_16S-7_2.fastq --bc1_len 8 
+--bc2_len 8 -c barcode_paired_end -o library7_extract_barcodes
+```
+
+-f : forward reads
+
+-r : reverse reads
+
+-c: input type [default: barcode_single_end]
+
+\_-bc1_len and --bc2_len : Specify the length, in base pairs, of barcodes
+
+-o : output
+
+## Step 2: IMPORT TO QIIME AND DEMULTIPLEX SEQUENCES
+
+For this step, we need to create a directory with the three files output from the previous step, containing:
+
+1.  forward.fastq.gz: file that contains the forward sequence reads
+2.  reverse.fastq.gz: file that contains the reverse sequence reads
+3.  barcdes.fastq.gz: file that contains the barcode sequence reads
+
+``` {.bash}
+qiime tools import --type EMPPairedEndSequences 
+--input-path library5_extract_barcodes/
+--output-path L5.qza
+
+qiime tools import --type EMPPairedEndSequences 
+--input-path library6_extract_barcodes/
+--output-path L6.qza
+ 
+qiime tools import --type EMPPairedEndSequences
+--input-path library7_extract_barcodes/ 
+--output-path L7.qza
+```
+
+--type : type of file , in this case paired end sequences. Check other import types[^1].
+
+[^1]: <https://docs.qiime2.org/2021.4/tutorials/importing/>
+
+--input-path: directory with the files to import
+
+--output-path: artifact name output
+
+And then, we perform the demultiplexing:
+
+``` {.bash}
+qiime  demux emp-paired  --i-seqs L5.qza 
+--m-barcodes-file Library5_SgHC_and_SgExtra.txt
+--m-barcodes-column barcode-sequence --output-dir demux_L5 
+--p-no-golay-error-correction 
+
+qiime  demux emp-paired  --i-seqs L6.qza 
+--m-barcodes-file Library6_SgHC_and_SgExtra.txt 
+--m-barcodes-column barcode-sequence 
+--output-dir demux_L6 --p-no-golay-error-correction 
+
+qiime  demux emp-paired  --i-seqs L7.qza 
+--m-barcodes-file Library7_Sg_DigestiveTract.txt 
+--m-barcodes-column BarcodeSequence 
+--output-dir demux_L7 --p-no-golay-error-correction 
+```
+
+--i-seqs : artifact with the import paired end sequences
+
+--m-barcodes-file : mapping file containing information of the sequences
+
+--m-barcodes-column: column name of the Barcode sequences
+
+--output-dir : output directory with the demultiplexed samples and error correction details
+
+--p-no-golay-error-correction: by default perform a correction with a barcode of 12 nt if not use this option (in our case is 16 nt)
+
+## Step 3: REMOVE PRIMERS AND VISUALIZATION
+
+``` {.bash}
+qiime cutadapt trim-paired 
+--i-demultiplexed-sequences demux_L5/per_sample_sequences.qza 
+--p-front-f CCTACGGGNGGCWGCAG 
+--p-front-r GACTACHVGGGTATCTAATCC 
+--o-trimmed-sequences demux_L5/per_sample_sequences_trimmed.qza 
+
+qiime cutadapt trim-paired 
+--i-demultiplexed-sequences demux_L6/per_sample_sequences.qza 
+--p-front-f CCTACGGGNGGCWGCAG 
+--p-front-r GACTACHVGGGTATCTAATCC 
+--o-trimmed-sequences demux_L6/per_sample_sequences_trimmed.qza 
+
+qiime cutadapt trim-paired 
+--i-demultiplexed-sequences demux_L7/per_sample_sequences.qza 
+--p-front-f CCTACGGGNGGCWGCAG --p-front-r GACTACHVGGGTATCTAATCC 
+--o-trimmed-sequences demux_L7/per_sample_sequences_trimmed.qza 
+```
+
+--i-demultiplexed-sequences : demultiplexed sequences (.qza artifact)
+
+--p-cores : number of threads
+
+--p-front-f : forward primer sequences (front if is in the beginning of the sequences)
+
+--p-front-r : reverse primer sequences (front if is in the beginning of the sequences)
+
+--o-trimmed-sequences : output
+
+``` {.bash}
+qiime demux summarize 
+--i-data demux_L5/per_sample_sequences_trimmed.qza  
+--o-visualization  trimmed_l5.qzv
+
+
+qiime demux summarize 
+--i-data demux_L6/per_sample_sequences_trimmed.qza  
+--o-visualization  trimmed_l6.qzv
+
+qiime demux summarize 
+--i-data demux_L7/per_sample_sequences_trimmed.qza  
+--o-visualization  trimmed_l7.qzv
+```
+
+--i-data : demultiplexed and/or trimmed sequences
+
+--o-visualization : output
+
+In this case, due to de the low quality of reverse reads we will continue with the forward and reverse sequences and let's set the truncation length of 260 bp for forward and 200 bp for reverse.
+
+## Step 4: RUN DADA2
+
+In this step, we will perform as an example a loop that can be used in the previous steps and the next ones:
+
+``` {.bash}
+qiime dada2 denoise-paired 
+--i-demultiplexed-seqs demux_L5/per_sample_sequences_trimmed.qza 
+--p-trunc-len-f 260 --p-trunc-len-r 200 --output-dir dada2_l5_paired
+
+qiime dada2 denoise-paired 
+--i-demultiplexed-seqs demux_L6/per_sample_sequences_trimmed.qza 
+--p-trunc-len-f 260 --p-trunc-len-r 200 --output-dir dada2_l6_paired
+
+qiime dada2 denoise-paired 
+--i-demultiplexed-seqs demux_L7/per_sample_sequences_trimmed.qza 
+--p-trunc-len-f 260 --p-trunc-len-r 200 --output-dir dada2_l7_paired
+```
+
+--i-demultiplexed-seqs : demultiplexed and trimmed sequences
+
+-p-trunc-len-f : length to trunc in forward sequences sequences to obtain good quality (usually when sequencing drops)
+
+-p-trunc-len-r : length to trunc in resverse sequences sequences to obtain good quality (usually when sequencing drops)
+
+--output-dir : output directory that will contain feature-table and representative sequences
+
+In case we want to visualize the results from dada2 (table, seqs and stats):
+
+``` {.bash}
+#example using dada2_l5_paired (sample)
+cd dada2_l5_paired
+
+qiime  metadata tabulate 
+--m-input-file denoising_stats.qza 
+--o-visualization denoising_stats_paired.qzv
+
+qiime  metadata tabulate 
+--m-input-file representative_sequences.qza
+--o-visualization representative_sequences.qzv
+
+qiime feature-table summarize 
+--i-table table.qza --o-visualization table.qzv
+```
+
+--m-input-file : stats or sequences
+
+--i-table : table
+
+--o-visualization: output
+
+## Step 5: MERGING TABLES AND SEQUENCES
+
+First, merge tables and seqs:
+
+``` {.bash .bahs}
+qiime feature-table merge 
+--i-tables dada2_l5_paired/table.qza 
+--i-tables dada2_l6_paired/table.qza 
+--i-tables dada2_l7_paired/table.qza 
+--o-merged-table merge_table.qza
+```
+
+--i-tables : table to merge (put every time you want to add a different table)
+
+--o-merged-table : output/merge table
+
+``` {.bash}
+qiime feature-table merge-seqs \
+--i-data dada2_l5_paired/representative_sequences.qza \
+--i-data dada2_l6_paired/representative_sequences.qza \
+--i-data dada2_l7_paired/representative_sequences.qza \
+--o-merged-data merge_seqs.qza
+```
+
+--i-data : sequences to merge (put every time you want to add a different sequence)
+
+--o-merged-data : output/merge sequences
+
+Then, let's visualize them:
+
+``` {.bash .bahs}
+qiime feature-table summarize \
+--i-table merge_table.qza\
+--m-sample-metadata-file mapping_file.txt
+--o-visualization merge_table.qzv \
+```
+
+--i-table : merged table
+
+--m-sample-metadata-file : mapping file containing all libraries
+
+--o-visualization : output/ visualization artifact
+
+``` {.bash}
+qiime metadata tabulate  \
+--m-input-file merge_seqs_dada.qza \
+--o-visualization merge_seqs.qzv\
+```
+
+--m-input-file : merged sequences
+
+--o-visualization : output/ visualization artifact
+
+## Step 6: ASSIGN TAXONOMY
+
+``` {.bash}
+qiime feature-classifier classify-sklearn 
+--i-reads merge_seqs.qza 
+--i-classifier /home/steph/Downloads/gg-13-8-99-nb-classifier.qza 
+--o-classification taxonomy.qza
+```
+
+cclassify-sklearn : using sklearn (other options are vsearch and blast)
+
+--i-reads : seqs merged
+
+--i-rclassifier: artifact classifier full-length (<https://docs.qiime2.org/2021.4/data-resources/>)
+
+--o-classification output artifact with taxonomy
+
+## Step 7: FILTERING TABLE
+
+-   **Removing taxa of chloroplast and mitochondria**
+
+    I checked the feature table and the division Phragmoplastophyta is all assigned to plants
+
+``` {.bash}
+qiime taxa filter-table
+--i-table merge_table.qza 
+--i-taxonomy taxonomy.qza
+--p-exclude mitochondria,chloroplast 
+--o-filtered-table merge_table_filtered.qza
+```
+
+--i-table : merge table
+
+--i-taxonomy : taxonomy (from assign taxonomy)
+
+--p-exclude : taxa to exclude
+
+--o-filtered-table : output/artifact
+
+-   **Visualizing the taxonomy in a barplot**
+
+``` {.bash}
+qiime  taxa  barplot
+--i-table merge_table_filtered.qza 
+--i-taxonomy taxonomy.qza 
+--m-metadata-file mapping_file.txt
+--o-visualization barplot_filtered.qzv 
+
+qiime tools view barplot_filtered.qzv
+```
+
+--i-table : input table
+
+--m-metadata-file : mapping file
+
+--i-taxonomy : taxonomy
+
+--o-visualization: .qzv of barplot
+
+## Step 8: FILTERING SEQUENCES
+
+For this step we will filter the representative sequences base on the table filtered.
+
+``` {.bash}
+qiime feature-table filter-seqs 
+--i-data merge_seqs.qza 
+--i-table merge_table_filtered.qza 
+--o-filtered-data merge_seqs_filtered.qza
+```
+
+--i-data : input sequences
+
+--i-table : input table use to filter
+
+--o-filtered-data : output/filtered sequences
+
+## Step 9: BUILDING THE TREE
+
+For this step we will build the phylogenetic tree *denovo.*
+
+``` {.bash}
+qiime phylogeny align-to-tree-mafft-fasttree 
+--i-sequences merge_seqs_filtered.qza 
+--output-dir phylo_tree
+```
+
+--i-sequences : sequences filtered
+
+--output-dir : output director that will contain the alignment, masked alignment, the tree and the rooted treed.
+
+## Step 10: EXPORTING TABLE AND TAXONOMY TO OTUTABLE
+
+``` {.bash}
+#export feature-table
+qiime tools export --input-path merge_table_filtered.qza --output-path feature-table
+
+#export taxonomy
+qiime tools export --input-path taxonomy.qza --output-path feature-table
+
+#site in feature-table directory
+cd feature-table/
+
+#before this change the headers from taxonomy.tsv (Fearure.ID= #OTUID, Taxa=taxonomy)
+
+#add taxonomy to biom-table
+biom add-metadata -i feature-table.biom 
+--observation-metadata-fp taxonomy.tsv -o feature-table-taxonomy.biom
+
+#convert biom to tsv to check the otutable
+biom convert -i feature-table-taxonomy.biom 
+-o feature-table-taxonomy.txt --to-tsv --header-key taxonomy
+```
+
+--input-path: artifact to export (table or taxonomy)
+
+--output-path: directory outpur
+
+-i : feature-table in biom format
+
+--observation-metadata-fp : taxonomy file (already changed)
+
+-o: output
+
+--to-tsv --header-key taxonomy : options to convert and add taxonomy to otutable

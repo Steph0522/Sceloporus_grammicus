@@ -1,0 +1,268 @@
+---
+title: "Linear Regression"
+author:
+- Stephanie Hereira, Centro Tlaxcala de Biología de la Conducta, UATx
+- Mauricio Hernández, Doctorado en CB, Centro Tlaxcala de Biología de la Conducta, UATx
+date: "`r format(Sys.time(), '%d - %m - %Y')`"
+output:
+  pdf_document:
+    toc: yes
+    toc_depth: '2'
+  html_document:
+    theme: spacelab
+    highlight: pygments
+    toc: yes
+    toc_depth: 2
+    toc_float: yes
+---
+# Linear Regression
+```{r, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(CoDaSeq)
+library(zCompositions)
+library(compositions)
+library(propr)
+library(CoDaSeq)
+
+
+otutable <- read.csv("../Data/otutable-taxonomy_ultima.csv", row.names = 1)
+metadata <- read.csv("../Data/Metadatos1.csv", check.names = F)
+metadata$Ind <- as.factor(metadata$Ind)
+metadata$Library <- as.factor(metadata$Library)
+metadata$SampleType <- as.factor(metadata$SampleType)
+taxonomy <- read.csv("../Data/taxonomy_ultima.csv", check.names = F) %>% unite(
+  taxa, Kingdom:Species, remove = F, sep = ";")
+
+d.pro <- cmultRepl(t(otutable), method = "CZM", output = "p-counts")
+d.clr.abund.codaseq <- codaSeq.clr(x= d.pro, samples.by.row = F)
+#clr_oject<- readRDS("clr_objetc.RDS")
+phyl <- read_csv("../Data/level-2.csv")
+
+phyl2 <- phyl %>% dplyr::select(index, contains("k__")) %>% column_to_rownames(var = "index")
+
+d.pro <- cmultRepl(t(phyl2), method = "CZM", output = "p-counts")
+d.clr.abund.codaseq <- codaSeq.clr(x= d.pro, samples.by.row = F)
+
+################################################################################
+
+### Swab versus Rectum
+
+phyl_S_R <- data.frame(t(d.clr.abund.codaseq))%>% rownames_to_column(
+  var = "index") %>% inner_join(
+  phyl) %>% dplyr::select(c(1:11), SampleType) %>% filter(
+    SampleType=="Rectum"|SampleType=="Swab") %>% 
+  #dplyr::select(contains(c("HC", "R"))) %>% 
+  pivot_longer(cols = starts_with("k__"),
+               names_to = "names", values_to = "values") %>% pivot_wider(
+                 names_from = SampleType, values_from = values) %>% replace(is.na(.), 0)
+
+otu_S_R <- phyl_S_R %>% dplyr::select(-index)
+namesotu <- otu_S_R$names
+#write_tsv(phyl_S_R, "ver.tsv")
+
+SR <- read.csv("../Data/Swab_Rectum.csv")
+Swab_Rectum <- SR %>% ggplot(aes(x=Rectum, y=Swab, color=Phylum)) +
+  geom_point()+
+  geom_abline(slope = 1, intercept = 0)+
+  annotate("text", x=7, y=-5, size=5,label=bquote(paste('r'['s']*'=',.(round(
+    cor(SR$Swab, SR$Rectum, method = "spearman"),digits = 2)))))
+             
+print(Swab_Rectum)
+
+#ggsave("Swab_Rectum.jpeg", width=7, height=4.5, dpi=300)
+
+################################################################################
+
+### Swab versus Small intestine
+
+phyl_S_I <- data.frame(t(d.clr.abund.codaseq))%>% rownames_to_column(
+  var = "index") %>% inner_join(
+  phyl) %>% dplyr::select(c(1:11), SampleType) %>% filter(
+    SampleType=="Small intestine"|SampleType=="Swab") %>% 
+  pivot_longer(cols = starts_with("k__"),
+               names_to = "names", values_to = "values") %>% pivot_wider(
+                 names_from = SampleType, values_from = values) %>% replace(is.na(.), 0)
+
+otuSI <- phyl_S_I %>% dplyr::select(-index)
+namesotuSI <- otuSI$names
+#write_tsv(phyl_S_I, "Swab_Intestine.tsv")
+
+SI <- read.csv("../Data/Swab_Intestine.csv")
+data.lm_SI <- lm(Swab ~ Small.intestine, SI)
+Swab_Small_intestine <- SI %>% ggplot(aes(x=Small.intestine, y=Swab, color=Phylum)) + geom_point()+
+  geom_abline(slope = coef(data.lm_SI)[[2]], intercept = coef(data.lm_SI)[[1]])+
+  labs(title = paste("Adj R2 = ",signif(summary(data.lm_SI)$adj.r.squared, 5),
+                     "Intercept =",signif(data.lm_SI$coef[[1]],5 ),
+                     " Slope =",signif(data.lm_SI$coef[[2]], 5),
+                     " P =",signif(summary(data.lm_SI)$coef[2,4], 5)))+
+  annotate("text", x=7, y=-5, label=paste0("rs=", 
+                                           round(cor(
+                                             SI$Swab, SI$Small.intestine, 
+                                                     method = "spearman"),
+                                             digits = 2)))
+
+print(Swab_Small_intestine)
+
+#ggsave("Swab_Small_intestine.jpeg", width=7, height=4.5, dpi=300)
+
+################################################################################
+
+### Swab versus Stomach
+
+phyl_S_St <- data.frame(t(d.clr.abund.codaseq))%>% rownames_to_column(
+  var = "index") %>% inner_join(
+  phyl) %>% dplyr::select(c(1:11), SampleType) %>% filter(
+    SampleType=="Stomach"|SampleType=="Swab") %>% 
+  #dplyr::select(contains(c("HC", "R"))) %>% 
+  pivot_longer(cols = starts_with("k__"),
+               names_to = "names", values_to = "values") %>% pivot_wider(
+                 names_from = SampleType, values_from = values) %>% replace(is.na(.), 0)
+
+otu_S_St <- phyl_S_St %>% dplyr::select(-index)
+namesotuSSt <- otu_S_St$names
+#write_tsv(phyl_S_St, "Swab_Stomach.tsv")
+
+
+SSt <- read.csv("../Data/Swab_Stomach.csv")
+data.lm_SSt <- lm(Swab ~ Stomach, SSt)
+Swab_Stomach <- SSt %>% ggplot(aes(x=Stomach, y=Swab, color=Phylum)) + 
+  geom_point()+
+  geom_abline(slope = coef(data.lm_SSt)[[2]], intercept = coef(data.lm_SSt)[[1]])+
+  labs(title = paste("Adj R2 = ",signif(summary(data.lm_SSt)$adj.r.squared, 5),
+                     "Intercept =",signif(data.lm_SSt$coef[[1]],5 ),
+                     " Slope =",signif(data.lm_SSt$coef[[2]], 5),
+                     " P =",signif(summary(data.lm_SSt)$coef[2,4], 5)))+
+  annotate("text", x=7, y=-5, label=paste0("rs=", 
+                                           round(cor(SSt$Swab, SSt$Stomach, 
+                                                     method = "spearman"),
+                                                 digits = 2)))
+
+print(Swab_Stomach)
+
+#ggsave("Swab_Stomach.jpeg", width=7, height=4.5, dpi=300)
+
+################################################################################
+
+### Feces versus Rectum
+
+phyl_F_R <- data.frame(t(d.clr.abund.codaseq))%>% rownames_to_column(
+  var = "index") %>% inner_join(
+  phyl) %>% dplyr::select(c(1:11), SampleType) %>% filter(
+    SampleType=="Rectum"|SampleType=="Feces") %>% 
+  #dplyr::select(contains(c("HC", "R"))) %>% 
+  pivot_longer(cols = starts_with("k__"),
+               names_to = "names", values_to = "values") %>% pivot_wider(
+                 names_from = SampleType, 
+                 values_from = values) %>% replace(is.na(.), 0)
+
+otu_F_R <- phyl_F_R %>% dplyr::select(-index)
+namesotuFR <- otu_F_R$names
+#write_tsv(phyl_F_R, "Feces_Rectum.tsv")
+
+
+F_R <- read.csv("../Data/Feces_Rectum.csv")
+data.lm_FR <- lm(Feces ~ Rectum, F_R)
+cor(F_R$Feces, F_R$Rectum, method = "spearman")
+
+Feces_Rectum <- F_R %>% ggplot(aes(x=Rectum, y=Feces, color=Phylum)) +
+  geom_point()+
+  geom_abline(slope = coef(data.lm_FR)[[2]], intercept = coef(data.lm_FR)[[1]])+
+  labs(title = paste("Adj R2 = ",signif(summary(data.lm_FR)$adj.r.squared, 5),
+                     "Intercept =",signif(data.lm_FR$coef[[1]],5 ),
+                     " Slope =",signif(data.lm_FR$coef[[2]], 5),
+                     " P =",signif(summary(data.lm_FR)$coef[2,4], 5)))+
+  annotate("text", x=7, y=-5, label=paste0("rs=", 
+                                           round(cor(F_R$Feces, F_R$Rectum, 
+                                                     method = "spearman"),digits = 2)))
+
+print(Feces_Rectum)
+
+#ggsave("Feces_Rectum.jpeg", width=7, height=4.5, dpi=300)
+
+################################################################################
+
+### Feces versus Small intestine
+
+phyl_F_I <- data.frame(t(d.clr.abund.codaseq))%>% rownames_to_column(
+  var = "index") %>% inner_join(
+  phyl) %>% dplyr::select(c(1:11), SampleType) %>% filter(
+    SampleType=="Small intestine"|SampleType=="Feces") %>% 
+  #dplyr::select(contains(c("HC", "R"))) %>% 
+  pivot_longer(cols = starts_with("k__"),
+               names_to = "names", values_to = "values") %>% pivot_wider(
+                 names_from = SampleType, values_from = values) %>% replace(is.na(.), 0)
+
+otu_F_I <- phyl_F_I %>% dplyr::select(-index)
+namesotuFI <- otu_F_I $names
+#write_tsv(phyl_F_I, "Feces_Small_intestine.tsv")
+
+
+F_I <- read.csv("../Data/Feces_Small_intestine.csv")
+data.lm_FI <- lm(Feces ~ Small.intestine, F_I)
+Feces_Small_intestine <- F_I %>% ggplot(aes(x=Small.intestine, y=Feces,
+                                            color=Phylum)) + geom_point()+
+  #stat_summary(fun.data= mean_cl_normal) + 
+  geom_abline(slope = coef(data.lm_FI)[[2]], intercept = coef(data.lm_FI)[[1]])+
+  labs(title = paste("Adj R2 = ",signif(summary(data.lm_FI)$adj.r.squared, 5),
+                     "Intercept =",signif(data.lm_FI$coef[[1]],5 ),
+                     " Slope =",signif(data.lm_FI$coef[[2]], 5),
+                     " P =",signif(summary(data.lm_FI)$coef[2,4], 5)))+
+  annotate("text", x=7, y=-5, label=paste0("rs=", 
+                                           round(cor(F_I$Feces, 
+                            F_I$Small.intestine,method = "spearman"),
+                                                 digits = 2)))
+
+print(Feces_Small_intestine)
+
+#ggsave("Feces_Small_intestine.jpeg", width=7, height=4.5, dpi=300)
+
+################################################################################
+
+### Feces versus Stomach
+
+phyl_F_S <- data.frame(t(d.clr.abund.codaseq))%>% rownames_to_column(
+  var = "index") %>% inner_join(
+  phyl) %>% dplyr::select(c(1:11), SampleType) %>% filter(
+    SampleType=="Stomach"|SampleType=="Feces") %>% 
+  #dplyr::select(contains(c("HC", "R"))) %>% 
+  pivot_longer(cols = starts_with("k__"),
+               names_to = "names", values_to = "values") %>% pivot_wider(
+                 names_from = SampleType, values_from = values) %>% replace(is.na(.), 0)
+
+otu_F_S <- phyl_F_S %>% dplyr::select(-index)
+namesotuFS <- otu_F_S$names
+#write_tsv(phyl_F_S, "Feces_Stomach.tsv")
+
+
+F_S <- read.csv("../Data/Feces_Stomach.csv")
+data.lm_FS <- lm(Feces ~ Stomach, F_S)
+Feces_Stomach <- F_S %>% ggplot(aes(x=Stomach, y=Feces, color=Phylum)) + geom_point()+
+  #stat_summary(fun.data= mean_cl_normal) + 
+  geom_abline(slope = coef(data.lm_FS)[[2]], intercept = coef(data.lm_FS)[[1]])+
+  labs(title = paste("Adj R2 = ",signif(summary(data.lm_FS)$adj.r.squared, 5),
+                     "Intercept =",signif(data.lm_FS$coef[[1]],5 ),
+                     " Slope =",signif(data.lm_FS$coef[[2]], 5),
+                     " P =",signif(summary(data.lm_FS)$coef[2,4], 5)))+
+  annotate("text", x=7, y=-5, label=paste0("rs=", 
+                                           round(cor(F_S$Feces, F_S$Stomach, 
+                                                     method = "spearman"),
+                                                 digits = 2)))
+
+print(Feces_Stomach)
+
+#ggsave("Feces_Stomach.jpeg", width=7, height=4.5, dpi=300)
+```
+
+
+```{r, warning=FALSE, message=FALSE, fig.width=29, fig.height=18}
+################################################################################
+
+library(cowplot)
+Reg <- plot_grid(Swab_Rectum, Swab_Small_intestine, Swab_Stomach, 
+                 Feces_Rectum, Feces_Small_intestine, Feces_Stomach)
+print(Reg)
+
+#ggsave("Reg.jpeg", width=20, height=18, dpi=300)
+
+```
+
