@@ -1,9 +1,0 @@
-# Core OTUs across 50 % of samples matching the sample metadata pattern "SampleType:Swab":
-# Sg.M.HC.1.16S Sg.M.HC.10.16S Sg.M.HC.2.16S Sg.M.HC.3.16S Sg.M.HC.4.16S Sg.M.HC.5.16S Sg.M.HC.6.16S Sg.M.HC.7.16S Sg.M.HC.8.16S Sg.M.HC.9.16S
-81b50cbc69b355d6a2207d370e9634c5	[u'k__Bacteria', u'p__Proteobacteria', u'c__Gammaproteobacteria', u'o__Pseudomonadales', u'f__Pseudomonadaceae', u'g__Pseudomonas']
-501ef6cc75fb160180e332ba60a60df8	[u'k__Bacteria', u'p__Proteobacteria', u'c__Gammaproteobacteria', u'o__Enterobacteriales', u'f__Enterobacteriaceae']
-8b74089f59b28e641f2c8c736707f8b2	[u'k__Bacteria', u'p__Proteobacteria', u'c__Gammaproteobacteria', u'o__Enterobacteriales', u'f__Enterobacteriaceae']
-8a573680a1bdcad765a979c0819b7fab	[u'k__Bacteria', u'p__Proteobacteria', u'c__Epsilonproteobacteria', u'o__Campylobacterales', u'f__Helicobacteraceae']
-4127ed1a1e8f9dac46c2895299b26505	[u'k__Bacteria', u'p__Proteobacteria', u'c__Gammaproteobacteria', u'o__Enterobacteriales', u'f__Enterobacteriaceae', u'g__Serratia', u's__']
-6c2a9a5a94270ee454cfb2dea1d31449	[u'k__Bacteria', u'p__Proteobacteria', u'c__Gammaproteobacteria', u'o__Enterobacteriales', u'f__Enterobacteriaceae']
-900df8f4333124df384db9012a905941	[u'k__Bacteria', u'p__Proteobacteria', u'c__Gammaproteobacteria', u'o__Enterobacteriales', u'f__Enterobacteriaceae', u'g__Serratia', u's__']

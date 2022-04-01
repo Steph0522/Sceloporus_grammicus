@@ -1,8 +1,0 @@
-#OTU ID	pvalue	taxa	taxonomy	Feces	Stomach	diff.btw	diff.win	effect	overlap
-5bbd6726850e3b938ef0b5b9c2493a37	0.004339668	k__Bacteria; p__Firmicutes; c__Clostridia; o__Clostridiales; f__Lachnospiraceae	Lachnospiraceae	2.297378162	7.225471207	5.213985479	4.626514694	1.010968105	0.095115689
-a16986411ff8c5714b2ba245262b5f95	0.009729072	k__Bacteria; p__Firmicutes; c__Clostridia; o__Clostridiales; f__Lachnospiraceae	Lachnospiraceae1	8.031905223	10.26786626	1.593814288	2.164655166	0.955373703	0.148857148
-ab37861a579863cd2498da8b71927083	0.017858484	k__Bacteria; p__Firmicutes; c__Clostridia; o__Clostridiales; f__Lachnospiraceae	Lachnospiraceae2	5.677667285	8.597805725	3.205836071	3.589920763	0.750645212	0.139388751
-fc7fe8a11f8601769081bf1e9a67fc5a	0.005018215	k__Bacteria; p__Proteobacteria; c__Deltaproteobacteria; o__Desulfovibrionales; f__Desulfovibrionaceae; g__Bilophila; s__	Bilophila	5.010023574	7.41343851	3.021902705	3.550312487	0.8412614	0.112824914
-31de3d22f5b19325735267725f1f49e8	0.046724778	k__Bacteria; p__Firmicutes; c__Clostridia; o__Clostridiales; f__Lachnospiraceae; g__Clostridium	Clostridium	4.389532732	8.704346933	5.10952636	5.388613429	0.845233518	0.170522712
-bd6383169ddd32592a82ccdb7511c186	0.031964343	k__Bacteria; p__Proteobacteria; c__Gammaproteobacteria; o__Enterobacteriales; f__Enterobacteriaceae	Enterobacteriaceae	1.412776196	6.238339406	4.441002542	4.91970904	0.831447765	0.15971429
-2220bd46b69ee6ca1b113fde86363909	0.045380379	k__Bacteria; p__Firmicutes; c__Clostridia; o__Clostridiales; f__Lachnospiraceae; g__; s__	Lachnospiraceae3	0.62625666	7.299490087	6.534933274	5.813130526	0.963245409	0.164000004

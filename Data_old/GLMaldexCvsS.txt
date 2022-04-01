@@ -1,3 +1,0 @@
-#OTU ID	pvalue	taxo	taxonomy	Cloaca	Stomach	diff.btw	diff.win	effect	overlap
-6c2a9a5a94270ee454cfb2dea1d31449	0.033362821	k__Bacteria; p__Proteobacteria; c__Gammaproteobacteria; o__Enterobacteriales; f__Enterobacteriaceae	Enterobacteriaceae	1.810334888	10.34908952	7.966493629	6.232390379	0.918871319	0.222857146
-8b74089f59b28e641f2c8c736707f8b2	0.00508611	k__Bacteria; p__Proteobacteria; c__Gammaproteobacteria; o__Enterobacteriales; f__Enterobacteriaceae	Enterobacteriaceae1	0.612261192	7.880582277	7.536947138	6.3490205	1.170194468	0.130248506

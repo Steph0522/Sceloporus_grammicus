@@ -1,9 +1,0 @@
-#OTU ID	pvalue	taxa	taxonomy	Feces	Small intestine	diff.btw	diff.win	effect	overlap
-81b50cbc69b355d6a2207d370e9634c5	0.010205685	k__Bacteria; p__Proteobacteria; c__Gammaproteobacteria; o__Pseudomonadales; f__Pseudomonadaceae; g__Pseudomonas	Pseudomonas	-0.638797302	6.765285761	7.736047278	8.267531123	0.991795665	0.141428576
-a16986411ff8c5714b2ba245262b5f95	0.014512989	k__Bacteria; p__Firmicutes; c__Clostridia; o__Clostridiales; f__Lachnospiraceae	Lachnospiraceae	10.45298344	8.855341114	-1.486381931	1.470729616	-0.961703952	0.148814629
-5b417a0a0068c9b6e23752143b558bc4	0.022592328	k__Bacteria; p__Proteobacteria; c__Gammaproteobacteria; o__Pseudomonadales; f__Pseudomonadaceae; g__Pseudomonas	Pseudomonas1	-0.687434066	7.95595349	7.900275679	8.265746289	0.804493715	0.224221654
-cf0528bcf467f1a764ed7caa97055979	0.024331393	k__Bacteria; p__Bacteroidetes; c__Bacteroidia; o__Bacteroidales; f__Bacteroidaceae; g__Bacteroides; s__	Bacteroides	-0.64222665	5.459371532	6.001269068	4.852045512	1.096693712	0.147142862
-fc7fe8a11f8601769081bf1e9a67fc5a	0.040502718	k__Bacteria; p__Proteobacteria; c__Deltaproteobacteria; o__Desulfovibrionales; f__Desulfovibrionaceae; g__Bilophila; s__	Bilophila	7.510397083	6.50842094	-1.728698061	4.64482203	-0.496856212	0.273350473
-a7773d30c5a2009a19ba2df73fe658c1	0.006959424	k__Bacteria; p__Proteobacteria; c__Gammaproteobacteria; o__Enterobacteriales; f__Enterobacteriaceae	Enterobacteriaceae	6.471810653	-0.799128711	-6.963062361	4.561053665	-1.423893591	0.100257077
-bd6383169ddd32592a82ccdb7511c186	0.00181665	k__Bacteria; p__Proteobacteria; c__Gammaproteobacteria; o__Enterobacteriales; f__Enterobacteriaceae	Enterobacteriaceae1	6.16862194	-0.742405145	-7.031542779	3.570128329	-1.795940571	0.048557572
-e289fe9035a3575d3f1ab134e5810ee5	0.000441516	k__Bacteria; p__Firmicutes; c__Clostridia; o__Clostridiales; f__Lachnospiraceae; g__Roseburia; s__	Roseburia	6.787221964	-0.202001905	-7.562834918	4.468419143	-1.648751327	0.015714339
