@@ -1,0 +1,601 @@
+q,Site1,Site2,DT,Non_lethal,Turnover
+2,Sg.M.H.1.16S,Sg.M.E.1.16S,Stomach,Feces,0.273522637
+2,Sg.M.H.10.16S,Sg.M.E.1.16S,Stomach,Feces,0.728479214
+2,Sg.M.H.2.16S,Sg.M.E.1.16S,Stomach,Feces,0.680957726
+2,Sg.M.H.3.16S,Sg.M.E.1.16S,Stomach,Feces,0.496737325
+2,Sg.M.H.4.16S,Sg.M.E.1.16S,Stomach,Feces,0.936957915
+2,Sg.M.H.5.16S,Sg.M.E.1.16S,Stomach,Feces,0.825530578
+2,Sg.M.H.6.16S,Sg.M.E.1.16S,Stomach,Feces,0.580966947
+2,Sg.M.H.7.16S,Sg.M.E.1.16S,Stomach,Feces,0.766133678
+2,Sg.M.H.8.16S,Sg.M.E.1.16S,Stomach,Feces,0.800719089
+2,Sg.M.H.9.16S,Sg.M.E.1.16S,Stomach,Feces,0.761595138
+2,Sg.M.HC.1.16S,Sg.M.E.1.16S,Stomach,Cloaca,0.436551598
+2,Sg.M.HC.10.16S,Sg.M.E.1.16S,Stomach,Cloaca,0.74483878
+2,Sg.M.HC.2.16S,Sg.M.E.1.16S,Stomach,Cloaca,0.291174169
+2,Sg.M.HC.3.16S,Sg.M.E.1.16S,Stomach,Cloaca,0.643397849
+2,Sg.M.HC.4.16S,Sg.M.E.1.16S,Stomach,Cloaca,0.937680177
+2,Sg.M.HC.5.16S,Sg.M.E.1.16S,Stomach,Cloaca,0.985889027
+2,Sg.M.HC.6.16S,Sg.M.E.1.16S,Stomach,Cloaca,0.866266763
+2,Sg.M.HC.7.16S,Sg.M.E.1.16S,Stomach,Cloaca,0.700410361
+2,Sg.M.HC.8.16S,Sg.M.E.1.16S,Stomach,Cloaca,0.992637574
+2,Sg.M.HC.9.16S,Sg.M.E.1.16S,Stomach,Cloaca,0.971508875
+2,Sg.M.H.1.16S,Sg.M.E.10.16S,Stomach,Feces,0.572899649
+2,Sg.M.H.10.16S,Sg.M.E.10.16S,Stomach,Feces,0.184766467
+2,Sg.M.H.2.16S,Sg.M.E.10.16S,Stomach,Feces,0.732438517
+2,Sg.M.H.3.16S,Sg.M.E.10.16S,Stomach,Feces,0.661497242
+2,Sg.M.H.4.16S,Sg.M.E.10.16S,Stomach,Feces,0.859905942
+2,Sg.M.H.5.16S,Sg.M.E.10.16S,Stomach,Feces,0.693943841
+2,Sg.M.H.6.16S,Sg.M.E.10.16S,Stomach,Feces,0.606956974
+2,Sg.M.H.7.16S,Sg.M.E.10.16S,Stomach,Feces,0.650248562
+2,Sg.M.H.8.16S,Sg.M.E.10.16S,Stomach,Feces,0.789870134
+2,Sg.M.H.9.16S,Sg.M.E.10.16S,Stomach,Feces,0.518870156
+2,Sg.M.HC.1.16S,Sg.M.E.10.16S,Stomach,Cloaca,0.994726712
+2,Sg.M.HC.10.16S,Sg.M.E.10.16S,Stomach,Cloaca,0.466710209
+2,Sg.M.HC.2.16S,Sg.M.E.10.16S,Stomach,Cloaca,0.543933735
+2,Sg.M.HC.3.16S,Sg.M.E.10.16S,Stomach,Cloaca,0.992670396
+2,Sg.M.HC.4.16S,Sg.M.E.10.16S,Stomach,Cloaca,0.959775623
+2,Sg.M.HC.5.16S,Sg.M.E.10.16S,Stomach,Cloaca,0.98632257
+2,Sg.M.HC.6.16S,Sg.M.E.10.16S,Stomach,Cloaca,0.907086352
+2,Sg.M.HC.7.16S,Sg.M.E.10.16S,Stomach,Cloaca,1
+2,Sg.M.HC.8.16S,Sg.M.E.10.16S,Stomach,Cloaca,0.973351463
+2,Sg.M.HC.9.16S,Sg.M.E.10.16S,Stomach,Cloaca,0.962274258
+2,Sg.M.H.1.16S,Sg.M.E.2.16S,Stomach,Feces,0.446430582
+2,Sg.M.H.10.16S,Sg.M.E.2.16S,Stomach,Feces,0.7223376
+2,Sg.M.H.2.16S,Sg.M.E.2.16S,Stomach,Feces,0.69889381
+2,Sg.M.H.3.16S,Sg.M.E.2.16S,Stomach,Feces,0.7489298
+2,Sg.M.H.4.16S,Sg.M.E.2.16S,Stomach,Feces,0.882057608
+2,Sg.M.H.5.16S,Sg.M.E.2.16S,Stomach,Feces,0.864471412
+2,Sg.M.H.6.16S,Sg.M.E.2.16S,Stomach,Feces,0.437672598
+2,Sg.M.H.7.16S,Sg.M.E.2.16S,Stomach,Feces,0.67502249
+2,Sg.M.H.8.16S,Sg.M.E.2.16S,Stomach,Feces,0.739343271
+2,Sg.M.H.9.16S,Sg.M.E.2.16S,Stomach,Feces,0.795349715
+2,Sg.M.HC.1.16S,Sg.M.E.2.16S,Stomach,Cloaca,0.411578726
+2,Sg.M.HC.10.16S,Sg.M.E.2.16S,Stomach,Cloaca,0.739696446
+2,Sg.M.HC.2.16S,Sg.M.E.2.16S,Stomach,Cloaca,0.470144433
+2,Sg.M.HC.3.16S,Sg.M.E.2.16S,Stomach,Cloaca,0.969760857
+2,Sg.M.HC.4.16S,Sg.M.E.2.16S,Stomach,Cloaca,0.945441054
+2,Sg.M.HC.5.16S,Sg.M.E.2.16S,Stomach,Cloaca,0.985564833
+2,Sg.M.HC.6.16S,Sg.M.E.2.16S,Stomach,Cloaca,0.779017113
+2,Sg.M.HC.7.16S,Sg.M.E.2.16S,Stomach,Cloaca,0.997567091
+2,Sg.M.HC.8.16S,Sg.M.E.2.16S,Stomach,Cloaca,0.993694421
+2,Sg.M.HC.9.16S,Sg.M.E.2.16S,Stomach,Cloaca,0.972462764
+2,Sg.M.H.1.16S,Sg.M.E.3.16S,Stomach,Feces,0.279827432
+2,Sg.M.H.10.16S,Sg.M.E.3.16S,Stomach,Feces,0.594915959
+2,Sg.M.H.2.16S,Sg.M.E.3.16S,Stomach,Feces,0.331083636
+2,Sg.M.H.3.16S,Sg.M.E.3.16S,Stomach,Feces,0.186029837
+2,Sg.M.H.4.16S,Sg.M.E.3.16S,Stomach,Feces,0.717455817
+2,Sg.M.H.5.16S,Sg.M.E.3.16S,Stomach,Feces,0.685408406
+2,Sg.M.H.6.16S,Sg.M.E.3.16S,Stomach,Feces,0.242668174
+2,Sg.M.H.7.16S,Sg.M.E.3.16S,Stomach,Feces,0.448388416
+2,Sg.M.H.8.16S,Sg.M.E.3.16S,Stomach,Feces,0.576107361
+2,Sg.M.H.9.16S,Sg.M.E.3.16S,Stomach,Feces,0.466460045
+2,Sg.M.HC.1.16S,Sg.M.E.3.16S,Stomach,Cloaca,0.801728118
+2,Sg.M.HC.10.16S,Sg.M.E.3.16S,Stomach,Cloaca,0.764388969
+2,Sg.M.HC.2.16S,Sg.M.E.3.16S,Stomach,Cloaca,0.223870989
+2,Sg.M.HC.3.16S,Sg.M.E.3.16S,Stomach,Cloaca,0.966010003
+2,Sg.M.HC.4.16S,Sg.M.E.3.16S,Stomach,Cloaca,0.983846569
+2,Sg.M.HC.5.16S,Sg.M.E.3.16S,Stomach,Cloaca,0.99403188
+2,Sg.M.HC.6.16S,Sg.M.E.3.16S,Stomach,Cloaca,0.802867434
+2,Sg.M.HC.7.16S,Sg.M.E.3.16S,Stomach,Cloaca,0.999452911
+2,Sg.M.HC.8.16S,Sg.M.E.3.16S,Stomach,Cloaca,0.997973579
+2,Sg.M.HC.9.16S,Sg.M.E.3.16S,Stomach,Cloaca,0.992215331
+2,Sg.M.H.1.16S,Sg.M.E.4.16S,Stomach,Feces,0.997827109
+2,Sg.M.H.10.16S,Sg.M.E.4.16S,Stomach,Feces,0.994586604
+2,Sg.M.H.2.16S,Sg.M.E.4.16S,Stomach,Feces,0.963209311
+2,Sg.M.H.3.16S,Sg.M.E.4.16S,Stomach,Feces,0.984194987
+2,Sg.M.H.4.16S,Sg.M.E.4.16S,Stomach,Feces,0.9913957
+2,Sg.M.H.5.16S,Sg.M.E.4.16S,Stomach,Feces,0.994030617
+2,Sg.M.H.6.16S,Sg.M.E.4.16S,Stomach,Feces,0.99261677
+2,Sg.M.H.7.16S,Sg.M.E.4.16S,Stomach,Feces,0.997838318
+2,Sg.M.H.8.16S,Sg.M.E.4.16S,Stomach,Feces,0.996334854
+2,Sg.M.H.9.16S,Sg.M.E.4.16S,Stomach,Feces,0.996597031
+2,Sg.M.HC.1.16S,Sg.M.E.4.16S,Stomach,Cloaca,0.999779396
+2,Sg.M.HC.10.16S,Sg.M.E.4.16S,Stomach,Cloaca,0.958700822
+2,Sg.M.HC.2.16S,Sg.M.E.4.16S,Stomach,Cloaca,0.99751789
+2,Sg.M.HC.3.16S,Sg.M.E.4.16S,Stomach,Cloaca,0.980075066
+2,Sg.M.HC.4.16S,Sg.M.E.4.16S,Stomach,Cloaca,0.98801735
+2,Sg.M.HC.5.16S,Sg.M.E.4.16S,Stomach,Cloaca,0.990966035
+2,Sg.M.HC.6.16S,Sg.M.E.4.16S,Stomach,Cloaca,0.991169492
+2,Sg.M.HC.7.16S,Sg.M.E.4.16S,Stomach,Cloaca,1
+2,Sg.M.HC.8.16S,Sg.M.E.4.16S,Stomach,Cloaca,0.987590391
+2,Sg.M.HC.9.16S,Sg.M.E.4.16S,Stomach,Cloaca,0.985817867
+2,Sg.M.H.1.16S,Sg.M.E.5.16S,Stomach,Feces,0.978833264
+2,Sg.M.H.10.16S,Sg.M.E.5.16S,Stomach,Feces,0.987586761
+2,Sg.M.H.2.16S,Sg.M.E.5.16S,Stomach,Feces,0.985631218
+2,Sg.M.H.3.16S,Sg.M.E.5.16S,Stomach,Feces,0.986629889
+2,Sg.M.H.4.16S,Sg.M.E.5.16S,Stomach,Feces,0.984773216
+2,Sg.M.H.5.16S,Sg.M.E.5.16S,Stomach,Feces,0.973150726
+2,Sg.M.H.6.16S,Sg.M.E.5.16S,Stomach,Feces,0.973813477
+2,Sg.M.H.7.16S,Sg.M.E.5.16S,Stomach,Feces,0.982288015
+2,Sg.M.H.8.16S,Sg.M.E.5.16S,Stomach,Feces,0.985920798
+2,Sg.M.H.9.16S,Sg.M.E.5.16S,Stomach,Feces,0.993446752
+2,Sg.M.HC.1.16S,Sg.M.E.5.16S,Stomach,Cloaca,0.999153796
+2,Sg.M.HC.10.16S,Sg.M.E.5.16S,Stomach,Cloaca,0.984828781
+2,Sg.M.HC.2.16S,Sg.M.E.5.16S,Stomach,Cloaca,0.983887526
+2,Sg.M.HC.3.16S,Sg.M.E.5.16S,Stomach,Cloaca,0.997092678
+2,Sg.M.HC.4.16S,Sg.M.E.5.16S,Stomach,Cloaca,0.988390741
+2,Sg.M.HC.5.16S,Sg.M.E.5.16S,Stomach,Cloaca,0.978205675
+2,Sg.M.HC.6.16S,Sg.M.E.5.16S,Stomach,Cloaca,0.982917069
+2,Sg.M.HC.7.16S,Sg.M.E.5.16S,Stomach,Cloaca,1
+2,Sg.M.HC.8.16S,Sg.M.E.5.16S,Stomach,Cloaca,0.981744857
+2,Sg.M.HC.9.16S,Sg.M.E.5.16S,Stomach,Cloaca,0.988894757
+2,Sg.M.H.1.16S,Sg.M.E.6.16S,Stomach,Feces,0.98339795
+2,Sg.M.H.10.16S,Sg.M.E.6.16S,Stomach,Feces,0.996778369
+2,Sg.M.H.2.16S,Sg.M.E.6.16S,Stomach,Feces,0.994317456
+2,Sg.M.H.3.16S,Sg.M.E.6.16S,Stomach,Feces,0.993797542
+2,Sg.M.H.4.16S,Sg.M.E.6.16S,Stomach,Feces,0.995476638
+2,Sg.M.H.5.16S,Sg.M.E.6.16S,Stomach,Feces,0.996098008
+2,Sg.M.H.6.16S,Sg.M.E.6.16S,Stomach,Feces,0.990100714
+2,Sg.M.H.7.16S,Sg.M.E.6.16S,Stomach,Feces,0.993664485
+2,Sg.M.H.8.16S,Sg.M.E.6.16S,Stomach,Feces,0.986384561
+2,Sg.M.H.9.16S,Sg.M.E.6.16S,Stomach,Feces,0.995962044
+2,Sg.M.HC.1.16S,Sg.M.E.6.16S,Stomach,Cloaca,0.999558915
+2,Sg.M.HC.10.16S,Sg.M.E.6.16S,Stomach,Cloaca,0.997697481
+2,Sg.M.HC.2.16S,Sg.M.E.6.16S,Stomach,Cloaca,0.988666338
+2,Sg.M.HC.3.16S,Sg.M.E.6.16S,Stomach,Cloaca,0.999269992
+2,Sg.M.HC.4.16S,Sg.M.E.6.16S,Stomach,Cloaca,0.999975682
+2,Sg.M.HC.5.16S,Sg.M.E.6.16S,Stomach,Cloaca,0.999899569
+2,Sg.M.HC.6.16S,Sg.M.E.6.16S,Stomach,Cloaca,0.997116134
+2,Sg.M.HC.7.16S,Sg.M.E.6.16S,Stomach,Cloaca,1
+2,Sg.M.HC.8.16S,Sg.M.E.6.16S,Stomach,Cloaca,0.999977149
+2,Sg.M.HC.9.16S,Sg.M.E.6.16S,Stomach,Cloaca,1
+2,Sg.M.H.1.16S,Sg.M.E.7.16S,Stomach,Feces,0.960885622
+2,Sg.M.H.10.16S,Sg.M.E.7.16S,Stomach,Feces,0.986436432
+2,Sg.M.H.2.16S,Sg.M.E.7.16S,Stomach,Feces,0.974684013
+2,Sg.M.H.3.16S,Sg.M.E.7.16S,Stomach,Feces,0.977805972
+2,Sg.M.H.4.16S,Sg.M.E.7.16S,Stomach,Feces,0.990517159
+2,Sg.M.H.5.16S,Sg.M.E.7.16S,Stomach,Feces,0.989608309
+2,Sg.M.H.6.16S,Sg.M.E.7.16S,Stomach,Feces,0.964190994
+2,Sg.M.H.7.16S,Sg.M.E.7.16S,Stomach,Feces,0.972403283
+2,Sg.M.H.8.16S,Sg.M.E.7.16S,Stomach,Feces,0.981591855
+2,Sg.M.H.9.16S,Sg.M.E.7.16S,Stomach,Feces,0.969790834
+2,Sg.M.HC.1.16S,Sg.M.E.7.16S,Stomach,Cloaca,0.999503136
+2,Sg.M.HC.10.16S,Sg.M.E.7.16S,Stomach,Cloaca,0.989736887
+2,Sg.M.HC.2.16S,Sg.M.E.7.16S,Stomach,Cloaca,0.967157809
+2,Sg.M.HC.3.16S,Sg.M.E.7.16S,Stomach,Cloaca,0.994586283
+2,Sg.M.HC.4.16S,Sg.M.E.7.16S,Stomach,Cloaca,0.999817945
+2,Sg.M.HC.5.16S,Sg.M.E.7.16S,Stomach,Cloaca,0.999380436
+2,Sg.M.HC.6.16S,Sg.M.E.7.16S,Stomach,Cloaca,0.991910592
+2,Sg.M.HC.7.16S,Sg.M.E.7.16S,Stomach,Cloaca,0.996980392
+2,Sg.M.HC.8.16S,Sg.M.E.7.16S,Stomach,Cloaca,0.999564855
+2,Sg.M.HC.9.16S,Sg.M.E.7.16S,Stomach,Cloaca,0.999690315
+2,Sg.M.H.1.16S,Sg.M.E.8.16S,Stomach,Feces,0.996420173
+2,Sg.M.H.10.16S,Sg.M.E.8.16S,Stomach,Feces,0.993627653
+2,Sg.M.H.2.16S,Sg.M.E.8.16S,Stomach,Feces,0.962253398
+2,Sg.M.H.3.16S,Sg.M.E.8.16S,Stomach,Feces,0.984657541
+2,Sg.M.H.4.16S,Sg.M.E.8.16S,Stomach,Feces,0.997018771
+2,Sg.M.H.5.16S,Sg.M.E.8.16S,Stomach,Feces,0.994747064
+2,Sg.M.H.6.16S,Sg.M.E.8.16S,Stomach,Feces,0.990543809
+2,Sg.M.H.7.16S,Sg.M.E.8.16S,Stomach,Feces,0.99410524
+2,Sg.M.H.8.16S,Sg.M.E.8.16S,Stomach,Feces,0.99557345
+2,Sg.M.H.9.16S,Sg.M.E.8.16S,Stomach,Feces,0.996619954
+2,Sg.M.HC.1.16S,Sg.M.E.8.16S,Stomach,Cloaca,0.999764768
+2,Sg.M.HC.10.16S,Sg.M.E.8.16S,Stomach,Cloaca,0.958281258
+2,Sg.M.HC.2.16S,Sg.M.E.8.16S,Stomach,Cloaca,0.996264048
+2,Sg.M.HC.3.16S,Sg.M.E.8.16S,Stomach,Cloaca,0.978915752
+2,Sg.M.HC.4.16S,Sg.M.E.8.16S,Stomach,Cloaca,0.997144339
+2,Sg.M.HC.5.16S,Sg.M.E.8.16S,Stomach,Cloaca,0.992596612
+2,Sg.M.HC.6.16S,Sg.M.E.8.16S,Stomach,Cloaca,0.991943033
+2,Sg.M.HC.7.16S,Sg.M.E.8.16S,Stomach,Cloaca,0.998932834
+2,Sg.M.HC.8.16S,Sg.M.E.8.16S,Stomach,Cloaca,0.993298788
+2,Sg.M.HC.9.16S,Sg.M.E.8.16S,Stomach,Cloaca,0.9949072
+2,Sg.M.H.1.16S,Sg.M.E.9.16S,Stomach,Feces,0.631289935
+2,Sg.M.H.10.16S,Sg.M.E.9.16S,Stomach,Feces,0.21258593
+2,Sg.M.H.2.16S,Sg.M.E.9.16S,Stomach,Feces,0.765687653
+2,Sg.M.H.3.16S,Sg.M.E.9.16S,Stomach,Feces,0.696338179
+2,Sg.M.H.4.16S,Sg.M.E.9.16S,Stomach,Feces,0.924598426
+2,Sg.M.H.5.16S,Sg.M.E.9.16S,Stomach,Feces,0.710917472
+2,Sg.M.H.6.16S,Sg.M.E.9.16S,Stomach,Feces,0.631493949
+2,Sg.M.H.7.16S,Sg.M.E.9.16S,Stomach,Feces,0.722222478
+2,Sg.M.H.8.16S,Sg.M.E.9.16S,Stomach,Feces,0.81750942
+2,Sg.M.H.9.16S,Sg.M.E.9.16S,Stomach,Feces,0.56536279
+2,Sg.M.HC.1.16S,Sg.M.E.9.16S,Stomach,Cloaca,0.994745444
+2,Sg.M.HC.10.16S,Sg.M.E.9.16S,Stomach,Cloaca,0.463675491
+2,Sg.M.HC.2.16S,Sg.M.E.9.16S,Stomach,Cloaca,0.609053247
+2,Sg.M.HC.3.16S,Sg.M.E.9.16S,Stomach,Cloaca,0.992603209
+2,Sg.M.HC.4.16S,Sg.M.E.9.16S,Stomach,Cloaca,1
+2,Sg.M.HC.5.16S,Sg.M.E.9.16S,Stomach,Cloaca,0.998996175
+2,Sg.M.HC.6.16S,Sg.M.E.9.16S,Stomach,Cloaca,0.921222486
+2,Sg.M.HC.7.16S,Sg.M.E.9.16S,Stomach,Cloaca,1
+2,Sg.M.HC.8.16S,Sg.M.E.9.16S,Stomach,Cloaca,0.999787942
+2,Sg.M.HC.9.16S,Sg.M.E.9.16S,Stomach,Cloaca,1
+2,Sg.M.I.1.16S,Sg.M.H.1.16S,Small intestine,Feces,0.242994825
+2,Sg.M.I.10.16S,Sg.M.H.1.16S,Small intestine,Feces,0.599936015
+2,Sg.M.I.2.16S,Sg.M.H.1.16S,Small intestine,Feces,0.277234982
+2,Sg.M.I.3.16S,Sg.M.H.1.16S,Small intestine,Feces,0.417371361
+2,Sg.M.I.4.16S,Sg.M.H.1.16S,Small intestine,Feces,0.999404701
+2,Sg.M.I.5.16S,Sg.M.H.1.16S,Small intestine,Feces,0.75825677
+2,Sg.M.I.6.16S,Sg.M.H.1.16S,Small intestine,Feces,0.629610319
+2,Sg.M.I.7.16S,Sg.M.H.1.16S,Small intestine,Feces,0.571804539
+2,Sg.M.I.8.16S,Sg.M.H.1.16S,Small intestine,Feces,0.997687206
+2,Sg.M.I.9.16S,Sg.M.H.1.16S,Small intestine,Feces,0.532481476
+2,Sg.M.R.1.16S,Sg.M.H.1.16S,Rectum,Feces,0.108741945
+2,Sg.M.R.10.16S,Sg.M.H.1.16S,Rectum,Feces,0.574720193
+2,Sg.M.R.2.16S,Sg.M.H.1.16S,Rectum,Feces,0.498868956
+2,Sg.M.R.3.16S,Sg.M.H.1.16S,Rectum,Feces,0.482910742
+2,Sg.M.R.4.16S,Sg.M.H.1.16S,Rectum,Feces,0.99299474
+2,Sg.M.R.5.16S,Sg.M.H.1.16S,Rectum,Feces,0.734313534
+2,Sg.M.R.6.16S,Sg.M.H.1.16S,Rectum,Feces,0.514561388
+2,Sg.M.R.7.16S,Sg.M.H.1.16S,Rectum,Feces,0.569069387
+2,Sg.M.R.8.16S,Sg.M.H.1.16S,Rectum,Feces,0.681211576
+2,Sg.M.R.9.16S,Sg.M.H.1.16S,Rectum,Feces,0.541250193
+2,Sg.M.I.1.16S,Sg.M.H.10.16S,Small intestine,Feces,0.768633285
+2,Sg.M.I.10.16S,Sg.M.H.10.16S,Small intestine,Feces,0.225037789
+2,Sg.M.I.2.16S,Sg.M.H.10.16S,Small intestine,Feces,0.688316416
+2,Sg.M.I.3.16S,Sg.M.H.10.16S,Small intestine,Feces,0.704171372
+2,Sg.M.I.4.16S,Sg.M.H.10.16S,Small intestine,Feces,0.997522043
+2,Sg.M.I.5.16S,Sg.M.H.10.16S,Small intestine,Feces,0.643187226
+2,Sg.M.I.6.16S,Sg.M.H.10.16S,Small intestine,Feces,0.22188122
+2,Sg.M.I.7.16S,Sg.M.H.10.16S,Small intestine,Feces,0.703891962
+2,Sg.M.I.8.16S,Sg.M.H.10.16S,Small intestine,Feces,0.997548473
+2,Sg.M.I.9.16S,Sg.M.H.10.16S,Small intestine,Feces,0.486671758
+2,Sg.M.R.1.16S,Sg.M.H.10.16S,Rectum,Feces,0.677471172
+2,Sg.M.R.10.16S,Sg.M.H.10.16S,Rectum,Feces,0.226822716
+2,Sg.M.R.2.16S,Sg.M.H.10.16S,Rectum,Feces,0.620572072
+2,Sg.M.R.3.16S,Sg.M.H.10.16S,Rectum,Feces,0.570235133
+2,Sg.M.R.4.16S,Sg.M.H.10.16S,Rectum,Feces,0.360732894
+2,Sg.M.R.5.16S,Sg.M.H.10.16S,Rectum,Feces,0.62549773
+2,Sg.M.R.6.16S,Sg.M.H.10.16S,Rectum,Feces,0.538189894
+2,Sg.M.R.7.16S,Sg.M.H.10.16S,Rectum,Feces,0.736892012
+2,Sg.M.R.8.16S,Sg.M.H.10.16S,Rectum,Feces,0.679820407
+2,Sg.M.R.9.16S,Sg.M.H.10.16S,Rectum,Feces,0.493223532
+2,Sg.M.I.1.16S,Sg.M.H.2.16S,Small intestine,Feces,0.72577739
+2,Sg.M.I.10.16S,Sg.M.H.2.16S,Small intestine,Feces,0.723706684
+2,Sg.M.I.2.16S,Sg.M.H.2.16S,Small intestine,Feces,0.485843633
+2,Sg.M.I.3.16S,Sg.M.H.2.16S,Small intestine,Feces,0.391597668
+2,Sg.M.I.4.16S,Sg.M.H.2.16S,Small intestine,Feces,0.966210491
+2,Sg.M.I.5.16S,Sg.M.H.2.16S,Small intestine,Feces,0.698923586
+2,Sg.M.I.6.16S,Sg.M.H.2.16S,Small intestine,Feces,0.74376064
+2,Sg.M.I.7.16S,Sg.M.H.2.16S,Small intestine,Feces,0.679976743
+2,Sg.M.I.8.16S,Sg.M.H.2.16S,Small intestine,Feces,0.963168433
+2,Sg.M.I.9.16S,Sg.M.H.2.16S,Small intestine,Feces,0.615660882
+2,Sg.M.R.1.16S,Sg.M.H.2.16S,Rectum,Feces,0.679958222
+2,Sg.M.R.10.16S,Sg.M.H.2.16S,Rectum,Feces,0.716560159
+2,Sg.M.R.2.16S,Sg.M.H.2.16S,Rectum,Feces,0.385161775
+2,Sg.M.R.3.16S,Sg.M.H.2.16S,Rectum,Feces,0.449644766
+2,Sg.M.R.4.16S,Sg.M.H.2.16S,Rectum,Feces,0.925118332
+2,Sg.M.R.5.16S,Sg.M.H.2.16S,Rectum,Feces,0.697976894
+2,Sg.M.R.6.16S,Sg.M.H.2.16S,Rectum,Feces,0.347788754
+2,Sg.M.R.7.16S,Sg.M.H.2.16S,Rectum,Feces,0.675600536
+2,Sg.M.R.8.16S,Sg.M.H.2.16S,Rectum,Feces,0.627128539
+2,Sg.M.R.9.16S,Sg.M.H.2.16S,Rectum,Feces,0.625819235
+2,Sg.M.I.1.16S,Sg.M.H.3.16S,Small intestine,Feces,0.706453694
+2,Sg.M.I.10.16S,Sg.M.H.3.16S,Small intestine,Feces,0.669872576
+2,Sg.M.I.2.16S,Sg.M.H.3.16S,Small intestine,Feces,0.293289518
+2,Sg.M.I.3.16S,Sg.M.H.3.16S,Small intestine,Feces,0.14393062
+2,Sg.M.I.4.16S,Sg.M.H.3.16S,Small intestine,Feces,0.987743863
+2,Sg.M.I.5.16S,Sg.M.H.3.16S,Small intestine,Feces,0.531103142
+2,Sg.M.I.6.16S,Sg.M.H.3.16S,Small intestine,Feces,0.69889618
+2,Sg.M.I.7.16S,Sg.M.H.3.16S,Small intestine,Feces,0.704663391
+2,Sg.M.I.8.16S,Sg.M.H.3.16S,Small intestine,Feces,0.984658808
+2,Sg.M.I.9.16S,Sg.M.H.3.16S,Small intestine,Feces,0.539954958
+2,Sg.M.R.1.16S,Sg.M.H.3.16S,Rectum,Feces,0.642441058
+2,Sg.M.R.10.16S,Sg.M.H.3.16S,Rectum,Feces,0.657086151
+2,Sg.M.R.2.16S,Sg.M.H.3.16S,Rectum,Feces,0.09421112
+2,Sg.M.R.3.16S,Sg.M.H.3.16S,Rectum,Feces,0.438969887
+2,Sg.M.R.4.16S,Sg.M.H.3.16S,Rectum,Feces,0.988886172
+2,Sg.M.R.5.16S,Sg.M.H.3.16S,Rectum,Feces,0.519666291
+2,Sg.M.R.6.16S,Sg.M.H.3.16S,Rectum,Feces,0.36085264
+2,Sg.M.R.7.16S,Sg.M.H.3.16S,Rectum,Feces,0.693868155
+2,Sg.M.R.8.16S,Sg.M.H.3.16S,Rectum,Feces,0.580620518
+2,Sg.M.R.9.16S,Sg.M.H.3.16S,Rectum,Feces,0.538358058
+2,Sg.M.I.1.16S,Sg.M.H.4.16S,Small intestine,Feces,0.910571561
+2,Sg.M.I.10.16S,Sg.M.H.4.16S,Small intestine,Feces,0.899073738
+2,Sg.M.I.2.16S,Sg.M.H.4.16S,Small intestine,Feces,0.771753331
+2,Sg.M.I.3.16S,Sg.M.H.4.16S,Small intestine,Feces,0.717988463
+2,Sg.M.I.4.16S,Sg.M.H.4.16S,Small intestine,Feces,0.995997343
+2,Sg.M.I.5.16S,Sg.M.H.4.16S,Small intestine,Feces,0.82751717
+2,Sg.M.I.6.16S,Sg.M.H.4.16S,Small intestine,Feces,0.897625196
+2,Sg.M.I.7.16S,Sg.M.H.4.16S,Small intestine,Feces,0.851253246
+2,Sg.M.I.8.16S,Sg.M.H.4.16S,Small intestine,Feces,0.997838535
+2,Sg.M.I.9.16S,Sg.M.H.4.16S,Small intestine,Feces,0.7543536
+2,Sg.M.R.1.16S,Sg.M.H.4.16S,Rectum,Feces,0.92010869
+2,Sg.M.R.10.16S,Sg.M.H.4.16S,Rectum,Feces,0.911168827
+2,Sg.M.R.2.16S,Sg.M.H.4.16S,Rectum,Feces,0.789711325
+2,Sg.M.R.3.16S,Sg.M.H.4.16S,Rectum,Feces,0.794234407
+2,Sg.M.R.4.16S,Sg.M.H.4.16S,Rectum,Feces,0.132718878
+2,Sg.M.R.5.16S,Sg.M.H.4.16S,Rectum,Feces,0.852034745
+2,Sg.M.R.6.16S,Sg.M.H.4.16S,Rectum,Feces,0.666456062
+2,Sg.M.R.7.16S,Sg.M.H.4.16S,Rectum,Feces,0.879996514
+2,Sg.M.R.8.16S,Sg.M.H.4.16S,Rectum,Feces,0.683669148
+2,Sg.M.R.9.16S,Sg.M.H.4.16S,Rectum,Feces,0.750624158
+2,Sg.M.I.1.16S,Sg.M.H.5.16S,Small intestine,Feces,0.877820205
+2,Sg.M.I.10.16S,Sg.M.H.5.16S,Small intestine,Feces,0.712557308
+2,Sg.M.I.2.16S,Sg.M.H.5.16S,Small intestine,Feces,0.749602265
+2,Sg.M.I.3.16S,Sg.M.H.5.16S,Small intestine,Feces,0.679765731
+2,Sg.M.I.4.16S,Sg.M.H.5.16S,Small intestine,Feces,0.99732467
+2,Sg.M.I.5.16S,Sg.M.H.5.16S,Small intestine,Feces,0.04573005
+2,Sg.M.I.6.16S,Sg.M.H.5.16S,Small intestine,Feces,0.712053524
+2,Sg.M.I.7.16S,Sg.M.H.5.16S,Small intestine,Feces,0.855235212
+2,Sg.M.I.8.16S,Sg.M.H.5.16S,Small intestine,Feces,0.991090815
+2,Sg.M.I.9.16S,Sg.M.H.5.16S,Small intestine,Feces,0.79877886
+2,Sg.M.R.1.16S,Sg.M.H.5.16S,Rectum,Feces,0.793308086
+2,Sg.M.R.10.16S,Sg.M.H.5.16S,Rectum,Feces,0.703528096
+2,Sg.M.R.2.16S,Sg.M.H.5.16S,Rectum,Feces,0.658052701
+2,Sg.M.R.3.16S,Sg.M.H.5.16S,Rectum,Feces,0.765189285
+2,Sg.M.R.4.16S,Sg.M.H.5.16S,Rectum,Feces,0.98035747
+2,Sg.M.R.5.16S,Sg.M.H.5.16S,Rectum,Feces,0.064090382
+2,Sg.M.R.6.16S,Sg.M.H.5.16S,Rectum,Feces,0.530375698
+2,Sg.M.R.7.16S,Sg.M.H.5.16S,Rectum,Feces,0.850775263
+2,Sg.M.R.8.16S,Sg.M.H.5.16S,Rectum,Feces,0.77923305
+2,Sg.M.R.9.16S,Sg.M.H.5.16S,Rectum,Feces,0.810828922
+2,Sg.M.I.1.16S,Sg.M.H.6.16S,Small intestine,Feces,0.508403296
+2,Sg.M.I.10.16S,Sg.M.H.6.16S,Small intestine,Feces,0.606096495
+2,Sg.M.I.2.16S,Sg.M.H.6.16S,Small intestine,Feces,0.411169934
+2,Sg.M.I.3.16S,Sg.M.H.6.16S,Small intestine,Feces,0.359020086
+2,Sg.M.I.4.16S,Sg.M.H.6.16S,Small intestine,Feces,0.998559273
+2,Sg.M.I.5.16S,Sg.M.H.6.16S,Small intestine,Feces,0.465104755
+2,Sg.M.I.6.16S,Sg.M.H.6.16S,Small intestine,Feces,0.610200341
+2,Sg.M.I.7.16S,Sg.M.H.6.16S,Small intestine,Feces,0.606461253
+2,Sg.M.I.8.16S,Sg.M.H.6.16S,Small intestine,Feces,0.99183192
+2,Sg.M.I.9.16S,Sg.M.H.6.16S,Small intestine,Feces,0.57710208
+2,Sg.M.R.1.16S,Sg.M.H.6.16S,Rectum,Feces,0.616935678
+2,Sg.M.R.10.16S,Sg.M.H.6.16S,Rectum,Feces,0.579880482
+2,Sg.M.R.2.16S,Sg.M.H.6.16S,Rectum,Feces,0.38538068
+2,Sg.M.R.3.16S,Sg.M.H.6.16S,Rectum,Feces,0.410891917
+2,Sg.M.R.4.16S,Sg.M.H.6.16S,Rectum,Feces,0.945388806
+2,Sg.M.R.5.16S,Sg.M.H.6.16S,Rectum,Feces,0.46924213
+2,Sg.M.R.6.16S,Sg.M.H.6.16S,Rectum,Feces,0.022160103
+2,Sg.M.R.7.16S,Sg.M.H.6.16S,Rectum,Feces,0.592747754
+2,Sg.M.R.8.16S,Sg.M.H.6.16S,Rectum,Feces,0.463551381
+2,Sg.M.R.9.16S,Sg.M.H.6.16S,Rectum,Feces,0.588007708
+2,Sg.M.I.1.16S,Sg.M.H.7.16S,Small intestine,Feces,0.755201278
+2,Sg.M.I.10.16S,Sg.M.H.7.16S,Small intestine,Feces,0.642942243
+2,Sg.M.I.2.16S,Sg.M.H.7.16S,Small intestine,Feces,0.662703671
+2,Sg.M.I.3.16S,Sg.M.H.7.16S,Small intestine,Feces,0.61760875
+2,Sg.M.I.4.16S,Sg.M.H.7.16S,Small intestine,Feces,0.999349885
+2,Sg.M.I.5.16S,Sg.M.H.7.16S,Small intestine,Feces,0.758835106
+2,Sg.M.I.6.16S,Sg.M.H.7.16S,Small intestine,Feces,0.708220993
+2,Sg.M.I.7.16S,Sg.M.H.7.16S,Small intestine,Feces,0.048842764
+2,Sg.M.I.8.16S,Sg.M.H.7.16S,Small intestine,Feces,0.99513743
+2,Sg.M.I.9.16S,Sg.M.H.7.16S,Small intestine,Feces,0.625628191
+2,Sg.M.R.1.16S,Sg.M.H.7.16S,Rectum,Feces,0.558415498
+2,Sg.M.R.10.16S,Sg.M.H.7.16S,Rectum,Feces,0.66589009
+2,Sg.M.R.2.16S,Sg.M.H.7.16S,Rectum,Feces,0.529971075
+2,Sg.M.R.3.16S,Sg.M.H.7.16S,Rectum,Feces,0.46412834
+2,Sg.M.R.4.16S,Sg.M.H.7.16S,Rectum,Feces,0.989339608
+2,Sg.M.R.5.16S,Sg.M.H.7.16S,Rectum,Feces,0.746949009
+2,Sg.M.R.6.16S,Sg.M.H.7.16S,Rectum,Feces,0.471266846
+2,Sg.M.R.7.16S,Sg.M.H.7.16S,Rectum,Feces,0.039053012
+2,Sg.M.R.8.16S,Sg.M.H.7.16S,Rectum,Feces,0.580161861
+2,Sg.M.R.9.16S,Sg.M.H.7.16S,Rectum,Feces,0.638218945
+2,Sg.M.I.1.16S,Sg.M.H.8.16S,Small intestine,Feces,0.778083475
+2,Sg.M.I.10.16S,Sg.M.H.8.16S,Small intestine,Feces,0.784747446
+2,Sg.M.I.2.16S,Sg.M.H.8.16S,Small intestine,Feces,0.711139639
+2,Sg.M.I.3.16S,Sg.M.H.8.16S,Small intestine,Feces,0.658570684
+2,Sg.M.I.4.16S,Sg.M.H.8.16S,Small intestine,Feces,0.9990772
+2,Sg.M.I.5.16S,Sg.M.H.8.16S,Small intestine,Feces,0.77296343
+2,Sg.M.I.6.16S,Sg.M.H.8.16S,Small intestine,Feces,0.809829012
+2,Sg.M.I.7.16S,Sg.M.H.8.16S,Small intestine,Feces,0.678693666
+2,Sg.M.I.8.16S,Sg.M.H.8.16S,Small intestine,Feces,0.99640617
+2,Sg.M.I.9.16S,Sg.M.H.8.16S,Small intestine,Feces,0.759129244
+2,Sg.M.R.1.16S,Sg.M.H.8.16S,Rectum,Feces,0.775438532
+2,Sg.M.R.10.16S,Sg.M.H.8.16S,Rectum,Feces,0.791085735
+2,Sg.M.R.2.16S,Sg.M.H.8.16S,Rectum,Feces,0.651400088
+2,Sg.M.R.3.16S,Sg.M.H.8.16S,Rectum,Feces,0.685010835
+2,Sg.M.R.4.16S,Sg.M.H.8.16S,Rectum,Feces,0.766328001
+2,Sg.M.R.5.16S,Sg.M.H.8.16S,Rectum,Feces,0.770101987
+2,Sg.M.R.6.16S,Sg.M.H.8.16S,Rectum,Feces,0.500682019
+2,Sg.M.R.7.16S,Sg.M.H.8.16S,Rectum,Feces,0.67012026
+2,Sg.M.R.8.16S,Sg.M.H.8.16S,Rectum,Feces,0.050462263
+2,Sg.M.R.9.16S,Sg.M.H.8.16S,Rectum,Feces,0.758907427
+2,Sg.M.I.1.16S,Sg.M.H.9.16S,Small intestine,Feces,0.732632547
+2,Sg.M.I.10.16S,Sg.M.H.9.16S,Small intestine,Feces,0.512702153
+2,Sg.M.I.2.16S,Sg.M.H.9.16S,Small intestine,Feces,0.638411272
+2,Sg.M.I.3.16S,Sg.M.H.9.16S,Small intestine,Feces,0.593796949
+2,Sg.M.I.4.16S,Sg.M.H.9.16S,Small intestine,Feces,0.998307696
+2,Sg.M.I.5.16S,Sg.M.H.9.16S,Small intestine,Feces,0.789706994
+2,Sg.M.I.6.16S,Sg.M.H.9.16S,Small intestine,Feces,0.549241514
+2,Sg.M.I.7.16S,Sg.M.H.9.16S,Small intestine,Feces,0.701523055
+2,Sg.M.I.8.16S,Sg.M.H.9.16S,Small intestine,Feces,0.998568232
+2,Sg.M.I.9.16S,Sg.M.H.9.16S,Small intestine,Feces,0.061992017
+2,Sg.M.R.1.16S,Sg.M.H.9.16S,Rectum,Feces,0.598577082
+2,Sg.M.R.10.16S,Sg.M.H.9.16S,Rectum,Feces,0.557176127
+2,Sg.M.R.2.16S,Sg.M.H.9.16S,Rectum,Feces,0.435917483
+2,Sg.M.R.3.16S,Sg.M.H.9.16S,Rectum,Feces,0.45962123
+2,Sg.M.R.4.16S,Sg.M.H.9.16S,Rectum,Feces,0.785302681
+2,Sg.M.R.5.16S,Sg.M.H.9.16S,Rectum,Feces,0.764023442
+2,Sg.M.R.6.16S,Sg.M.H.9.16S,Rectum,Feces,0.50851671
+2,Sg.M.R.7.16S,Sg.M.H.9.16S,Rectum,Feces,0.703010523
+2,Sg.M.R.8.16S,Sg.M.H.9.16S,Rectum,Feces,0.661754128
+2,Sg.M.R.9.16S,Sg.M.H.9.16S,Rectum,Feces,0.054852653
+2,Sg.M.I.1.16S,Sg.M.HC.1.16S,Small intestine,Cloaca,0.329855788
+2,Sg.M.I.10.16S,Sg.M.HC.1.16S,Small intestine,Cloaca,0.99501074
+2,Sg.M.I.2.16S,Sg.M.HC.1.16S,Small intestine,Cloaca,0.522333564
+2,Sg.M.I.3.16S,Sg.M.HC.1.16S,Small intestine,Cloaca,0.633637432
+2,Sg.M.I.4.16S,Sg.M.HC.1.16S,Small intestine,Cloaca,0.99988615
+2,Sg.M.I.5.16S,Sg.M.HC.1.16S,Small intestine,Cloaca,0.994786101
+2,Sg.M.I.6.16S,Sg.M.HC.1.16S,Small intestine,Cloaca,0.995104462
+2,Sg.M.I.7.16S,Sg.M.HC.1.16S,Small intestine,Cloaca,0.995711176
+2,Sg.M.I.8.16S,Sg.M.HC.1.16S,Small intestine,Cloaca,0.999806618
+2,Sg.M.I.9.16S,Sg.M.HC.1.16S,Small intestine,Cloaca,0.9931769
+2,Sg.M.R.1.16S,Sg.M.HC.1.16S,Rectum,Cloaca,0.872766418
+2,Sg.M.R.10.16S,Sg.M.HC.1.16S,Rectum,Cloaca,0.994782967
+2,Sg.M.R.2.16S,Sg.M.HC.1.16S,Rectum,Cloaca,0.974709237
+2,Sg.M.R.3.16S,Sg.M.HC.1.16S,Rectum,Cloaca,0.992975475
+2,Sg.M.R.4.16S,Sg.M.HC.1.16S,Rectum,Cloaca,0.999407408
+2,Sg.M.R.5.16S,Sg.M.HC.1.16S,Rectum,Cloaca,0.995183731
+2,Sg.M.R.6.16S,Sg.M.HC.1.16S,Rectum,Cloaca,0.991862407
+2,Sg.M.R.7.16S,Sg.M.HC.1.16S,Rectum,Cloaca,0.995535221
+2,Sg.M.R.8.16S,Sg.M.HC.1.16S,Rectum,Cloaca,0.995004761
+2,Sg.M.R.9.16S,Sg.M.HC.1.16S,Rectum,Cloaca,0.993205978
+2,Sg.M.I.1.16S,Sg.M.HC.10.16S,Small intestine,Cloaca,0.761976631
+2,Sg.M.I.10.16S,Sg.M.HC.10.16S,Small intestine,Cloaca,0.493076616
+2,Sg.M.I.2.16S,Sg.M.HC.10.16S,Small intestine,Cloaca,0.788492126
+2,Sg.M.I.3.16S,Sg.M.HC.10.16S,Small intestine,Cloaca,0.819529199
+2,Sg.M.I.4.16S,Sg.M.HC.10.16S,Small intestine,Cloaca,0.962414876
+2,Sg.M.I.5.16S,Sg.M.HC.10.16S,Small intestine,Cloaca,0.848485195
+2,Sg.M.I.6.16S,Sg.M.HC.10.16S,Small intestine,Cloaca,0.48040941
+2,Sg.M.I.7.16S,Sg.M.HC.10.16S,Small intestine,Cloaca,0.870690578
+2,Sg.M.I.8.16S,Sg.M.HC.10.16S,Small intestine,Cloaca,0.962770082
+2,Sg.M.I.9.16S,Sg.M.HC.10.16S,Small intestine,Cloaca,0.722560111
+2,Sg.M.R.1.16S,Sg.M.HC.10.16S,Rectum,Cloaca,0.842191191
+2,Sg.M.R.10.16S,Sg.M.HC.10.16S,Rectum,Cloaca,0.476924944
+2,Sg.M.R.2.16S,Sg.M.HC.10.16S,Rectum,Cloaca,0.806933131
+2,Sg.M.R.3.16S,Sg.M.HC.10.16S,Rectum,Cloaca,0.755431651
+2,Sg.M.R.4.16S,Sg.M.HC.10.16S,Rectum,Cloaca,0.199503278
+2,Sg.M.R.5.16S,Sg.M.HC.10.16S,Rectum,Cloaca,0.837227073
+2,Sg.M.R.6.16S,Sg.M.HC.10.16S,Rectum,Cloaca,0.748183476
+2,Sg.M.R.7.16S,Sg.M.HC.10.16S,Rectum,Cloaca,0.898135238
+2,Sg.M.R.8.16S,Sg.M.HC.10.16S,Rectum,Cloaca,0.796960071
+2,Sg.M.R.9.16S,Sg.M.HC.10.16S,Rectum,Cloaca,0.722883602
+2,Sg.M.I.1.16S,Sg.M.HC.2.16S,Small intestine,Cloaca,0.280083695
+2,Sg.M.I.10.16S,Sg.M.HC.2.16S,Small intestine,Cloaca,0.567457554
+2,Sg.M.I.2.16S,Sg.M.HC.2.16S,Small intestine,Cloaca,0.251601913
+2,Sg.M.I.3.16S,Sg.M.HC.2.16S,Small intestine,Cloaca,0.366371849
+2,Sg.M.I.4.16S,Sg.M.HC.2.16S,Small intestine,Cloaca,0.999360958
+2,Sg.M.I.5.16S,Sg.M.HC.2.16S,Small intestine,Cloaca,0.714271727
+2,Sg.M.I.6.16S,Sg.M.HC.2.16S,Small intestine,Cloaca,0.600182593
+2,Sg.M.I.7.16S,Sg.M.HC.2.16S,Small intestine,Cloaca,0.525524403
+2,Sg.M.I.8.16S,Sg.M.HC.2.16S,Small intestine,Cloaca,0.997349839
+2,Sg.M.I.9.16S,Sg.M.HC.2.16S,Small intestine,Cloaca,0.480298935
+2,Sg.M.R.1.16S,Sg.M.HC.2.16S,Rectum,Cloaca,0.070458215
+2,Sg.M.R.10.16S,Sg.M.HC.2.16S,Rectum,Cloaca,0.537081519
+2,Sg.M.R.2.16S,Sg.M.HC.2.16S,Rectum,Cloaca,0.406141784
+2,Sg.M.R.3.16S,Sg.M.HC.2.16S,Rectum,Cloaca,0.424265131
+2,Sg.M.R.4.16S,Sg.M.HC.2.16S,Rectum,Cloaca,0.992155704
+2,Sg.M.R.5.16S,Sg.M.HC.2.16S,Rectum,Cloaca,0.688132164
+2,Sg.M.R.6.16S,Sg.M.HC.2.16S,Rectum,Cloaca,0.430088422
+2,Sg.M.R.7.16S,Sg.M.HC.2.16S,Rectum,Cloaca,0.521741501
+2,Sg.M.R.8.16S,Sg.M.HC.2.16S,Rectum,Cloaca,0.630904547
+2,Sg.M.R.9.16S,Sg.M.HC.2.16S,Rectum,Cloaca,0.489039331
+2,Sg.M.I.1.16S,Sg.M.HC.3.16S,Small intestine,Cloaca,0.97842949
+2,Sg.M.I.10.16S,Sg.M.HC.3.16S,Small intestine,Cloaca,0.992328406
+2,Sg.M.I.2.16S,Sg.M.HC.3.16S,Small intestine,Cloaca,0.960967384
+2,Sg.M.I.3.16S,Sg.M.HC.3.16S,Small intestine,Cloaca,0.955162944
+2,Sg.M.I.4.16S,Sg.M.HC.3.16S,Small intestine,Cloaca,0.98019719
+2,Sg.M.I.5.16S,Sg.M.HC.3.16S,Small intestine,Cloaca,0.989744011
+2,Sg.M.I.6.16S,Sg.M.HC.3.16S,Small intestine,Cloaca,0.992923736
+2,Sg.M.I.7.16S,Sg.M.HC.3.16S,Small intestine,Cloaca,0.907154322
+2,Sg.M.I.8.16S,Sg.M.HC.3.16S,Small intestine,Cloaca,0.979998647
+2,Sg.M.I.9.16S,Sg.M.HC.3.16S,Small intestine,Cloaca,0.989341142
+2,Sg.M.R.1.16S,Sg.M.HC.3.16S,Rectum,Cloaca,0.991980635
+2,Sg.M.R.10.16S,Sg.M.HC.3.16S,Rectum,Cloaca,0.992491969
+2,Sg.M.R.2.16S,Sg.M.HC.3.16S,Rectum,Cloaca,0.886416495
+2,Sg.M.R.3.16S,Sg.M.HC.3.16S,Rectum,Cloaca,0.941736973
+2,Sg.M.R.4.16S,Sg.M.HC.3.16S,Rectum,Cloaca,0.983491078
+2,Sg.M.R.5.16S,Sg.M.HC.3.16S,Rectum,Cloaca,0.990976236
+2,Sg.M.R.6.16S,Sg.M.HC.3.16S,Rectum,Cloaca,0.979857699
+2,Sg.M.R.7.16S,Sg.M.HC.3.16S,Rectum,Cloaca,0.922439125
+2,Sg.M.R.8.16S,Sg.M.HC.3.16S,Rectum,Cloaca,0.990426426
+2,Sg.M.R.9.16S,Sg.M.HC.3.16S,Rectum,Cloaca,0.989300874
+2,Sg.M.I.1.16S,Sg.M.HC.4.16S,Small intestine,Cloaca,0.926123977
+2,Sg.M.I.10.16S,Sg.M.HC.4.16S,Small intestine,Cloaca,1
+2,Sg.M.I.2.16S,Sg.M.HC.4.16S,Small intestine,Cloaca,0.954086079
+2,Sg.M.I.3.16S,Sg.M.HC.4.16S,Small intestine,Cloaca,0.967115873
+2,Sg.M.I.4.16S,Sg.M.HC.4.16S,Small intestine,Cloaca,0.99276481
+2,Sg.M.I.5.16S,Sg.M.HC.4.16S,Small intestine,Cloaca,0.976970826
+2,Sg.M.I.6.16S,Sg.M.HC.4.16S,Small intestine,Cloaca,0.999849317
+2,Sg.M.I.7.16S,Sg.M.HC.4.16S,Small intestine,Cloaca,0.97678192
+2,Sg.M.I.8.16S,Sg.M.HC.4.16S,Small intestine,Cloaca,0.997917462
+2,Sg.M.I.9.16S,Sg.M.HC.4.16S,Small intestine,Cloaca,0.925108127
+2,Sg.M.R.1.16S,Sg.M.HC.4.16S,Rectum,Cloaca,0.989073176
+2,Sg.M.R.10.16S,Sg.M.HC.4.16S,Rectum,Cloaca,0.999722313
+2,Sg.M.R.2.16S,Sg.M.HC.4.16S,Rectum,Cloaca,0.997339801
+2,Sg.M.R.3.16S,Sg.M.HC.4.16S,Rectum,Cloaca,0.969330262
+2,Sg.M.R.4.16S,Sg.M.HC.4.16S,Rectum,Cloaca,0.047193534
+2,Sg.M.R.5.16S,Sg.M.HC.4.16S,Rectum,Cloaca,0.985856236
+2,Sg.M.R.6.16S,Sg.M.HC.4.16S,Rectum,Cloaca,0.960192818
+2,Sg.M.R.7.16S,Sg.M.HC.4.16S,Rectum,Cloaca,0.998666791
+2,Sg.M.R.8.16S,Sg.M.HC.4.16S,Rectum,Cloaca,0.934689664
+2,Sg.M.R.9.16S,Sg.M.HC.4.16S,Rectum,Cloaca,0.919385053
+2,Sg.M.I.1.16S,Sg.M.HC.5.16S,Small intestine,Cloaca,0.986742515
+2,Sg.M.I.10.16S,Sg.M.HC.5.16S,Small intestine,Cloaca,0.999025301
+2,Sg.M.I.2.16S,Sg.M.HC.5.16S,Small intestine,Cloaca,0.990119441
+2,Sg.M.I.3.16S,Sg.M.HC.5.16S,Small intestine,Cloaca,0.9926809
+2,Sg.M.I.4.16S,Sg.M.HC.5.16S,Small intestine,Cloaca,0.992539503
+2,Sg.M.I.5.16S,Sg.M.HC.5.16S,Small intestine,Cloaca,0.990076446
+2,Sg.M.I.6.16S,Sg.M.HC.5.16S,Small intestine,Cloaca,0.998901938
+2,Sg.M.I.7.16S,Sg.M.HC.5.16S,Small intestine,Cloaca,0.988344104
+2,Sg.M.I.8.16S,Sg.M.HC.5.16S,Small intestine,Cloaca,0.994040535
+2,Sg.M.I.9.16S,Sg.M.HC.5.16S,Small intestine,Cloaca,0.942530152
+2,Sg.M.R.1.16S,Sg.M.HC.5.16S,Rectum,Cloaca,0.997962825
+2,Sg.M.R.10.16S,Sg.M.HC.5.16S,Rectum,Cloaca,0.998861898
+2,Sg.M.R.2.16S,Sg.M.HC.5.16S,Rectum,Cloaca,0.997098853
+2,Sg.M.R.3.16S,Sg.M.HC.5.16S,Rectum,Cloaca,0.987539317
+2,Sg.M.R.4.16S,Sg.M.HC.5.16S,Rectum,Cloaca,0.211540181
+2,Sg.M.R.5.16S,Sg.M.HC.5.16S,Rectum,Cloaca,0.983430485
+2,Sg.M.R.6.16S,Sg.M.HC.5.16S,Rectum,Cloaca,0.947797013
+2,Sg.M.R.7.16S,Sg.M.HC.5.16S,Rectum,Cloaca,0.997709047
+2,Sg.M.R.8.16S,Sg.M.HC.5.16S,Rectum,Cloaca,0.934752613
+2,Sg.M.R.9.16S,Sg.M.HC.5.16S,Rectum,Cloaca,0.941543078
+2,Sg.M.I.1.16S,Sg.M.HC.6.16S,Small intestine,Cloaca,0.831104687
+2,Sg.M.I.10.16S,Sg.M.HC.6.16S,Small intestine,Cloaca,0.920178767
+2,Sg.M.I.2.16S,Sg.M.HC.6.16S,Small intestine,Cloaca,0.843265338
+2,Sg.M.I.3.16S,Sg.M.HC.6.16S,Small intestine,Cloaca,0.843402165
+2,Sg.M.I.4.16S,Sg.M.HC.6.16S,Small intestine,Cloaca,0.994127575
+2,Sg.M.I.5.16S,Sg.M.HC.6.16S,Small intestine,Cloaca,0.897911715
+2,Sg.M.I.6.16S,Sg.M.HC.6.16S,Small intestine,Cloaca,0.919855782
+2,Sg.M.I.7.16S,Sg.M.HC.6.16S,Small intestine,Cloaca,0.915202829
+2,Sg.M.I.8.16S,Sg.M.HC.6.16S,Small intestine,Cloaca,0.993184533
+2,Sg.M.I.9.16S,Sg.M.HC.6.16S,Small intestine,Cloaca,0.85667906
+2,Sg.M.R.1.16S,Sg.M.HC.6.16S,Rectum,Cloaca,0.930674354
+2,Sg.M.R.10.16S,Sg.M.HC.6.16S,Rectum,Cloaca,0.914228609
+2,Sg.M.R.2.16S,Sg.M.HC.6.16S,Rectum,Cloaca,0.86266737
+2,Sg.M.R.3.16S,Sg.M.HC.6.16S,Rectum,Cloaca,0.854339752
+2,Sg.M.R.4.16S,Sg.M.HC.6.16S,Rectum,Cloaca,0.280322317
+2,Sg.M.R.5.16S,Sg.M.HC.6.16S,Rectum,Cloaca,0.896543801
+2,Sg.M.R.6.16S,Sg.M.HC.6.16S,Rectum,Cloaca,0.635735108
+2,Sg.M.R.7.16S,Sg.M.HC.6.16S,Rectum,Cloaca,0.927944045
+2,Sg.M.R.8.16S,Sg.M.HC.6.16S,Rectum,Cloaca,0.799387143
+2,Sg.M.R.9.16S,Sg.M.HC.6.16S,Rectum,Cloaca,0.858806435
+2,Sg.M.I.1.16S,Sg.M.HC.7.16S,Small intestine,Cloaca,0.99718463
+2,Sg.M.I.10.16S,Sg.M.HC.7.16S,Small intestine,Cloaca,1
+2,Sg.M.I.2.16S,Sg.M.HC.7.16S,Small intestine,Cloaca,0.998336244
+2,Sg.M.I.3.16S,Sg.M.HC.7.16S,Small intestine,Cloaca,0.998833136
+2,Sg.M.I.4.16S,Sg.M.HC.7.16S,Small intestine,Cloaca,1
+2,Sg.M.I.5.16S,Sg.M.HC.7.16S,Small intestine,Cloaca,1
+2,Sg.M.I.6.16S,Sg.M.HC.7.16S,Small intestine,Cloaca,1
+2,Sg.M.I.7.16S,Sg.M.HC.7.16S,Small intestine,Cloaca,0.926602114
+2,Sg.M.I.8.16S,Sg.M.HC.7.16S,Small intestine,Cloaca,1
+2,Sg.M.I.9.16S,Sg.M.HC.7.16S,Small intestine,Cloaca,0.999956553
+2,Sg.M.R.1.16S,Sg.M.HC.7.16S,Rectum,Cloaca,0.999653408
+2,Sg.M.R.10.16S,Sg.M.HC.7.16S,Rectum,Cloaca,1
+2,Sg.M.R.2.16S,Sg.M.HC.7.16S,Rectum,Cloaca,0.920664935
+2,Sg.M.R.3.16S,Sg.M.HC.7.16S,Rectum,Cloaca,0.961601278
+2,Sg.M.R.4.16S,Sg.M.HC.7.16S,Rectum,Cloaca,0.998735596
+2,Sg.M.R.5.16S,Sg.M.HC.7.16S,Rectum,Cloaca,0.999978122
+2,Sg.M.R.6.16S,Sg.M.HC.7.16S,Rectum,Cloaca,0.999356393
+2,Sg.M.R.7.16S,Sg.M.HC.7.16S,Rectum,Cloaca,0.939677239
+2,Sg.M.R.8.16S,Sg.M.HC.7.16S,Rectum,Cloaca,1
+2,Sg.M.R.9.16S,Sg.M.HC.7.16S,Rectum,Cloaca,0.99995163
+2,Sg.M.I.1.16S,Sg.M.HC.8.16S,Small intestine,Cloaca,0.993001619
+2,Sg.M.I.10.16S,Sg.M.HC.8.16S,Small intestine,Cloaca,0.999794815
+2,Sg.M.I.2.16S,Sg.M.HC.8.16S,Small intestine,Cloaca,0.994998159
+2,Sg.M.I.3.16S,Sg.M.HC.8.16S,Small intestine,Cloaca,0.996411184
+2,Sg.M.I.4.16S,Sg.M.HC.8.16S,Small intestine,Cloaca,0.990933755
+2,Sg.M.I.5.16S,Sg.M.HC.8.16S,Small intestine,Cloaca,0.984119049
+2,Sg.M.I.6.16S,Sg.M.HC.8.16S,Small intestine,Cloaca,0.999768587
+2,Sg.M.I.7.16S,Sg.M.HC.8.16S,Small intestine,Cloaca,0.984185987
+2,Sg.M.I.8.16S,Sg.M.HC.8.16S,Small intestine,Cloaca,0.994500794
+2,Sg.M.I.9.16S,Sg.M.HC.8.16S,Small intestine,Cloaca,0.935404906
+2,Sg.M.R.1.16S,Sg.M.HC.8.16S,Rectum,Cloaca,0.99901187
+2,Sg.M.R.10.16S,Sg.M.HC.8.16S,Rectum,Cloaca,0.999760529
+2,Sg.M.R.2.16S,Sg.M.HC.8.16S,Rectum,Cloaca,0.999169523
+2,Sg.M.R.3.16S,Sg.M.HC.8.16S,Rectum,Cloaca,0.979002922
+2,Sg.M.R.4.16S,Sg.M.HC.8.16S,Rectum,Cloaca,0.121771805
+2,Sg.M.R.5.16S,Sg.M.HC.8.16S,Rectum,Cloaca,0.988145882
+2,Sg.M.R.6.16S,Sg.M.HC.8.16S,Rectum,Cloaca,0.952011735
+2,Sg.M.R.7.16S,Sg.M.HC.8.16S,Rectum,Cloaca,0.999360914
+2,Sg.M.R.8.16S,Sg.M.HC.8.16S,Rectum,Cloaca,0.92949341
+2,Sg.M.R.9.16S,Sg.M.HC.8.16S,Rectum,Cloaca,0.932960809
+2,Sg.M.I.1.16S,Sg.M.HC.9.16S,Small intestine,Cloaca,0.963417104
+2,Sg.M.I.10.16S,Sg.M.HC.9.16S,Small intestine,Cloaca,1
+2,Sg.M.I.2.16S,Sg.M.HC.9.16S,Small intestine,Cloaca,0.976921088
+2,Sg.M.I.3.16S,Sg.M.HC.9.16S,Small intestine,Cloaca,0.983548293
+2,Sg.M.I.4.16S,Sg.M.HC.9.16S,Small intestine,Cloaca,0.990533792
+2,Sg.M.I.5.16S,Sg.M.HC.9.16S,Small intestine,Cloaca,0.977895844
+2,Sg.M.I.6.16S,Sg.M.HC.9.16S,Small intestine,Cloaca,1
+2,Sg.M.I.7.16S,Sg.M.HC.9.16S,Small intestine,Cloaca,0.979319833
+2,Sg.M.I.8.16S,Sg.M.HC.9.16S,Small intestine,Cloaca,0.995626567
+2,Sg.M.I.9.16S,Sg.M.HC.9.16S,Small intestine,Cloaca,0.928192939
+2,Sg.M.R.1.16S,Sg.M.HC.9.16S,Rectum,Cloaca,0.994793566
+2,Sg.M.R.10.16S,Sg.M.HC.9.16S,Rectum,Cloaca,1
+2,Sg.M.R.2.16S,Sg.M.HC.9.16S,Rectum,Cloaca,0.999042923
+2,Sg.M.R.3.16S,Sg.M.HC.9.16S,Rectum,Cloaca,0.971015449
+2,Sg.M.R.4.16S,Sg.M.HC.9.16S,Rectum,Cloaca,0.061805744
+2,Sg.M.R.5.16S,Sg.M.HC.9.16S,Rectum,Cloaca,0.986544569
+2,Sg.M.R.6.16S,Sg.M.HC.9.16S,Rectum,Cloaca,0.961841957
+2,Sg.M.R.7.16S,Sg.M.HC.9.16S,Rectum,Cloaca,0.999460281
+2,Sg.M.R.8.16S,Sg.M.HC.9.16S,Rectum,Cloaca,0.937591476
+2,Sg.M.R.9.16S,Sg.M.HC.9.16S,Rectum,Cloaca,0.922557298

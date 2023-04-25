@@ -1,5 +1,4 @@
-#OTU ID	pvalue	taxa	taxonomy	Feces	Rectum	diff.btw	diff.win	effect	overlap
-81b50cbc69b355d6a2207d370e9634c5	0.020834699	k__Bacteria; p__Proteobacteria; c__Gammaproteobacteria; o__Pseudomonadales; f__Pseudomonadaceae; g__Pseudomonas	Pseudomonas	-0.460259281	7.466973978	7.19247805	5.929709546	1.062177544	0.175378467
-a7773d30c5a2009a19ba2df73fe658c1	0.00398802	k__Bacteria; p__Proteobacteria; c__Gammaproteobacteria; o__Enterobacteriales; f__Enterobacteriaceae	Enterobacteriaceae	6.638774322	-1.316377589	-7.661025209	4.527311234	-1.557934647	0.086000009
-bd6383169ddd32592a82ccdb7511c186	0.000977541	k__Bacteria; p__Proteobacteria; c__Gammaproteobacteria; o__Enterobacteriales; f__Enterobacteriaceae	Enterobacteriaceae1	6.313289434	-1.196507251	-7.655501996	3.451844943	-2.07322752	0.043701818
-e289fe9035a3575d3f1ab134e5810ee5	0.039615522	k__Bacteria; p__Firmicutes; c__Clostridia; o__Clostridiales; f__Lachnospiraceae; g__Roseburia; s__	Roseburia	6.935709504	0.910419068	-6.316695437	6.645516868	-0.797925465	0.203428575
+OTUID	pvalue	Kingdom	Phylum	Class	Order	Family	Genus	Species	taxonomy	Feces	Rectum	diff.btw	diff.win	effect	overlap
+81b50cbc69b355d6a2207d370e9634c5	0.047643704	d__Bacteria	 p__Proteobacteria	 c__Gammaproteobacteria	 o__Pseudomonadales	 f__Pseudomonadaceae	 g__Pseudomonas	 s__Unassaigned	Pseudomonas	-0.376416521	6.324368428	6.022330889	6.283142705	0.830427181	0.223400001
+bd6383169ddd32592a82ccdb7511c186	0.001787502	d__Bacteria	 p__Proteobacteria	 c__Gammaproteobacteria	 o__Enterobacterales	 f__Enterobacteriaceae	 g__Unassigned	 s__Unassaigned	Enterobacteriaceae	6.105554908	-0.926517934	-6.887063375	4.245155434	-1.49302323	0.081200005
+a7773d30c5a2009a19ba2df73fe658c1	0.002246446	d__Bacteria	 p__Proteobacteria	 c__Gammaproteobacteria	 o__Enterobacterales	 f__Enterobacteriaceae	 g__Unassigned	 s__Unassaigned	Enterobacteriaceae1	6.604465406	-0.849507018	-7.142989156	4.373798351	-1.514125442	0.087982408

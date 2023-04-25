@@ -1,0 +1,88 @@
+setwd("~/Documents/MICROBIOTA REPTILES/PAPERS 2022/Second Article/Integrative_Zoology")
+#permanova
+library(tidyverse)
+library(compositions)
+library(zCompositions)
+library(CoDaSeq)
+
+otutable <- read.csv("feature_table.csv", check.names = F, row.names = 1)
+metadata <- read.csv("metadata.csv")
+taxonomy <- read.csv("taxonomy.csv", check.names = F) 
+metadata$Ind <- as.factor(metadata$Ind)
+metadata$Library <- as.factor(metadata$Library)
+metadata$SampleType <- as.factor(metadata$SampleType)
+
+#### Transforming data "clr transformation/compositional data" ####
+aldez.clr.transform <- aldex.clr(otutable, mc.samples = 999, denom = "all",
+                                 verbose = FALSE, useMC = FALSE)
+aldex.clr.transform.data <- t(getMonteCarloSample(aldez.clr.transform, 1))
+
+# Run a PCA with codaSeq.clr
+pcx.abund.aldex <- prcomp(aldex.clr.transform.data)
+print(aldex.clr.transform.data)
+
+# Labels to PCA axis
+pc1 <- paste("PC1", round(sum(pcx.abund.aldex$sdev[1] ^2) / mvar(aldex.clr.transform.data) * 100, 1), "%")
+pc2 <- paste("PC2", round(sum(pcx.abund.aldex$sdev[2] ^2) / mvar(aldex.clr.transform.data) * 100, 1), "%")
+
+# Pallete color 
+paleta <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#0072B2", 
+            "#D55E00", "#CC79A7", "#CC6666", "#9999CC", "#66CC99")
+print(paleta)
+
+# Create the base plot with only the arrows
+pca_plot_aldex.clr <- ggplot() +
+  theme_bw() +
+  xlab(pc1) +
+  ylab(pc2) +
+  theme(axis.text = element_text(colour = "black", size = 14), #setting theme
+        axis.title = element_text(colour = "black", size = 14),
+        legend.text = element_text(size = 14),
+        legend.title = element_blank(),
+        legend.position = "right") +
+  theme_gray() +
+  geom_point( #individuals
+    data = data.frame(pcx.abund.aldex$x) %>% 
+      rownames_to_column(var = "SampleID") %>%
+      left_join(metadata, by = "SampleID"),
+    aes(x=PC1, y=PC2, shape = SampleType, 
+        color = Ind), size=4) +
+  scale_color_manual(values = paleta) +
+  geom_vline(xintercept = 0, linetype = 2) +
+  geom_hline(yintercept = 0, linetype = 2)
+
+print(pca_plot_aldex.clr)
+ggsave("pca_plot_aldex.clr.jpeg", width=5.5, height=5.5, dpi=300)
+
+### PERMANOVA
+set.seed(123)
+library(vegan)
+library(RVAideMemoire)
+library(ggpubr)
+
+meta_just <- data.frame(aldex.clr.transform.data, check.names = F) %>% 
+  rownames_to_column(var = "SampleID") %>% 
+  inner_join(metadata) %>% rename(SampleID="SampleID")
+
+# perMANOVA incluyendo al individuo + sampletype
+permanova_ind <- adonis2(aldex.clr.transform.data ~ SampleType, 
+                       data = meta_just, method = "euclidian", 
+                       permutations = 999)
+permanova_ind
+
+pairwise <- RVAideMemoire::pairwise.perm.manova(
+  dist(aldex.clr.transform.data, method= "euclidian"),
+  meta_just$SampleType, p.method = "BH", nperm = 999,  F = TRUE, R2 = TRUE)
+pairwise
+
+# BETADISPER ANALYSIS
+matriz <- stats::dist(aldex.clr.transform.data, method = "euclidean")
+mod <- betadisper(matriz, meta_just$SampleType)
+anova(mod)
+permutest(mod)
+permutest(mod, pairwise = TRUE)
+boxplot(mod)
+
+pairwise_betadisper <- permutest(betadisper(matriz, meta_just$SampleType), 
+                                pairwise = TRUE)
+pairwise_betadisper

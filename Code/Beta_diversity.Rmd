@@ -18,154 +18,98 @@ output:
 # Beta diversity exploration
 ```{r, warning=FALSE, message=FALSE}
 ## Loading libraries
+#permanova
 library(tidyverse)
 library(compositions)
 library(zCompositions)
-library(ALDEx2)
 library(CoDaSeq)
 
-# Loading files
-
-otutable <- read.csv("../Data/otutable-taxonomy_ultima.csv", row.names = 1)
-metadata <- read.csv("../Data/Metadatos1.csv", check.names = F) %>% mutate(
-  SampleType=case_when(
-    SampleType=="Swab"~"Cloaca",
-    TRUE~as.character(SampleType)))
+otutable <- read.csv("../Data/feature_table.csv", check.names = F, row.names = 1)
+metadata <- read.csv("../Data/metadata.csv") %>% dplyr::select(SampleID:Ta)
+taxonomy <- read.csv("../Data/taxonomy.csv", check.names = F) 
 metadata$Ind <- as.factor(metadata$Ind)
-
-metadata<- metadata %>% mutate(SampleType=case_when(
-  SampleType == "Swab"~"Cloaca",
-  TRUE~as.character(SampleType)))
 metadata$Library <- as.factor(metadata$Library)
 metadata$SampleType <- as.factor(metadata$SampleType)
+```
 
-taxonomy <- read.csv("../Data/taxonomy_ultima.csv", check.names = F) %>% unite(
-  taxa, Kingdom:Species, remove = F, sep = ";")
 
-# Write_tsv(metadata, "metadata.tsv")
+```{r, warning=FALSE, message=FALSE, eval=FALSE}
+#### Transforming data "clr transformation/compositional data" ####
+aldez.clr.transform <- aldex.clr(otutable, mc.samples = 999, denom = "all",
+                                 verbose = FALSE, useMC = FALSE)
+aldex.clr.transform.data <- t(getMonteCarloSample(aldez.clr.transform, 1))
+```
 
-taxonomy2 <- taxonomy %>%
-  mutate_all(funs(str_replace(., "k__Bacteria;", "")))%>%
-  mutate_all(funs(str_replace(., "p__", "")))%>% 
-  mutate_all(funs(str_replace(., "c__", "")))%>% 
-  mutate_all(funs(str_replace(., "o__", "")))%>% 
-  mutate_all(funs(str_replace(., "f__", "")))%>% 
-  mutate_all(funs(str_replace(., "g__", "")))%>% 
-  mutate_all(funs(str_replace(., "s__", "")))%>% 
-  mutate_all(funs(str_replace(., "; ; ;", "")))%>% 
-  mutate_all(funs(str_replace(., "; ; ", ""))) 
 
-# PCA - Compositional approach
-
-d.pro <- cmultRepl(t(otutable), method = "CZM", output = "p-counts")
-d.clr.abund.codaseq <- codaSeq.clr(x= d.pro, samples.by.row = F) %>% as.data.frame()
-#write.table(d.clr.abund.codaseq, "pca_datos_transformados.txt", sep = )
+```{r, warning=FALSE, message=FALSE, echo=FALSE}
 # Run a PCA with codaSeq.clr
-pcx.abund <- prcomp(d.clr.abund.codaseq)
 
+aldex.clr.transform.data <- readRDS("../Data/aldex.clr.transform.data.RDS")
+```
+
+```{r, warning=FALSE, message=FALSE}
 # Labels to PCA axis
-PC1 <- paste("PC1", round(
-  sum(pcx.abund$sdev[1] ^2) / mvar(d.clr.abund.codaseq) * 100, 1), "%")
-PC2 <- paste("PC2", round(
-  sum(pcx.abund$sdev[2] ^2) / mvar(d.clr.abund.codaseq) * 100, 1), "%")
+pcx.abund.aldex <- prcomp(aldex.clr.transform.data)
+
+pc1 <- paste("PC1", round(sum(pcx.abund.aldex$sdev[1] ^2) / mvar(aldex.clr.transform.data) * 100, 1), "%")
+pc2 <- paste("PC2", round(sum(pcx.abund.aldex$sdev[2] ^2) / mvar(aldex.clr.transform.data) * 100, 1), "%")
+
+# Pallete color 
+paleta <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#0072B2", 
+            "#D55E00", "#CC79A7", "#CC6666", "#9999CC", "#66CC99")
+print(paleta)
 
 # Create the base plot with only the arrows
-pca_plot_codaSeq.clr <- ggplot() +
+pca_plot_aldex.clr <- ggplot() +
   theme_bw() +
-  xlab(PC1) +
-  ylab(PC2) +
-  theme(axis.text = element_text(colour = "black", size = 14),
+  xlab(pc1) +
+  ylab(pc2) +
+  theme(axis.text = element_text(colour = "black", size = 14), #setting theme
         axis.title = element_text(colour = "black", size = 14),
         legend.text = element_text(size = 14),
         legend.title = element_blank(),
-        legend.position = "right")+
-  theme_gray()+
+        legend.position = "right") +
+  theme_gray() +
   geom_point( #individuals
-    data = data.frame(pcx.abund$x) %>% rownames_to_column(
-      var = "SampleID") %>%
+    data = data.frame(pcx.abund.aldex$x) %>% 
+      rownames_to_column(var = "SampleID") %>%
       left_join(metadata, by = "SampleID"),
-    aes(x=PC1, y=PC2, color =Ind, shape = SampleType),
-    size=4) +
-  geom_vline(xintercept = 0, linetype = 2) +   
+    aes(x=PC1, y=PC2, shape = SampleType, 
+        color = Ind), size=4) +
+  scale_color_manual(values = paleta) +
+  geom_vline(xintercept = 0, linetype = 2) +
   geom_hline(yintercept = 0, linetype = 2)
 
-print(pca_plot_codaSeq.clr)
-#ggsave("pca_plot_codaSeq.clr.jpeg", width=5.5, height=5.5, dpi=300)
-
+print(pca_plot_aldex.clr)
+#ggsave("pca_plot_aldex.clr.jpeg", width=5.5, height=5.5, dpi=300)
 
 ### PERMANOVA
 set.seed(123)
-
-meta_just <- data.frame(
-  d.clr.abund.codaseq, check.names = F) %>% rownames_to_column(
-  var = "SampleID") %>% inner_join(
-    metadata) %>% rename(SampleID="SampleID" )
+library(vegan)
 library(RVAideMemoire)
 library(ggpubr)
-pairwise <- RVAideMemoire::pairwise.perm.manova(dist(
-  d.clr.abund.codaseq,
-  method= "euclidian"),                                                meta_just$SampleType, p.method = "BH", nperm = 999)
 
+meta_just <- data.frame(aldex.clr.transform.data, check.names = F) %>% 
+  rownames_to_column(var = "SampleID") %>% 
+  inner_join(metadata) %>% rename(SampleID="SampleID")
+
+# perMANOVA incluyendo al individuo + sampletype
+permanova_ind <- adonis2(aldex.clr.transform.data ~ SampleType, 
+                       data = meta_just, method = "euclidian", 
+                       permutations = 999)
+permanova_ind
+
+pairwise <- RVAideMemoire::pairwise.perm.manova(
+  dist(aldex.clr.transform.data, method= "euclidian"),
+  meta_just$SampleType, p.method = "BH", nperm = 999,  F = TRUE, R2 = TRUE)
 pairwise
-library(vegan)
 
-perm <- how(nperm = 999)
+# BETADISPER ANALYSIS
+matriz <- stats::dist(aldex.clr.transform.data, method = "euclidean")
+mod <- betadisper(matriz, meta_just$SampleType)
+pairwise_betadisper <- permutest(betadisper(matriz, meta_just$SampleType), 
+                                pairwise = TRUE)
+pairwise_betadisper
 
-setBlocks(perm) <- with(meta_just, Ind)
-permanova_ma <- adonis2(d.clr.abund.codaseq~SampleType, 
-                        data = meta_just, 
-                        method = "euclidian",
-                        permutations =perm) %>% 
-  round(., digits = 3) %>%replace(is.na(.), "-")
-
-
-
-Permanova_table <- data.frame(permanova_ma, check.names = F) %>% rownames_to_column(
-  var="Factor") %>% ggtexttable(., rows = NULL, theme = ttheme("blank")) %>%
-  tab_add_hline(at.row = 1:2, row.side = "top", linewidth = 2)%>%
-  table_cell_font(., row = 3, column = 6, face = "bold") %>% 
-  table_cell_font(., row = 2, column = 6, face = "bold") %>% 
-  tab_add_hline(
-    at.row = c(4), row.side = "bottom", linewidth = 3, linetype = 1) 
-
-Permanova_table
-
-Pairwsie_permanova <- data.frame(
-  pairwise$p.value, check.names = F)%>% round(.,digits = 3) %>%replace(
-  is.na(.), "-")  %>% rownames_to_column(
-    var="Type") %>% ggtexttable(., rows = NULL, theme = ttheme("blank")) %>%
-  tab_add_hline(at.row = 1:2, row.side = "top", linewidth = 2)%>%
-  table_cell_font(., row = 4, column = 2, face = "bold") %>% 
-  table_cell_font(., row = 5, column = 2, face = "bold") %>% 
-  table_cell_font(., row = 5, column = 3, face = "bold") %>% 
-  table_cell_font(., row = 4, column = 3, face = "bold") %>% 
-  table_cell_font(., row = 5, column = 5, face = "bold") %>% 
-  table_cell_font(., row = 5, column = 4, face = "bold")  %>% 
-  table_cell_font(., row = 2:5, column = 1, face = "bold")  %>%   
-  tab_add_hline(at.row = c(5), row.side = "bottom",
-                linewidth = 3, linetype = 1) %>%
-  tab_add_footnote(text =
-  "*p values in Bold are significant using \n an alpha value of 0.05", 
-  size = 10, face = "italic")
-Pairwsie_permanova
-
-## Cluster
-library(remotes)
-
-table_grouped <- read.csv("../Data/otutable-taxonomy_ultima.csv", row.names = 1)
-d.pro.g <-cmultRepl(t(table_grouped), label = 0, 
-                    method = "CZM", output = "p-counts",
-                    delta = 0.65, threshold = 0.5)
-d.clr.abund.codaseq.g<-codaSeq.clr(x = d.pro.g,samples.by.row = F)
-
-dd <- dist(d.clr.abund.codaseq, method="euclidian")
-
-# cluster the data
-hc <- hclust(dd, method="ward.D2")
-
-
-plot(hc)
-
-#ggsave("hc.jpeg", width=5.5, height=4.5, dpi=300)
 ```
 

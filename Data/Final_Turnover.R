@@ -1,0 +1,121 @@
+# Get work directory 
+setwd("~/Documents/MICROBIOTA REPTILES/PAPERS 2022/Second Article/Integrative_Zoology")
+
+library(hillR)
+library(dplyr)
+library(tidyverse)
+library(vegan)
+library(ggplot2)
+library(ggpubr)
+library(hilldiv)
+
+# Load files
+otutable <- read.csv("feature_table.csv", check.names = F, row.names = 1)
+metadata <- read.csv("metadata.csv", check.names = F)
+
+#q0_hillr <- hill_taxa_parti_pairwise(t(otutable), q = 0) %>% 
+#  mutate(recambio = TD_beta-1)
+#q1 <- hill_taxa_parti_pairwise(t(otutable), q = 1)%>% 
+#  mutate(recambio = TD_beta-1)
+#q2 <- hill_taxa_parti_pairwise(t(otutable), q = 2)%>% 
+#  mutate(recambio = TD_beta-1)
+
+#q0m <- hill_taxa_parti_pairwise(t(otutable), q = 0, output = "matrix", pairs = "full")
+#q1m <- hill_taxa_parti_pairwise(t(otutable), q = 1, output = "matrix", pairs = "full")
+#q2m <- hill_taxa_parti_pairwise(t(otutable), q = 2, output = "matrix", pairs = "full")
+
+###################################
+## Calculate turnover ratio (q0) ##
+###################################
+q0 <- pair_dis(otutable, qvalue = 0, metric = "V")
+q0_df <- reshape2::melt(q0$L1_VqN, varnames=c("Site1", "Site2"), 
+                       value.name = "turnover", na.rm=TRUE)
+
+q0_df_meta <- q0_df %>% inner_join(metadata, by = c("Site1"="SampleID")) %>% 
+  inner_join(metadata, by = c("Site2" = "SampleID")) %>% mutate(
+    Types = paste0(SampleType.x, "vs", SampleType.y))
+#write.table(q0_df_meta, file="./TURNOVER_q0.txt", sep = "\t")
+
+# RATIO OF ASVs TURNOVER AT q=0
+beta <- read.csv("Inter_q0.csv", header = TRUE, check.names = F)
+titulo0 <- expression(paste("Ratio of ASVs Turnover (", italic("q"), "=0)"))
+
+Turnover_q0 <- ggbarplot(beta, x= "Non_lethal", y= "Turnover",
+                       color = "black",  width = 0.6, lwd=0.3,
+                       facet.by = "DT", fill = "Non_lethal",
+                       add = "mean_se") +
+  labs(x= element_blank(), y = titulo0) +
+  theme_gray() + theme(text = element_text (size = 13)) +
+  theme(legend.position = "right",
+        axis.ticks.x = element_blank(),
+        axis.text.x = element_blank()) +
+  scale_y_continuous(limits = c(0,1)) +
+  theme(legend.position = "top") +
+  scale_fill_manual(values=c("#E5DFD6","#DDE8E9"))
+
+print(Turnover_q0)
+ggsave("Turnover_q0.jpeg", width=3.8, height=3.5, dpi=300)
+
+###################################
+## Calculate turnover ratio (q1) ##
+###################################
+q1 <- pair_dis(otutable, qvalue = 1, metric = "V")
+q1_df <- reshape2::melt(q1$L1_VqN, varnames=c("Site1", "Site2"), 
+                        value.name = "turnover", na.rm=TRUE)
+
+q1_df_meta <- q1_df %>% inner_join(metadata, by = c("Site1"="SampleID")) %>% 
+  inner_join(metadata, by = c("Site2" = "SampleID")) %>% mutate(
+    Types = paste0(SampleType.x, "vs", SampleType.y))
+#write.table(q1_df_meta, file="./TURNOVER_q1.txt", sep = "\t")
+
+# RATIO OF ASVs TURNOVER AT q=1
+beta_q1 <- read.csv("Inter_q1.csv", header = TRUE, check.names = F)
+titulo1 <- expression(paste("Ratio of ASVs Turnover (", italic("q"), "=1)"))
+
+Turnover_q1 <- ggbarplot(beta_q1, x= "Non_lethal", y= "Turnover",
+                         color = "black",  width = 0.6, lwd=0.3,
+                         facet.by = "DT", fill = "Non_lethal",
+                         add = "mean_se") +
+  labs(x= element_blank(), y = titulo1) +
+  theme_gray() + theme(text = element_text (size = 13)) +
+  theme(legend.position = "right",
+        axis.ticks.x = element_blank(),
+        axis.text.x = element_blank()) +
+  scale_y_continuous(limits = c(0,1)) +
+  theme(legend.position = "top") +
+  scale_fill_manual(values=c("#E5DFD6","#DDE8E9"))
+
+print(Turnover_q1)
+ggsave("Turnover_q1.jpeg", width=3.8, height=3.5, dpi=300)
+
+###################################
+## Calculate turnover ratio (q2) ##
+###################################
+q2 <- pair_dis(otutable, qvalue = 2, metric = "V")
+q2_df <- reshape2::melt(q2$L1_VqN, varnames=c("Site1", "Site2"), 
+                        value.name = "turnover", na.rm=TRUE)
+
+q2_df_meta <- q2_df %>% inner_join(metadata, by = c("Site1"="SampleID")) %>% 
+  inner_join(metadata, by = c("Site2" = "SampleID")) %>% mutate(
+    Types = paste0(SampleType.x, "vs", SampleType.y))
+#write.table(q2_df_meta, file="./TURNOVER_q2.txt", sep = "\t")
+
+# RATIO OF ASVs TURNOVER AT q=1
+beta_q2 <- read.csv("Inter_q2.csv", header = TRUE, check.names = F)
+titulo2 <- expression(paste("Ratio of ASVs Turnover (", italic("q"), "=2)"))
+
+Turnover_q2 <- ggbarplot(beta_q2, x= "Non_lethal", y= "Turnover",
+                         color = "black",  width = 0.6, lwd=0.3,
+                         facet.by = "DT", fill = "Non_lethal",
+                         add = "mean_se") +
+  labs(x= element_blank(), y = titulo2) +
+  theme_gray() + theme(text = element_text (size = 13)) +
+  theme(legend.position = "right",
+        axis.ticks.x = element_blank(),
+        axis.text.x = element_blank()) +
+  scale_y_continuous(limits = c(0,1)) +
+  theme(legend.position = "top") +
+  scale_fill_manual(values=c("#E5DFD6","#DDE8E9"))
+
+print(Turnover_q2)
+ggsave("Turnover_q2.jpeg", width=3.8, height=3.5, dpi=300)

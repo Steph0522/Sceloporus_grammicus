@@ -18,37 +18,29 @@ output:
 # Venn-Diagram
 ```{r, warning=FALSE, message=FALSE, eval=FALSE}
 
-#core qiime1
 library(tidyverse)
-# Loading files
 
 # Core microbiota (50%)
-swab_50 <- read.delim("../Data/core_otus_50swab.txt",
-                      check.names = F, skip = 1) %>%rownames_to_column(
-                        var = "ids") 
-feces_50 <- read.delim("../Data/core_otus_50_feces.txt",
-                       check.names = F, skip = 1) %>%rownames_to_column(
-                         var = "ids") 
-rectum_50 <- read.delim("../Data/core_otus_50_rectum.txt",
-                        check.names = F, skip = 1) %>%rownames_to_column(
-                          var = "ids") 
-smallint_50 <- read.delim("../Data/core_otus_50_smallintestine.txt",
-                          check.names = F, skip = 1) %>%rownames_to_column(
-                            var = "ids") 
-stomach_50 <- read.delim("core_otus_50_stomach.txt",
-                         check.names = F, skip = 1) %>%rownames_to_column(
-                           var = "ids") 
+cloaca_50 <- read.csv("../Data/Core_50_Cloaca.csv",
+                      check.names = F)
+feces_50 <- read.csv("../Data/Core_50_Feces.csv",
+                     check.names = F)
+rectum_50 <- read.csv("../Data/Core_50_Rectum.csv",
+                      check.names = F)
+intestine_50 <- read.csv("../Data/Core_50_SmallIntestine.csv",
+                         check.names = F) 
+stomach_50 <- read.delim("Core_50_Stomach.csv",
+                         check.names = F)
 
 # Create Venn Diagramm
-
 library(VennDiagram)
 
 venn.plot_50 <- venn.diagram(
-  x = list(Swab = swab_50$ids,
-           Feces = feces_50$ids,
-           Rectum = rectum_50$ids,
-           Intestine = smallint_50$ids,
-           Stomach = stomach_50$ids),
+  x = list(Cloaca = cloaca_50$OTUID,
+           Feces = feces_50$OTUID,
+           Rectum = rectum_50$OTUID,
+           Intestine = intestine_50$OTUID,
+           Stomach = stomach_50$OTUID),
   category.names = c(
     expression(bold("Cloaca")),
     expression(bold("Feces")),
@@ -64,7 +56,7 @@ venn.plot_50 <- venn.diagram(
   units = "px",
   lwd = 6,
   lty = "blank",
-  fill = c("yellow", "purple", "green", "black", "red"),
+  fill = c("#888888", "#D55E00", "#44AA99", "#DDCC77", "#CC6677"),
   cex = 1.5,
   fontface = "bold",
   fontfamily = "sans",

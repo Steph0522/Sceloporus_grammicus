@@ -1,5 +1,5 @@
 ---
-title: "Bearplots"
+title: "Barplots"
 author:
 - Stephanie Hereira, Centro Tlaxcala de Biología de la Conducta, UATx
 - Mauricio Hernández, Doctorado en CB, Centro Tlaxcala de Biología de la Conducta, UATx
@@ -23,144 +23,146 @@ output:
 library(phyloseq)
 library(ggplot2)
 library(vegan)
+library(picante)
 library(ape)
 library(devtools)
+library(vegan)
+library("RColorBrewer")
 library(scales)
 library(grid)
 library(reshape2)
 library(dplyr)
 library(scales)
 library(viridis)
+library(hrbrthemes)
+library(gcookbook)
 library(tidyverse)
-library(microbiome)
 library(dplyr)
-library(RColorBrewer)
 
+# Nota: merge_phyloseq combina la información de todas las tablas.
 
-metadata <- read.csv(file = "../Data/Metadatos1.csv",
-                     header = TRUE, row.names = 1)
-otu_table <- read.csv("../Data/otutable-taxonomy_ultima.csv",
-                      header = TRUE, row.names = 1)
-taxonomy <- read.delim("../Data/taxonomy_ultima.txt", 
-                       header = TRUE, row.names = 1)
+metadata <- read.csv(file = "../Data/metadata.csv", header = TRUE, row.names = 1) %>% dplyr::select(Ind:Ta)
+otu_table <- read.csv("../Data/feature_table.csv", header = TRUE, row.names = 1)
+taxonomy <- read.csv("../Data/taxonomy.csv", header = TRUE, row.names = 1) %>% 
+  mutate_at(c("Phylum"), str_replace,"p__", "")
+#phylo<-read.tree(file = "tree.nwk") 
 
+# Crear objeto de categoría phyloseq
 SAM <- sample_data(metadata)
 TAX <- tax_table(as.matrix(taxonomy))
-OTU <- otu_table(otu_table, taxa_are_rows=TRUE)  
+OTU <- otu_table(otu_table, taxa_are_rows = TRUE)  
+#PHY<-phy_tree(phylo)
 physeq <- merge_phyloseq(OTU, TAX, SAM)
 
 
-sample_names(physeq)
-rank_names(physeq)
-sample_variables(physeq)
 
+# Convertir los recuentos de OTUs en abundancias relativas y normalizar  
+# la abundacia de cada OTU
 relative  = transform_sample_counts(physeq = physeq, function(OTU) OTU / sum(OTU))
 
-physeq_sub <- subset_taxa(physeq, !is.na(Kingdom) & !Kingdom %in% c("", "Unassigned"))
-physeq_sub <- subset_taxa(physeq, !is.na(Genus) & !Genus %in% c("", "Unassigned"))
+# Remover las bacterias sin identificacion a nivel Kingdom
+physeq_sub1 <- subset_taxa(physeq, !is.na(Kingdom) & !Kingdom %in% c("", "Unassigned"))
+physeq_sub2 <- subset_taxa(physeq, !is.na(Genus) & !Genus %in% c("", "Unassigned"))
 
-paleta <- c(brewer.pal(9, "Set1")[1:9], "blue")
+################################################################################
+# Abundancia relativa por muestra a nivel de phylum (Original paper)
+# Genera paleta de colores
+library(rcartocolor)
+my_colors = carto_pal(12, "Safe")
+my_colors
+blind_pal <- c("#88CCEE", "#CC6677", "#DDCC77", "#117733", "#332288", "#AA4499", 
+               "#44AA99", "#999933", "#888888", "#661100", "#6699CC", "#E69F00")
 
-Samples_DT_Phylum_grammicus <- plot_bar(physeq = relative, "Sample", fill = "Phylum")+ 
-  facet_grid(~factor(SampleType, levels = c(
-    "Stomach", "Small intestine", "Rectum",
-    "Swab","Feces"), labels= c("Stomach", "Small intestine", 
-                               "Rectum", "Cloaca", "Feces")), 
-    scales = "free", space = "free") +
+Phylum_RelAbund <- plot_bar(physeq = relative, "Sample", fill = "Phylum") + 
+  facet_grid(~factor(SampleType, levels = c("Stomach", "Small intestine", "Rectum", "Cloaca","Feces"),
+                                            labels= c("Stomach", "Small intestine", "Rectum", "Cloaca", "Feces")), 
+             scales = "free", space = "free") +
   labs(y="Relative abundance") +
   geom_bar(stat = "identity", position="stack", res=300) +
-  scale_fill_manual(values = paleta)+theme(strip.text.x = element_text(face = "bold"),
+  scale_fill_manual(values = blind_pal)+ theme(strip.text.x = element_text(face = "bold"),
                                            axis.title.y = element_text(face = "bold")) +
   theme(text = element_text(size = 10))  
 
-print(Samples_DT_Phylum_grammicus)
+print(Phylum_RelAbund)
 #ggsave("Samples_DT_Phylum_grammicus.png", width=7.2, height=4.5, dpi=300)
 ```
 
 ## Genera
 ```{r}
-otutable <- read.csv("../Data/otutable-taxonomy_ultima.csv", row.names = 1)
-metadata <- read.csv("../Data/Metadatos1.csv", check.names = F)
-metadata$Ind <- as.factor(metadata$Ind)
-metadata$Library <- as.factor(metadata$Library)
-metadata$SampleType <- as.factor(metadata$SampleType)
-taxonomy <- read.delim("../Data/taxonomy_ultima.txt", check.names = F) %>%unite(
-  taxa, Kingdom:Species, remove = F, sep = ";")
 
-otutable_metadata <- otutable %>% rownames_to_column(var="#OTU ID") %>% 
-  inner_join(taxonomy)
-Genus_01 <- otutable_metadata %>% group_by(Genus) %>% summarise_if(is.numeric, sum)
-Genus_01<- Genus_01[c(-1:-2),]
-
-Genus_01 <- Genus_01 %>% column_to_rownames(var = "Genus")
-
-Genus.ra <- t(t(Genus_01)/colSums(Genus_01)*100)
-metadata <- read.csv(file = "../Data/Metadatos1.csv",
-                     header = TRUE, row.names = 1) %>% mutate(
-  SampleType=case_when(
-    SampleType=="Swab"~"Cloaca",
-    TRUE~as.character(SampleType)))
-
-otu_table <- read.csv(file = "../Data/otutable-taxonomy_ultima.csv",
-                      check.names = F) 
+metadata <- read.csv(file = "../Data/metadata.csv", header = TRUE, row.names = 1) %>% dplyr::select(Ind:Ta)
+otu_table <- read.csv(file = "../Data/feature_table.csv", check.names = F) 
 #taxonomy_raw<- read.csv(file = "Genus_Abun_Rel_Sg.csv", check.names = F)
-taxonomy <-  read.delim("../Data/taxonomy_ultima.txt", check.names = F) %>% mutate_at(
+taxonomy <-  read.csv("../Data/taxonomy.csv", check.names = F) %>% mutate_at(
   c("Genus"), str_replace,"g__", "")
 
-lista <- rowMeans(Genus.ra) %>% as.data.frame() %>% arrange(desc(.)) %>% slice_head(n=15) %>% rownames_to_column(
-  var = "Genus") %>% filter(!Genus =="g__") %>% filter(!Genus =="Unassigned") %>% filter(
-    !Genus =="g__[Clostridium]")%>% mutate_at(
-      c("Genus"), str_replace,"g__", "")
+
+otutable_metadata <- otu_table  %>% 
+  inner_join(taxonomy)
+
+################################################################################
+# Calcular la abundancia relativa por género y SampleID
+Genus_01 <- otutable_metadata %>% group_by(Genus) %>% summarise_if(is.numeric, sum)
+Genus_01 <- Genus_01[c(-1:-2),]
+
+
+Genus_01 <- Genus_01 %>% column_to_rownames(var = "Genus")
+Genus.ra <- t(t(Genus_01)/colSums(Genus_01)*100)
+lista <- rowMeans(Genus.ra) %>% as.data.frame() %>% arrange(desc(.)) %>% 
+  slice_head(n=13) %>% rownames_to_column(var = "Genus") %>% 
+  filter(!Genus =="g__") %>% filter(!Genus == "Unassigned") %>% 
+  mutate_at(c("Genus"), str_replace,"g__", "")
 list <- lista$Genus
+#lista01 <- read.csv(file = "lista.csv", check.names = F)
+list02 <- lista$Genus
+#write.table(lista, file="./lista.txt", sep = "\t")
 
-taxonomy_filter <- taxonomy %>% filter(Genus %in% list)
+taxonomy_filter <- taxonomy %>% filter(Genus %in% list02)
 taxonomy_1 <- taxonomy_filter %>% inner_join(otu_table, by =c(
-  "#OTU ID"="#OTU ID")) %>% dplyr::select(1:8)
+  "OTUID"="OTUID")) %>% dplyr::select(1:8)
 
-otu_table_1 <- read.csv(file = "../Data/otutable-taxonomy_ultima.csv", header = TRUE,
-                        row.names = 1) %>% rownames_to_column(
-                          var = "#OTU ID") %>% inner_join(
-                            taxonomy_1, by = "#OTU ID") %>% dplyr::select(
-                              -43:-49) %>% column_to_rownames(var = "#OTU ID")
+otu_table_1 <- read.csv(file = "../Data/feature_table.csv", header = TRUE,
+                        row.names = 1) %>% rownames_to_column(var = "OTUID") %>% 
+  inner_join(taxonomy_1, by = "OTUID") %>% dplyr::select(-52:-58) %>% 
+  column_to_rownames(var = "OTUID")
 
-taxo<- taxonomy_1 %>% column_to_rownames(var = "#OTU ID")
+taxo <- taxonomy_1 %>% column_to_rownames(var = "OTUID")
 
+# Crear objeto de categoría phyloseq
 SAM <- sample_data(metadata)
 TAX <- tax_table(as.matrix(taxo)) 
 OTU <- otu_table(otu_table_1, taxa_are_rows=TRUE)  
+#PHY<-phy_tree(phylo)
 physeq <- merge_phyloseq(OTU, TAX, SAM)
 
-sample_names(physeq)
-rank_names(physeq)
-sample_variables(physeq)
 
 
+# Convertir los recuentos de OTUs en abundancias relativas y normalizar  
+# la abundacia de cada OTU
 relative  = transform_sample_counts(physeq = physeq, function(OTU) OTU / sum(OTU))
 
+# Remover las bacterias sin identificacion a nivel Kingdom
 physeq_sub <- subset_taxa(physeq, !is.na(Kingdom) & !Kingdom %in% c("", "Unassigned"))
 physeq_sub <- subset_taxa(physeq, !is.na(Genus) & !Genus %in% c("", "Unassigned"))
 
-Samples_ID <- plot_bar(physeq = relative, fill = "Genus") +
-  labs(y="Relative abundance") +
-  geom_bar(stat = "identity", pisition="stack")
+################################################################################
+paleta <- c("#6699CC", "#CC6677", "#DDCC77", "#117733", "#332288", "#AA4499", 
+            "#44AA99", "#999933", "#888888", "#661100", "#88CCEE", "#E69F00",
+            "#004949")
 
-print(Samples_ID)
-
-
-paleta <- c(brewer.pal(12, "Paired")[1:12], brewer.pal(8, "Dark2")[1:8])
-print(paleta)
 
 Final_Genus_Sg <- plot_bar(physeq = relative, "Sample", fill = "Genus") +
-  facet_grid(~factor(SampleType, levels = c("Stomach", "Small intestine", 
-                                            "Rectum", "Cloaca", "Feces"),
-                     labels = c("Stomach", "Small intestine", "Rectum",
-                                "Cloaca", "Feces")),
-             scales = "free", space = "free") +
+  facet_grid(~factor(SampleType, levels = c("Stomach", "Small intestine", "Rectum", 
+                                            "Cloaca", "Feces"),
+                     labels = c("Stomach", "Small intestine", "Rectum", "Cloaca", 
+                                "Feces")), scales = "free", space = "free") +
   labs(y="Relative abundance") +
   geom_bar(stat = "identity", position = "stack", res=300) +
-  scale_fill_manual(values = paleta)+theme(legend.text = element_text(face = "italic"))+
-  scale_fill_manual(values = paleta)+theme(strip.text.x = element_text(face = "bold"),
-                                           axis.title.y = element_text(face = "bold")) +
+  scale_fill_manual(values = paleta) + 
+  theme(legend.text = element_text(face = "italic")) +
+  scale_fill_manual(values = paleta) + 
+  theme(strip.text.x = element_text(face = "bold"),
+        axis.title.y = element_text(face = "bold")) +
   theme(text = element_text(size = 10))
 
 print(Final_Genus_Sg)

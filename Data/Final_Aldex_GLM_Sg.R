@@ -1,0 +1,323 @@
+# Get work directory 
+setwd("~/Documents/MICROBIOTA REPTILES/PAPERS 2022/Second Article/Integrative_Zoology")
+
+library(tidyverse)
+library(compositions)
+library(zCompositions)
+library(CoDaSeq)
+
+otutable <- read.csv("feature_table.csv", check.names = F, row.names = 1)
+metadata <- read.csv("metadata.csv", check.names = F)
+taxonomy <- read.csv("taxonomy.csv", check.names = F)
+
+# Creas las tablas pareadas para las muestras letales y no letales
+# FECES VS STOMACH
+OTUT_FECES <- otutable %>% dplyr::select_at(vars(contains("M.H.")))
+OTUT_STOMACH <- otutable %>% dplyr::select_at(vars(contains("M.E.")))
+OTUT_fECES_STOMACH <- cbind(OTUT_FECES, OTUT_STOMACH)
+write.table(OTUT_fECES_STOMACH, file="./ALDEXGLM_fECES_STOMACH.txt", sep = "\t")
+
+# FECES VS INTESTINE
+OTUT_FECES <- otutable %>% dplyr::select_at(vars(contains("M.H.")))
+OTUT_INTESTINE <- otutable %>% dplyr::select_at(vars(contains("M.I.")))
+OTUT_fECES_INTESTINE <- cbind(OTUT_FECES, OTUT_INTESTINE)
+write.table(OTUT_fECES_INTESTINE, file="./ALDEXGLM_fECES_INTESTINE.txt", sep = "\t")
+
+# FECES VS RECTUM
+OTUT_FECES <- otutable %>% dplyr::select_at(vars(contains("M.H.")))
+OTUT_RECTUM <- otutable %>% dplyr::select_at(vars(contains("M.R.")))
+OTUT_fECES_RECTUM <- cbind(OTUT_FECES, OTUT_RECTUM)
+write.table(OTUT_fECES_RECTUM, file="./ALDEXGLM_fECES_RECTUM.txt", sep = "\t")
+
+# CLOACA VS STOMACH
+OTUT_CLOACA <- otutable %>% dplyr::select_at(vars(contains("M.HC.")))
+OTUT_STOMACH <- otutable %>% dplyr::select_at(vars(contains("M.E.")))
+OTUT_CLOACA_STOMACH <- cbind(OTUT_CLOACA, OTUT_STOMACH)
+write.table(OTUT_CLOACA_STOMACH, file="./ALDEXGLM_CLOACA_STOMACH.txt", sep = "\t")
+
+# CLOACA VS INTESTINE
+OTUT_CLOACA <- otutable %>% dplyr::select_at(vars(contains("M.HC.")))
+OTUT_INTESTINE <- otutable %>% dplyr::select_at(vars(contains("M.I.")))
+OTUT_CLOACA_INTESTINE <- cbind(OTUT_CLOACA, OTUT_INTESTINE)
+write.table(OTUT_CLOACA_INTESTINE, file="./ALDEXGLM_CLOACA_INTESTINE.txt", sep = "\t")
+
+# CLOACA VS RECTUM
+OTUT_CLOACA <- otutable %>% dplyr::select_at(vars(contains("M.HC.")))
+OTUT_RECTUM <- otutable %>% dplyr::select_at(vars(contains("M.R.")))
+OTUT_CLOACA_RECTUM <- cbind(OTUT_CLOACA, OTUT_RECTUM)
+write.table(OTUT_CLOACA_RECTUM, file="./ALDEXGLM_CLOACA_RECTUM.txt", sep = "\t")
+
+Feces_Stomach <- read.delim("ALDEXGLM_fECES_STOMACH.txt", check.names = F, row.names = 1)
+Feces_Intestine <- read.delim("ALDEXGLM_fECES_INTESTINE.txt", check.names = F, row.names = 1)
+Feces_Rectum <- read.delim("ALDEXGLM_fECES_RECTUM.txt", check.names = F, row.names = 1)
+Cloaca_Stomach <- read.delim("ALDEXGLM_CLOACA_STOMACH.txt", check.names = F, row.names = 1)
+Cloaca_Intestine <- read.delim("ALDEXGLM_CLOACA_INTESTINE.txt", check.names = F, row.names = 1)
+Cloaca_Rectum <- read.delim("ALDEXGLM_CLOACA_RECTUM.txt", check.names = F, row.names = 1)
+
+library(ALDEx2)
+############################
+### Feces versus Stomach ###
+############################
+covar_FvsS <- metadata %>% filter(SampleType=="Feces"|SampleType=="Stomach") %>% 
+  column_to_rownames(var = "SampleID") %>% dplyr::select(
+  Ind, SampleType) %>% mutate(Type= case_when(
+    SampleType=="Feces"~ 0,
+    SampleType=="Stomach"~1)) %>% rownames_to_column(var = "id") %>% 
+  arrange(desc(id)) %>% column_to_rownames(var = "id")
+matrix_FvsS <- model.matrix(~SampleType+Ind, data = covar_FvsS)
+
+aldex_clr_FvsS <- aldex.clr(Feces_Stomach, matrix_FvsS, mc.samples = 1000, 
+                            denom = "all")
+aldex_glm_FvsS <- aldex.glm(aldex_clr_FvsS, matrix_FvsS)
+aldex_effect_FvsS <- aldex.glm.effect(aldex_clr_FvsS)
+
+aldex_effect_FvsS_type <- as.data.frame(aldex_effect_FvsS) %>% 
+  rownames_to_column(var = "OTUID")
+
+aldex_table_FvsS <- aldex_glm_FvsS %>% dplyr::select(
+  pvalue="model.SampleTypeStomach Pr(>|t|)") %>% filter(
+    pvalue<0.05) %>% rownames_to_column(var = "OTUID") %>% inner_join(taxonomy) %>%
+  inner_join(aldex_effect_FvsS_type)
+
+write.table(aldex_table_FvsS, file="./GLMaldexFvsS.txt", sep = "\t")
+
+####################################
+### Feces versus Small intestine ###
+####################################
+covar_FvsI <- metadata %>% filter(SampleType=="Feces"|SampleType=="Small intestine") %>% 
+  column_to_rownames(var = "SampleID") %>% dplyr::select(
+  Ind, SampleType) %>% mutate(Type= case_when(
+    SampleType=="Feces"~ 0,
+    SampleType=="Small intestine"~1)) %>% rownames_to_column(var = "id") %>% 
+  arrange((id)) %>% column_to_rownames(var = "id")
+matrix_FvsI <- model.matrix(~SampleType+Ind, data = covar_FvsI)
+
+aldex_clr_FvsI <- aldex.clr(Feces_Intestine, matrix_FvsI, mc.samples = 1000, 
+                           denom = "all")
+aldex_glm_FvsI <- aldex.glm(aldex_clr_FvsI, matrix_FvsI)
+aldex_effect_FvsI <- aldex.glm.effect(aldex_clr_FvsI)
+
+aldex_effect_FvsI_type <- as.data.frame(aldex_effect_FvsI) %>%
+  rownames_to_column(var = "OTUID")
+aldex_table_FvsI <-  aldex_glm_FvsI %>% dplyr::select(
+  pvalue="model.SampleTypeSmall intestine Pr(>|t|)") %>% filter(
+    pvalue<0.05) %>% rownames_to_column(var = "OTUID")  %>% 
+  inner_join(taxonomy) %>% inner_join(aldex_effect_FvsI_type)
+
+write.table(aldex_table_FvsI, file="./GLMaldexFvsI.txt", sep = "\t")
+
+###########################
+### Feces versus Rectum ###
+###########################
+covar_FvsR <- metadata %>% filter(SampleType=="Feces"|SampleType=="Rectum") %>% 
+  column_to_rownames(var = "SampleID") %>% dplyr::select(
+  Ind, SampleType) %>% mutate(Type= case_when(
+    SampleType=="Feces"~ 0,
+    SampleType=="Rectum"~1)) %>% rownames_to_column(var = "id") %>% 
+  arrange((id)) %>% column_to_rownames(var = "id")
+matrix_FvsR <- model.matrix(~SampleType+Ind, data = covar_FvsR)
+
+aldex_clr_FvsR <- aldex.clr(Feces_Rectum, matrix_FvsR, mc.samples = 1000, 
+                           denom = "all")
+aldex_glm_FvsR <- aldex.glm(aldex_clr_FvsR, matrix_FvsR)
+aldex_effect_FvsR <- aldex.glm.effect(aldex_clr_FvsR)
+
+aldex_effect_FvsR_type <- as.data.frame(aldex_effect_FvsR) %>% 
+  rownames_to_column(var = "OTUID")
+aldex_table_FvsR <-  aldex_glm_FvsR %>% dplyr::select(
+  pvalue="model.SampleTypeRectum Pr(>|t|)") %>% filter(
+    pvalue<0.05) %>% rownames_to_column(var = "OTUID")  %>% inner_join(taxonomy) %>%
+  inner_join(aldex_effect_FvsR_type)
+
+write.table(aldex_table_FvsR, file="./GLMaldexFvsR.txt", sep = "\t")
+
+#############################
+### Cloaca versus Stomach ###
+#############################
+covar_CvsS <- metadata %>% filter(SampleType=="Cloaca"|SampleType=="Stomach") %>% 
+  column_to_rownames(var = "SampleID") %>% dplyr::select(
+  Ind, SampleType) %>% mutate(SampleType= case_when(
+    SampleType=="Swab"~ "Cloaca",
+    TRUE ~ as.character(SampleType))) %>% mutate(Type= case_when(
+      SampleType=="Cloaca"~ 0,
+      SampleType=="Stomach"~1)) %>% rownames_to_column(var = "id") %>% 
+  arrange(desc(id)) %>% column_to_rownames(var = "id")
+matrix_CvsS <- model.matrix(~SampleType+Ind, data = covar_CvsS)
+
+aldex_clr_CvsS <- aldex.clr(Cloaca_Stomach, matrix_CvsS, mc.samples = 1000, 
+                           denom = "all")
+aldex_glm_CvsS <- aldex.glm(aldex_clr_CvsS, matrix_CvsS)
+aldex_effect_CvsS <- aldex.glm.effect(aldex_clr_CvsS)
+
+aldex_effect_CvsS_type <- as.data.frame(aldex_effect_CvsS) %>%
+  rownames_to_column(var = "OTUID")
+aldex_table_CvsS <-  aldex_glm_CvsS %>% dplyr::select(
+  pvalue="model.SampleTypeStomach Pr(>|t|)") %>% filter(
+    pvalue<0.05) %>% rownames_to_column(var = "OTUID")  %>% 
+  inner_join(taxonomy) %>% inner_join(aldex_effect_CvsS_type)
+
+write.table(aldex_table_CvsS, file="./GLMaldexCvsS.txt", sep = "\t")
+
+#####################################
+### Cloaca versus Small intestine ###
+#####################################
+covar_CvsI <- metadata %>% 
+  filter(SampleType=="Cloaca"|SampleType=="Small intestine") %>%
+  column_to_rownames(var = "SampleID") %>% dplyr::select(
+  Ind, SampleType) %>% mutate(SampleType= case_when(
+    SampleType=="Swab"~ "Cloaca",
+    TRUE ~ as.character(SampleType)))%>% mutate(Type= case_when(
+    SampleType=="Cloaca"~ 0,
+    SampleType=="Small intestine"~1)) %>% rownames_to_column(var = "id") %>% 
+  arrange((id)) %>% column_to_rownames(var = "id")
+matrix_CvsI <- model.matrix(~SampleType+Ind, data = covar_CvsI)
+
+aldex_clr_CvsI <- aldex.clr(Cloaca_Intestine, matrix_CvsI, mc.samples = 1000, 
+                           denom = "all")
+aldex_glm_CvsI <- aldex.glm(aldex_clr_CvsI, matrix_CvsI)
+aldex_effect_CvsI <- aldex.glm.effect(aldex_clr_CvsI)
+
+aldex_effect_CvsI_type <- as.data.frame(aldex_effect_CvsI) %>%
+  rownames_to_column(var = "OTUID")
+aldex_table_CvsI <-  aldex_glm_CvsI %>% dplyr::select(
+  pvalue="model.SampleTypeSmall intestine Pr(>|t|)") %>% filter(
+    pvalue<0.05) %>% rownames_to_column(var = "OTUID")  %>% 
+  inner_join(taxonomy) %>% inner_join(aldex_effect_CvsI_type)
+
+write.table(aldex_table_CvsI, file="./GLMaldexCvsI.txt", sep = "\t")
+
+############################
+### Cloaca versus Rectum ###
+############################
+covar_CvsR <- metadata %>% filter(SampleType=="Cloaca"|SampleType=="Rectum") %>% 
+  column_to_rownames(var = "SampleID") %>% dplyr::select(
+  Ind, SampleType) %>% mutate(SampleType= case_when(
+    SampleType=="Swab"~ "Cloaca",
+    TRUE ~ as.character(SampleType)))%>% mutate(Type= case_when(
+      SampleType=="Cloaca"~ 0,
+      SampleType=="Rectum"~1)) %>% rownames_to_column(var = "id") %>% 
+  arrange((id)) %>% column_to_rownames(var = "id")
+matrix_CvsR <- model.matrix(~SampleType+Ind, data = covar_CvsR)
+
+aldex_clr_CvsR <- aldex.clr(Cloaca_Rectum, matrix_CvsR, mc.samples = 1000, 
+                           denom = "all")
+aldex_glm_CvsR <- aldex.glm(aldex_clr_CvsR, matrix_CvsR)
+aldex_effect_CvsR <- aldex.glm.effect(aldex_clr_CvsR)
+
+aldex_effect_CvsR_type <- as.data.frame(aldex_effect_CvsR) %>%
+  rownames_to_column(var = "OTUID")
+aldex_table_CvsR <-  aldex_glm_CvsR %>% dplyr::select(
+  pvalue="model.SampleTypeRectum Pr(>|t|)") %>% filter(
+    pvalue<0.05) %>% rownames_to_column(var = "OTUID") %>%
+  inner_join(taxonomy)%>% inner_join(aldex_effect_CvsR_type)
+
+write.table(aldex_table_CvsR, file="./GLMaldexCvsR.txt", sep = "\t")
+
+################################################################################
+# Graficar Feces vs DT segments
+GLMaldexFvsS <- read.delim("GLMaldexFvsS.txt", check.names = F)
+GLMaldexFvsI <- read.delim("GLMaldexFvsI.txt", check.names = F)
+GLMaldexFvsR <- read.delim("GLMaldexFvsR.txt", check.names = F)
+
+p1 <- GLMaldexFvsS %>% mutate(Type = case_when(
+    diff.btw >0  ~"Stomach", diff.btw <0 ~"Feces")) %>% 
+  mutate(Compare="Feces vs Stomach") %>% rename(Other="Stomach")
+
+p2 <- GLMaldexFvsI %>% mutate(Type = case_when(
+  diff.btw >0  ~"Small intestine", diff.btw <0 ~"Feces")) %>% 
+  mutate(Compare="Feces vs Small intestine") %>% rename(Other="Small intestine")
+
+p3 <- GLMaldexFvsR %>% mutate(Type = case_when(
+  diff.btw >0  ~"Rectum", diff.btw <0 ~"Feces")) %>% 
+  mutate(Compare="Feces vs Rectum") %>% rename(Other="Rectum")
+
+pn <- rbind(p1, p2, p3)
+
+plot1 <- pn %>% arrange(diff.btw) %>% #filter(!effect>abs(1)) %>% 
+  ggplot(., aes(x=diff.btw, y=reorder(taxonomy, diff.btw), fill=Type)) + 
+  geom_bar(stat = "identity", width = 0.5) + 
+  facet_wrap(~Compare, ncol = 1, scales = "free") +
+  theme(text = element_text(size = 15)) + 
+  ylab("Differential abundance of bacterial ASVs") +
+  scale_y_discrete(expand = c(0,0))
+
+plot2_1 <- pn %>% arrange(diff.btw) %>% #filter(!effect>abs(1)) %>% 
+  ggplot(., aes(x=diff.btw, y=reorder(taxonomy, diff.btw), fill=Type)) + 
+  geom_segment(aes(yend=reorder(taxonomy, diff.btw), xend=0), size=1) + 
+  geom_point(size=4, aes(colour=Type)) +
+  facet_wrap(~Compare, ncol = 1, scales = "free") + 
+  theme(text = element_text(size = 15),
+        axis.title.y = element_text(face = "bold"),
+        legend.position = "right") +
+  ylab("Differential abundance of bacterial ASVs") + scale_color_manual(
+    values = c("#D55E00","#44AA99", "#DDCC77", "#CC6677")) +
+  xlab("Median difference in clr values") 
+print(plot2_1)
+
+# Graficar Cloaca vs DT segments 
+GLMaldexCvsS <- read.delim("GLMaldexCvsS.txt", check.names = F)
+GLMaldexCvsI <- read.delim("GLMaldexCvsI.txt", check.names = F)
+GLMaldexCvsR <- read.delim("GLMaldexCvsR.txt", check.names = F)
+
+C1 <- GLMaldexCvsS %>% mutate(Type = case_when(
+  diff.btw >0 ~"Stomach", diff.btw <0 ~"Cloaca")) %>% 
+  mutate(Compare="Cloaca vs Stomach") %>% 
+  dplyr::select(everything(),Other= "Stomach")
+
+C2 <- GLMaldexCvsI %>% mutate(Type = case_when(
+  diff.btw >0 ~"Small intestine", diff.btw <0 ~"Cloaca")) %>% 
+  mutate(Compare="Cloaca vs Small intestine") %>% dplyr::rename(
+    Other="Small intestine")
+
+C3 <- GLMaldexCvsR %>% mutate(Type = case_when(
+  diff.btw >0  ~"Rectum", diff.btw <0 ~"Cloaca")) %>% 
+  mutate(Compare="Cloaca vs Rectum") %>% dplyr::rename(Other="Rectum")
+
+CN <- rbind(C1,C2,C3)
+
+plot2 <- CN %>% arrange(diff.btw) %>% #filter(!effect>abs(1)) %>% 
+  ggplot(., aes(x=diff.btw, y=reorder(taxonomy, diff.btw), fill=Type)) + 
+  geom_bar(stat = "identity", width = 0.8) + 
+  facet_wrap(~Compare, ncol = 1, scales = "free") +
+  theme(text = element_text(size = 15))
+
+plot2_2 <- CN %>% arrange(diff.btw) %>% #filter(!effect>abs(1)) %>% 
+  ggplot(., aes(x=diff.btw, y=reorder(taxonomy, diff.btw), fill=Type)) + 
+  geom_segment(aes(yend=reorder(taxonomy, diff.btw), xend=0), size=1) + 
+  geom_point(size=4, aes(colour=Type)) +
+  facet_wrap(~Compare, ncol = 1, scales = "free") + 
+  theme(text = element_text(size = 15)) +
+  ylab("") + scale_color_manual(
+    values = c("#888888","#44AA99", "#DDCC77", "#CC6677")) +
+  xlab("Median difference in clr values")
+print(plot2_2)
+
+# Create legend
+library(ggpubr)
+alpha <- read.csv("Hill_numbers_q012.csv") %>% dplyr::select(SampleID, q0, q1, q2)
+metadata <- read.csv("metadata.csv",check.names = F) 
+alpha <- alpha %>% inner_join(metadata, by = c("SampleID"="SampleID"))
+
+leg_order <- c("Stomach", "Small intestine", "Rectum", "Feces", "Cloaca")
+leg <- alpha %>% ggplot(aes(x = factor(SampleType, level=leg_order), y = q1, 
+                             color=factor(SampleType, level=leg_order))) + 
+  geom_point(size=4) +
+  scale_color_manual(values = c("#CC6677","#DDCC77","#44AA99", "#D55E00", "#888888")) +
+  theme(legend.position = "top", legend.direction = "horizontal", 
+        legend.title = element_blank(), legend.text = element_text(size = 16))
+legends <- get_legend(leg)
+
+#plot2
+library(cowplot)
+leg2 <- plot_grid(NULL, legends, NULL, ncol = 3)
+b <- plot_grid(plot2_1 + theme(legend.position = "none"), 
+               plot2_2 + theme(legend.position = "none"),
+               rel_widths = c(1,1))
+
+plot_aldex <- plot_grid(plot2_1 + theme(legend.position = "none"), 
+               plot2_2 + theme(legend.position = "none"),
+             rel_widths = c(1,1))
+
+plot_aldex <- plot_grid(leg2, b, nrow = 2, rel_heights = c(0.1,1))
+plot_aldex 
+ggsave(plot = plot_aldex, "Plot_ALDEX2glm.jpg", width = 12, height = 12.5)

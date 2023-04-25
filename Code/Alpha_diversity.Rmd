@@ -19,23 +19,28 @@ output:
 
 ## Alpha taxonomic barplots
 ```{r, warning=FALSE, message=FALSE}
-## Loading libraries and files
+Hill <- read.csv(file = "../Data/feature_table.csv", header = TRUE, row.names = 1)
+
+# Calcular la diversidad a los diferentes órdenes
+library(hillR) 
+q0 <- hill_taxa(comm = t(Hill), q = 0)
+q1 <- hill_taxa(comm = t(Hill), q = 1)
+q2 <- hill_taxa(comm = t(Hill), q = 2)
+Hill_div <- cbind(q0, q1, q2)
+#write.table(Hill_div, file="./HillTaxa_Div.txt", sep = "\t")
+
+## ALPHA DIVERSITY
 library(tidyverse)
 library(ggpubr)
 
 #loading files
-alpha <- read.csv("../Data/Hill_numbers_q012.csv") %>% dplyr::select(SampleID, q0, q1, q2)
-
-metadata <- read.csv("../Data/Metadatos1.csv",check.names = F) %>% mutate(
- SampleType=case_when(
-SampleType=="Swab"~"Cloaca",
- TRUE~as.character(SampleType)))
-alpha <- alpha %>% inner_join(metadata, by = c("SampleID"="SampleID"))
+alpha <- Hill_div %>% as.data.frame() %>% rownames_to_column(var = "SampleID") %>%  dplyr::select(SampleID, q0, q1, q2)
+metadata <- read.csv("../Data/metadata.csv", check.names = F) %>% dplyr::select(SampleID:Ta)
+alpha <- alpha %>% inner_join(metadata)
 ```
 
 
 ```{r, warning=FALSE, message=FALSE}
-# Normality test
 shapiro.test(x =alpha$q0)
 shapiro.test(x =alpha$q1)
 shapiro.test(x =alpha$q2)
@@ -45,424 +50,262 @@ hist(alpha$q1)
 hist(alpha$q2)
 # Data are not normal
 
+# Paired test (Wilcoxon) (q0)
+feces <- subset(alpha, SampleType== "Feces", q0, drop = TRUE)
+cloaca <- subset(alpha, SampleType== "Cloaca", q0, drop = TRUE)
+stomach <-  subset(alpha, SampleType== "Stomach", q0, drop = TRUE)
+intestine <- subset(alpha, SampleType== "Small intestine", q0, drop = TRUE)
+rectum <-  subset(alpha, SampleType== "Rectum", q0, drop = TRUE)
 
+FvsS_q0 <- wilcox.test(x= feces, y= stomach, paired = TRUE)
+FvsI_q0 <- wilcox.test(x= feces, y= intestine, paired = TRUE)
+FvsR_q0 <- wilcox.test(x= feces, y= rectum, paired = TRUE)
+CvsS_q0 <- wilcox.test(x= cloaca, y= stomach, paired = TRUE)
+CvsI_q0 <- wilcox.test(x= cloaca, y= intestine, paired = TRUE)
+CvsR_q0 <- wilcox.test(x= cloaca, y= rectum, paired = TRUE)
+
+# Paired test (Wilcoxon) (q1)
+feces1 <- subset(alpha, SampleType== "Feces", q1, drop = TRUE)
+cloaca1 <- subset(alpha, SampleType== "Cloaca", q1, drop = TRUE)
+stomach1 <-  subset(alpha, SampleType== "Stomach", q1, drop = TRUE)
+intestine1 <- subset(alpha, SampleType== "Small intestine", q1, drop = TRUE)
+rectum1 <-  subset(alpha, SampleType== "Rectum", q1, drop = TRUE)
+
+FvsS_q1 <- wilcox.test(x= feces1, y= stomach1, paired = TRUE)
+FvsI_q1 <- wilcox.test(x= feces1, y= intestine1, paired = TRUE)
+FvsR_q1 <- wilcox.test(x= feces1, y= rectum1, paired = TRUE)
+CvsS_q1 <- wilcox.test(x= cloaca1, y= stomach1, paired = TRUE)
+CvsI_q1 <- wilcox.test(x= cloaca1, y= intestine1, paired = TRUE)
+CvsR_q1 <- wilcox.test(x= cloaca1, y= rectum1, paired = TRUE)
+
+# Paired test (Wilcoxon) (q2)
+feces2 <- subset(alpha, SampleType== "Feces", q2, drop = TRUE)
+cloaca2 <- subset(alpha, SampleType== "Cloaca", q2, drop = TRUE)
+stomach2 <-  subset(alpha, SampleType== "Stomach", q2, drop = TRUE)
+intestine2 <- subset(alpha, SampleType== "Small intestine", q2, drop = TRUE)
+rectum2 <-  subset(alpha, SampleType== "Rectum", q2, drop = TRUE)
+
+FvsS_q2 <- wilcox.test(x= feces2, y= stomach2, paired = TRUE)
+FvsI_q2 <- wilcox.test(x= feces2, y= intestine2, paired = TRUE)
+FvsR_q2 <- wilcox.test(x= feces2, y= rectum2, paired = TRUE)
+CvsS_q2 <- wilcox.test(x= cloaca2, y= stomach2, paired = TRUE)
+CvsI_q2 <- wilcox.test(x= cloaca2, y= intestine2, paired = TRUE)
+CvsR_q2 <- wilcox.test(x= cloaca2, y= rectum2, paired = TRUE)
+
+## ORIGINAL PAPER ##
+#Visualize: Specify the comparisons you want with paired tests
+
+# Diversity order q=0
+my_comparisons_q0 <- list(c("Feces", "Stomach"),
+                          c("Cloaca", "Small intestine"),
+                          c("Cloaca", "Rectum"))
+
+# Crear un argumento para dejar la (q) en italica.
 titulo0 <- expression(paste("Effective number of ASVs (", italic("q"), "=0)"))
-
-HillNumb_q0 <- ggbarplot(alpha, x= "SampleType", y= "q0",
+HillNumb_q0 <- ggboxplot(alpha, x= "SampleType", y= "q0",fill="SampleType",
                          color = "black",  width = 0.6, lwd=0.3,
-                         order = c(
-                           "Stomach", "Small intestine",
-                           "Rectum", "Feces", "Swab"),
-                         fill = c("#43978D","#0191B4",
-                                  "#F8956F", "#F7C560", "#E2AEE1"),
-                         add = "mean_se") +
+                         order = c("Stomach", "Small intestine", "Rectum", "Feces", "Cloaca"))+
   labs(x = element_blank(), y = titulo0) +
-  theme_gray() + theme(text = element_text (size = 10)) +
+  theme_gray() + theme(text = element_text (size = 14)) +
   theme(legend.position = "none",
         axis.ticks.x = element_blank(),
-        axis.text.x = element_blank()) +
-  geom_signif(annotations=c("","", "", ""), 
-              tip_length = 0.01, vjust = 0.9,
-          y_position=c(298, 310, 250, 290),
-          xmin=c(1, 3, 1, 3), xmax=c(3, 5, 2, 4))
+        axis.text.x = element_blank())+
+  stat_compare_means(comparisons = my_comparisons_q0, label = "p.signif")+
+  scale_fill_manual(values =   c("#CC6677","#DDCC77","#44AA99", "#D55E00", "#888888"))
+print(HillNumb_q0)
 
+# Diversity order q=1
+my_comparisons_q1 <- list(c("Feces", "Stomach"),
+                          c("Feces", "Rectum"),
+                          c("Cloaca", "Rectum"))
 
 titulo1 <- expression(paste("Effective number of ASVs (", italic("q"), "=1)"))
-HillNumb_q1 <- ggbarplot(alpha, x= "SampleType", y= "q1",
+HillNumb_q1 <- ggboxplot(alpha, x= "SampleType", y= "q1",fill="SampleType",
                          color = "black",  width = 0.6, lwd=0.3,
-                         order = c(
-                           "Stomach", "Small intestine", 
-                           "Rectum", "Feces", "Swab"),
-                         fill = c("#43978D","#0191B4",
-                                  "#F8956F", "#F7C560", "#E2AEE1"),
-                         add = "mean_se") +
+                         order = c("Stomach", "Small intestine", "Rectum", "Feces", "Cloaca"))+
   labs(x = element_blank(), y = titulo1) +
-  theme_gray() + theme(text = element_text (size = 10)) +
+  theme_gray() + theme(text = element_text (size = 14)) +
   theme(legend.position = "none",
         axis.ticks.x = element_blank(),
-        axis.text.x = element_blank()) +
-  geom_signif(annotations=c("","",""), tip_length = 0.01, vjust = 0.9,
-              y_position=c(112, 90, 107),
-              xmin=c(1,1,3), xmax=c(3,2,5))
+        axis.text.x = element_blank())+
+  stat_compare_means(comparisons = my_comparisons_q1, label = "p.signif")+
+  scale_fill_manual(values =   c("#CC6677","#DDCC77","#44AA99", "#D55E00", "#888888"))
+print(HillNumb_q1)
+
+# Diversity order q=2
+my_comparisons_q2 <- list(c("Feces", "Stomach"),
+                          c("Feces", "Rectum"),
+                          c("Cloaca", "Rectum"))
 
 titulo2 <- expression(paste("Effective number of ASVs (", italic("q"), "=2)"))
-HillNumb_q2 <- ggbarplot(alpha, x= "SampleType", y= "q2",
+HillNumb_q2 <- ggboxplot(alpha, x= "SampleType", y= "q2",fill="SampleType",
                          color = "black",  width = 0.6, lwd=0.3,
-                         order = c(
-                           "Stomach", "Small intestine",
-                           "Rectum", "Feces", "Cloaca"),
-                         fill = c("#43978D","#0191B4",
-                                  "#F8956F", "#F7C560", "#E2AEE1"),
-                         add = "mean_se") +
+                         order = c("Stomach", "Small intestine", "Rectum", "Feces", "Cloaca"))+
   labs(x = element_blank(), y = titulo2) +
-  theme_gray() + theme(text = element_text (size = 10))+
-  geom_signif(annotations=c(""), tip_length = 0.01, vjust = 0.2,
-              y_position=c(48, 45),
-              xmin=c(1,1), xmax=c(3,2))+ theme(
-                axis.text.x = element_text(color = "black"))
+  theme_gray() + theme(text = element_text (size = 14)) +
+  theme(legend.position = "none",
+        axis.ticks.x = element_blank(),
+        axis.text.x = element_blank())+
+  stat_compare_means(comparisons = my_comparisons_q2, label = "p.signif")+
+  scale_fill_manual(values =   c("#CC6677","#DDCC77","#44AA99", "#D55E00", "#888888"))
+print(HillNumb_q2)
+```
 
+
+```{r, warning=FALSE, message=FALSE, fig.width=6, fig.height=11}
 library(cowplot)
-Graphics_boxplot <- plot_grid(HillNumb_q0, HillNumb_q1, HillNumb_q2, 
+Graphics_boxplot_final <- plot_grid(HillNumb_q0, HillNumb_q1, HillNumb_q2, 
                               nrow = 3, ncol = 1,
-                              label_size = 10, rel_heights = c(1, 1, 1))
-print(Graphics_boxplot)
-#ggsave("Graphics_boxplot.jpeg", width=3.8, height=6.5, dpi=300)
-#ggsave("Graphics_boxplot.png", width=5.5, height=4.5, dpi=300)
-```
+                              label_size = 13, rel_heights = c(1, 1, 1))
+print(Graphics_boxplot_final)
+#ggsave("Graphics_boxplot_final.jpeg", width=6.0, height=11.0, dpi=300)
 
-## Linear mixed models - taxonomic alpha diversity
-
-```{r, warning=FALSE, message=FALSE, fig.width=14, fig.height=8}
-# Warning : remember your data is not normal!
-
-library(lme4)
-library(nlme)
-library(cowplot)
-library(pgirmess) 
-library(emmeans)
-
-q0_lme <- lme(q0~ SampleType, random = ~1 |Ind, data = alpha) 
-summary(q0_lme)
-q0_lme_perm <- PermTest(q0_lme)
-q0_lme_means <- emmeans(q0_lme, pairwise ~ SampleType)
-
-q1_lme<- lme(q1~ SampleType, random=~1 |Ind, data = alpha)
-summary(q1_lme)
-q1_lme_perm <- PermTest(q1_lme)
-q1_lme_means <- emmeans(q1_lme, pairwise ~ SampleType)
-
-q2_lme <- lme(q2~ SampleType, random=~1 |Ind, data = alpha)
-summary(q2_lme)
-q2_lme_perm <- PermTest(q2_lme)
-q2_lme_means <- emmeans(q2_lme, pairwise ~ SampleType)
-
-q0_lme_perm;q1_lme_perm;q2_lme_perm
-q2_lme_means; q1_lme_means;q2_lme_means
-
-# Tables summarizing results
-
-library(kableExtra)
-
-q0_lme_means.t <- data.frame(
-  q0_lme_means$contrasts)[,c(1,6)] %>% column_to_rownames(
-    var = "contrast") %>% round(
-  .,digits = 3) %>%replace(  is.na(.), "-")  %>% arrange(p.value) %>% rownames_to_column(var="contrast") %>% ggtexttable(
-    ., rows = NULL, theme = ttheme("blank", base_size = 10)) %>%
-  tab_add_title(text = paste0(
-    "lme-permtest, p.value =",format(q0_lme_perm$resultats$p.value[2], digits=3, nsmall=3)) , 
-    face = "bold", padding = unit(3, "line")) %>%
-  tab_add_hline(at.row = 2:3, row.side = "top", linewidth = 2)%>%
-  table_cell_font(., row = 3, column = 2, face = "bold", size = 10) %>% 
-  table_cell_font(., row = 4, column = 2, face = "bold",size = 10) %>% 
-  table_cell_font(., row = 5, column = 2, face = "bold", size = 10) %>% 
-  table_cell_font(., row = 6, column = 2, face = "bold", size = 10) %>% 
-  table_cell_font(., row = 7, column = 2, face = "plain", size = 10) %>% 
-  table_cell_font(., row = 3:tab_nrow(.), column = 1, 
-                  face = "bold", size = 10)  %>%   
-  tab_add_hline(at.row = c(12), row.side = "bottom", linewidth = 3, 
-                linetype = 1) %>%
-  tab_add_footnote(text = "*p values in bold are significant 
-                   using \n an alpha value of 0.05", 
-                   size = 9, face = "italic")
-
-q0_lme_means.t
-
-q1_lme_means.t <- data.frame(
-  q1_lme_means$contrasts)[,c(1,6)] %>% column_to_rownames(
-    var = "contrast") %>% round(
-  .,digits = 3) %>%replace(  is.na(.), "-")  %>% arrange(p.value) %>% rownames_to_column(var="contrast") %>% ggtexttable(
-    ., rows = NULL, theme = ttheme("blank", base_size = 10)) %>%
-  tab_add_title(text = paste0(
-    "lme-permtest, p.value =",format(q1_lme_perm$resultats$p.value[2], digits=3, nsmall=3)) ,
-    face = "bold", padding = unit(3, "line")) %>%
-  tab_add_hline(at.row = 2:3, row.side = "top", linewidth = 2)%>%
-  table_cell_font(., row = 3, column = 2, face = "bold", size = 10) %>% 
-  table_cell_font(., row = 4, column = 2, face = "bold",size = 10) %>% 
-  table_cell_font(., row = 5, column = 2, face = "bold", size = 10) %>% 
-  table_cell_font(., row = 6, column = 2, face = "plain", size = 10) %>% 
-  table_cell_font(., row = 7, column = 2, face = "plain", size = 10) %>% 
-  table_cell_font(., row = 8, column = 2, face = "plain", size = 10) %>% 
-  table_cell_font(., row = 3:tab_nrow(.), column = 1,
-                  face = "bold", size = 10)  %>%   
-  tab_add_hline(at.row = c(12), row.side = "bottom",
-                linewidth = 3, linetype = 1) %>%
-  tab_add_footnote(text = "*p values in bold are significant 
-                   using \n an alpha value of 0.05",
-                   size = 9, face = "italic")
-
-q1_lme_means.t
-
-q2_lme_means.t <- data.frame(
-  q2_lme_means$contrasts)[,c(1,6)] %>% column_to_rownames(
-    var = "contrast") %>% round(
-  .,digits = 3) %>%replace(  is.na(.), "-")  %>% arrange(p.value) %>% rownames_to_column(var="contrast") %>% ggtexttable(
-    ., rows = NULL, theme = ttheme("blank", base_size = 10)) %>%
-  tab_add_title(text = paste0(
-    "lme-permtest, p.value =",format(q2_lme_perm$resultats$p.value[2], digits=3, nsmall=3)) ,
-    face = "bold", padding = unit(3, "line")) %>%
-  tab_add_hline(at.row = 2:3, row.side = "top", linewidth = 2)%>%
-  table_cell_font(., row = 3, column = 2, face = "bold", size = 10) %>% 
-  table_cell_font(., row = 4, column = 2, face = "bold",size = 10) %>% 
-  table_cell_font(., row = 7, column = 2, face = "plain", size = 10) %>% 
-  table_cell_font(., row = 8, column = 2, face = "plain", size = 10) %>% 
-  table_cell_font(., row = 5, column = 2, face = "plain", size = 10) %>% 
-  table_cell_font(., row = 6, column = 2, face = "plain", size = 10) %>% 
-  table_cell_font(., row = 3:tab_nrow(.), column = 1, 
-                  face = "bold", size = 10)  %>%   
-  tab_add_hline(at.row = c(12), row.side = "bottom", 
-                linewidth = 3, linetype = 1) %>%
-  tab_add_footnote(text = "*p values in bold are significant 
-                   using \n an alpha value of 0.05", 
-                   size = 9, face = "italic")
-
-q2_lme_means.t
-```
-
-
-```{r, warning=FALSE, message=FALSE, fig.width=12, fig.height=6}
-library(cowplot)
-
-comparisons <- plot_grid(q0_lme_means.t,q1_lme_means.t,q2_lme_means.t, 
-                  nrow = 1,ncol = 3, labels = 
-                    c("A)       q0",
-                      "B)       q1",
-                      "C)       q2"),
-                  rel_heights = c(1,1.7))
-print(comparisons)
-#ggsave("comparisons.jpeg", width=14, height=11, dpi=300)
-
-#ggsave('Figures/alpha_comparing_lm_and_kwil.png',
-      # width = 10, height = 8, dpi = 300, plot = compar)
-```
-
-## Functional Alpha diversity
-```{r, eval=FALSE}
-Picrust <- read.delim("../Data/EC_predicted.tsv", check.names = F, row.names = 1)
-totutable <- read.delim("Data/otutable-taxonomy_ultima.txt", 
-                        check.names = F) %>% dplyr::select(
-  -taxonomy) %>% column_to_rownames(var = "#OTU ID") %>% t()
-
-totutable <- totutable[ , match(rownames(Picrust), colnames(totutable))]
-metadata<- read.csv("../Data/Metadatos1.csv", check.names = F) %>% mutate(
-  SampleType=case_when(
-    SampleType=="Swab"~"Cloaca",
-    TRUE~as.character(SampleType)))
-alpha <- alpha %>% inner_join(metadata, by = c("SampleID"="SampleID"))
-
-#Calculate the functional diversity (Not running due to long time)
-
-func_q0 <- hill_func(totutable, traits = Picrust, q = 0)
-func_q1 <- hill_func(totutable, traits = Picrust, q = 1)
-func_q2 <- hill_func(totutable, traits = Picrust, q = 2)
-
-funq0<- func_q0 %>% t() %>% as.data.frame() %>% dplyr::select(q0=MD_q) %>% rownames_to_column(
-  var = "SampleID")
-funq1<- func_q1 %>% t() %>% as.data.frame() %>% dplyr::select(q1=MD_q) %>% rownames_to_column(
-  var = "SampleID")
-funq2<- func_q2 %>% t() %>% as.data.frame() %>% dplyr::select(q2=MD_q) %>% rownames_to_column(
-  var = "SampleID")
-
-functional_div<- funq0 %>% inner_join(funq1) %>% inner_join(funq2) %>% inner_join(metadata)
-library(ggpubr)
-
-#write.table(functional_div, file="./hill_taxa_numbers.txt", sep = "\t")
-```
-
-## Linear mixed models - Functional diversity   
-```{r}
-# Loading files
-alpha <- read.csv("../Data/Functional_div.csv", header = TRUE, check.names = F)
-
-# Normality test
-shapiro.test(x =alpha$q0)
-shapiro.test(x =alpha$q1)
-shapiro.test(x =alpha$q2)
-
-hist(alpha$q0)
-hist(alpha$q1)
-hist(alpha$q2)
-# Data are not normal
-
-# Linear mixed model approach
-# Warning : remember your data is not normal!
-
-library(lme4)
-library(nlme)
-library(cowplot)
-library(pgirmess) # includes PermTest()
-library(emmeans)
-
-q0_lme <- lme(q0~ SampleType, random = ~1 |Ind, data = alpha) 
-summary(q0_lme)
-q0_lme_perm <- PermTest(q0_lme)
-q0_lme_means <- emmeans(q0_lme, pairwise ~ SampleType)
-
-q1_lme<- lme(q1~ SampleType, random=~1 |Ind, data = alpha)
-summary(q1_lme)
-q1_lme_perm <- PermTest(q1_lme)
-q1_lme_means <- emmeans(q1_lme, pairwise ~ SampleType)
-
-q2_lme <- lme(q2~ SampleType, random=~1 |Ind, data = alpha)
-summary(q2_lme)
-q2_lme_perm <- PermTest(q2_lme)
-q2_lme_means <- emmeans(q2_lme, pairwise ~ SampleType)
-
-q0_lme_perm;q1_lme_perm;q2_lme_perm
-q2_lme_means; q1_lme_means;q2_lme_means
-
-# Tables summarizing results
-
-library(kableExtra)
-
-q0_lme_means.t <- data.frame(
-  q0_lme_means$contrasts)[,c(1,6)] %>% column_to_rownames(
-  var = "contrast") %>% round(
-  .,digits = 3) %>%replace(  is.na(.), "-")  %>% arrange(p.value) %>% rownames_to_column(
-    var="contrast") %>% ggtexttable(
-    ., rows = NULL, theme = ttheme("blank", base_size = 10)) %>%
-  tab_add_title(text = paste0(
-    "lme-permtest, p.value =",format(q0_lme_perm$resultats$p.value[2], digits=3, nsmall=3)) , 
-    face = "bold", padding = unit(3, "line")) %>%
-  tab_add_hline(at.row = 2:3, row.side = "top", linewidth = 2)%>%
-  table_cell_font(., row = 3, column = 2, face = "bold", size = 10) %>% 
-  table_cell_font(., row = 4, column = 2, face = "bold",size = 10) %>% 
-  table_cell_font(., row = 5, column = 2, face = "bold", size = 10) %>% 
-  table_cell_font(., row = 6, column = 2, face = "bold", size = 10) %>% 
-  table_cell_font(., row = 7, column = 2, face = "bold", size = 10) %>% 
-  table_cell_font(., row = 3:tab_nrow(.), column = 1, face = "bold", size = 10)  %>%   
-  tab_add_hline(at.row = c(12), row.side = "bottom", linewidth = 3, linetype = 1) %>%
-  tab_add_footnote(text = "*p values in bold are significant using \n an alpha value of 0.05", 
-                   size = 9, face = "italic")
-
-q0_lme_means.t
-
-q1_lme_means.t <- data.frame(
-  q1_lme_means$contrasts)[,c(1,6)] %>% column_to_rownames(
-    var = "contrast") %>% round(
-  .,digits = 3) %>%replace(  is.na(.), "-")  %>% arrange(p.value) %>% rownames_to_column(
-    var="contrast") %>% ggtexttable(
-    ., rows = NULL, theme = ttheme("blank", base_size = 10)) %>%
-  tab_add_title(text = paste0(
-    "lme-permtest, p.value =",format(q1_lme_perm$resultats$p.value[2], digits=3, nsmall=3)) ,
-    face = "bold", padding = unit(3, "line")) %>%
-  tab_add_hline(at.row = 2:3, row.side = "top", linewidth = 2)%>%
-  table_cell_font(., row = 3, column = 2, face = "bold", size = 10) %>% 
-  table_cell_font(., row = 4, column = 2, face = "bold",size = 10) %>% 
-  table_cell_font(., row = 5, column = 2, face = "bold", size = 10) %>% 
-  table_cell_font(., row = 6, column = 2, face = "bold", size = 10) %>% 
-  table_cell_font(., row = 7, column = 2, face = "bold", size = 10) %>% 
-  table_cell_font(., row = 8, column = 2, face = "bold", size = 10) %>% 
-  table_cell_font(., row = 3:tab_nrow(.), column = 1, face = "bold", size = 10)  %>%   
-  tab_add_hline(at.row = c(12), row.side = "bottom", linewidth = 3, linetype = 1) %>%
-  tab_add_footnote(text = "*p values in bold are significant using \n an alpha value of 0.05",
-                   size = 9, face = "italic")
-
-q1_lme_means.t
-
-q2_lme_means.t <- data.frame(
-  q2_lme_means$contrasts)[,c(1,6)] %>% column_to_rownames(
-    var = "contrast") %>% round(
-  .,digits = 3) %>%replace(  is.na(.), "-")  %>% arrange(p.value) %>% rownames_to_column(
-    var="contrast") %>% ggtexttable(
-    ., rows = NULL, theme = ttheme("blank", base_size = 10)) %>%
-  tab_add_title(text = paste0(
-    "lme-permtest, p.value =",format(q2_lme_perm$resultats$p.value[2], digits=3, nsmall=3)) , 
-    face = "bold", padding = unit(3, "line")) %>%
-  tab_add_hline(at.row = 2:3, row.side = "top", linewidth = 2)%>%
-  table_cell_font(., row = 3, column = 2, face = "bold", size = 10) %>% 
-  table_cell_font(., row = 4, column = 2, face = "bold",size = 10) %>% 
-  table_cell_font(., row = 7, column = 2, face = "bold", size = 10) %>% 
-  table_cell_font(., row = 8, column = 2, face = "bold", size = 10) %>% 
-  table_cell_font(., row = 5, column = 2, face = "bold", size = 10) %>% 
-  table_cell_font(., row = 6, column = 2, face = "bold", size = 10) %>% 
-  table_cell_font(., row = 3:tab_nrow(.), column = 1, face = "bold", size = 10)  %>%   
-  tab_add_hline(at.row = c(12), row.side = "bottom", linewidth = 3, linetype = 1) %>%
-  tab_add_footnote(text = "*p values in bold are significant using \n an alpha value of 0.05", 
-                   size = 9, face = "italic")
-
-q2_lme_means.t
-```
-
-
-```{r, warning=FALSE, message=FALSE, fig.width=14, fig.height=6}
-library(cowplot)
-
-Comparisons_Funct_Div <- plot_grid(q0_lme_means.t,q1_lme_means.t,q2_lme_means.t, 
-                         nrow = 2,ncol = 3, labels = 
-                           c("A)       q0",
-                             "B)       q1",
-                             "C)       q2"),
-                         rel_heights = c(1,1.7))
-print(Comparisons_Funct_Div)
-
-#ggsave("Comparisons_Funct_Div.jpeg", width=14, height=11, dpi=300)
 ```
 
 ## Alpha functional barplots
-```{r, warning=FALSE, message=FALSE, fig.width=6, fig.height=7}
+```{r, eval=FALSE}
+library(qiime2R)
+funciones <- read_tsv("../Data/EC_predicted.tsv") %>% 
+  arrange(desc(sequence)) %>% column_to_rownames(var = "sequence")
+tabla <- data.frame(read_q2biom("../Data/feature-table.biom")) %>%
+  rownames_to_column(var = "sequence") %>% arrange(desc(sequence)) %>% 
+  column_to_rownames(  var = "sequence") %>%t() %>% as.data.frame()
 
-my_comparisons_q0 <- list(c("Feces", "Rectum"), c("Feces", "Stomach"),
-                          c("Feces", "Small intestine"),
-                          c("Swab", "Rectum"), c("Swab", "Small intestine"),
-                          c("Swab", "Stomach"))
+# Run functional diversity by Hill numbers (at different q orders)
+func_q0 <- hill_func(comm = tabla, traits = funciones, q = 0)
+func_q1 <- hill_func(comm = tabla, traits = funciones, q = 1)
+func_q2 <- hill_func(comm = tabla, traits = funciones, q = 2)
 
-# Se creo un argumento para poner la (q) en italica.
-tituloA <- expression(paste("Mean functional diversity (", italic("q"), "=0)"))
-HillNumb_q0 <- ggbarplot(alpha, x= "SampleType", y= "q0",
-                         color = "black",  width = 0.6, lwd=0.3,
-                         order = c("Stomach", "Small intestine", "Rectum", 
-                                   "Feces", "Cloaca"),
-                         fill = c("#43978D","#0191B4","#F8956F", 
-                                  "#F7C560", "#E2AEE1"),
-                         add = "mean_se") +
-  labs(x = element_blank(), y = tituloA) +
-  theme_gray() + theme(text = element_text (size = 10)) +
-  theme(legend.position = "none",
-        axis.ticks.x = element_blank(),
-        axis.text.x = element_blank()) +
-  geom_signif(annotations=c("","","","",""), tip_length = 0.01, vjust = 0.9,
-              y_position=c(15000, 18000, 18000, 19000, 20000),
-              xmin=c(4,3.1,1,2,1), xmax=c(5,5,2.9,5,4))
-
-tituloB <- expression(paste("Mean functional diversity (", italic("q"), "=1)"))
-HillNumb_q1 <- ggbarplot(alpha, x= "SampleType", y= "q1",
-                         color = "black",  width = 0.6, lwd=0.3,
-                         order = c("Stomach", "Small intestine", 
-                                   "Rectum", "Feces", "Cloaca"),
-                         fill = c("#43978D","#0191B4","#F8956F",
-                                  "#F7C560", "#E2AEE1"),
-                         add = "mean_se") +
-  labs(x = element_blank(), y = tituloB) +
-  theme_gray() + theme(text = element_text (size = 10)) +
-  theme(legend.position = "none",
-        axis.ticks.x = element_blank(),
-        axis.text.x = element_blank()) +
-  geom_signif(annotations=c("","","","","",""), tip_length = 0.01, vjust = 0.9,
-              y_position=c(5100,7000,7370,7000,7650,6000),
-              xmin=c(4,3.1,2,1,1,1), xmax=c(5,5,5,2.9,4,2))
-
-tituloC <- expression(paste("Mean functional diversity (", italic("q"), "=2)"))
-HillNumb_q2 <- ggbarplot(alpha, x= "SampleType", y= "q2",
-                         color = "black",  width = 0.6, lwd=0.3,
-                         order = c("Stomach", "Small intestine", "Rectum",
-                                   "Feces", "Cloaca"),
-                         fill = c("#43978D","#0191B4","#F8956F", 
-                                  "#F7C560", "#E2AEE1"),
-                         add = "mean_se") +
-  labs(x = element_blank(), y = tituloC) +
-  theme_gray() + theme(text = element_text (size = 10)) +
-  geom_signif(annotations=c("","","","","",""), tip_length = 0.01, vjust = 0.2,
-              y_position=c(3000,3450,3655,3450,3800,3150),
-              xmin=c(4,3.1,2,1,1,1), xmax=c(5,5,5,2.9,4,2)) + 
-  theme(axis.text.x = element_text(color = "black"))
-
-Barplot_funct_div <- plot_grid(HillNumb_q0, HillNumb_q1, HillNumb_q2, 
-                                nrow = 3, ncol = 1,
-                                label_size = 10, rel_heights = c(1, 1, 1))
-print(Barplot_funct_div)
-#ggsave("Boxplot_funct_div.jpeg", width=3.8, height=6.5, dpi=300)
-#ggsave("Boxplot_funct_div.png", width=5.5, height=4.5, dpi=300)
-
+# Saved as table
+Hill_Funct <- cbind(func_q0, func_q1, func_q2)
+#write.table(func_q0, file="./hill_funct_q0.txt", sep = "\t")
+#write.table(func_q1, file="./hill_funct_q1.txt", sep = "\t")
+#write.table(func_q2, file="./hill_funct_q2.txt", sep = "\t")
 ```
 
+
+```{r}
+## ALPHA FUNCTIONAL DIVERSITY
+alpha <- read.csv("../Data/Functional_div.csv", header = TRUE, check.names = F)
+Div_Funct <- alpha %>% inner_join(metadata, by = c("SampleID"="SampleID"))
+
+# Normality test
+shapiro.test(x = Div_Funct$MD_q0)
+shapiro.test(x = Div_Funct$MD_q1)
+shapiro.test(x = Div_Funct$MD_q2)
+
+hist(alpha$MD_q0)
+hist(alpha$MD_q1)
+hist(alpha$MD_q2)
+# Data are not normal
+
+# Paired test (Wilcoxon) (q0)
+feces <- subset(Div_Funct, SampleType== "Feces", MD_q0, drop = TRUE)
+cloaca <- subset(Div_Funct, SampleType== "Cloaca", MD_q0, drop = TRUE)
+stomach <-  subset(Div_Funct, SampleType== "Stomach", MD_q0, drop = TRUE)
+intestine <- subset(Div_Funct, SampleType== "Small intestine", MD_q0, drop = TRUE)
+rectum <-  subset(Div_Funct, SampleType== "Rectum", MD_q0, drop = TRUE)
+
+
+FvsS_q0 <- wilcox.test(x= feces, y= stomach, paired = TRUE)
+FvsI_q0 <- wilcox.test(x= feces, y= intestine, paired = TRUE)
+FvsR_q0 <- wilcox.test(x= feces, y= rectum, paired = TRUE)
+CvsS_q0 <- wilcox.test(x= cloaca, y= stomach, paired = TRUE)
+CvsI_q0 <- wilcox.test(x= cloaca, y= intestine, paired = TRUE)
+CvsR_q0 <- wilcox.test(x= cloaca, y= rectum, paired = TRUE)
+
+# Paired test (Wilcoxon) (q1)
+feces1 <- subset(Div_Funct, SampleType== "Feces", MD_q1, drop = TRUE)
+cloaca1 <- subset(Div_Funct, SampleType== "Cloaca", MD_q1, drop = TRUE)
+stomach1 <-  subset(Div_Funct, SampleType== "Stomach", MD_q1, drop = TRUE)
+intestine1 <- subset(Div_Funct, SampleType== "Small intestine", MD_q1, drop = TRUE)
+rectum1 <-  subset(Div_Funct, SampleType== "Rectum", MD_q1, drop = TRUE)
+
+FvsS_q1 <- wilcox.test(x= feces1, y= stomach1, paired = TRUE)
+FvsI_q1 <- wilcox.test(x= feces1, y= intestine1, paired = TRUE)
+FvsR_q1 <- wilcox.test(x= feces1, y= rectum1, paired = TRUE)
+CvsS_q1 <- wilcox.test(x= cloaca1, y= stomach1, paired = TRUE)
+CvsI_q1 <- wilcox.test(x= cloaca1, y= intestine1, paired = TRUE)
+CvsR_q1 <- wilcox.test(x= cloaca1, y= rectum1, paired = TRUE)
+
+# Paired test (Wilcoxon) (q2)
+feces2 <- subset(Div_Funct, SampleType== "Feces", MD_q2, drop = TRUE)
+cloaca2 <- subset(Div_Funct, SampleType== "Cloaca", MD_q2, drop = TRUE)
+stomach2 <-  subset(Div_Funct, SampleType== "Stomach", MD_q2, drop = TRUE)
+intestine2 <- subset(Div_Funct, SampleType== "Small intestine", MD_q2, drop = TRUE)
+rectum2 <-  subset(Div_Funct, SampleType== "Rectum", MD_q2, drop = TRUE)
+
+FvsS_q2 <- wilcox.test(x= feces2, y= stomach2, paired = TRUE)
+FvsI_q2 <- wilcox.test(x= feces2, y= intestine2, paired = TRUE)
+FvsR_q2 <- wilcox.test(x= feces2, y= rectum2, paired = TRUE)
+CvsS_q2 <- wilcox.test(x= cloaca2, y= stomach2, paired = TRUE)
+CvsI_q2 <- wilcox.test(x= cloaca2, y= intestine2, paired = TRUE)
+CvsR_q2 <- wilcox.test(x= cloaca2, y= rectum2, paired = TRUE)
+
+## ORIGINAL PAPER ##
+#Visualize: Specify the comparisons you want with paired tests
+
+# Diversity order q=0
+my_comparisons_q0 <- list(c("Feces", "Stomach"),
+                          c("Cloaca", "Rectum"))
+
+# Crear un argumento para dejar la (q) en italica.
+tituloA <- expression(paste("Mean functional diversity (", italic("q"), "=0)"))
+HillNumb_q0 <- ggboxplot(Div_Funct, x= "SampleType", y= "MD_q0",fill="SampleType",
+                         color = "black",  width = 0.6, lwd=0.3,
+                         order = c("Stomach", "Small intestine", "Rectum", "Feces", "Cloaca")) +
+  labs(x = element_blank(), y = tituloA) +
+  theme_gray() + theme(text = element_text (size = 14)) +
+  theme(legend.position = "none",
+        axis.ticks.x = element_blank(),
+        axis.text.x = element_blank()) +
+  stat_compare_means(comparisons = my_comparisons_q0, label = "p.signif")+
+  scale_fill_manual(values =  c("#CC6677","#DDCC77","#44AA99", "#D55E00", "#888888"))
+print(HillNumb_q0)
+
+# Diversity order q=1
+my_comparisons_q1 <- list(c("Feces", "Stomach"),
+                          c("Cloaca", "Small intestine"),
+                          c("Cloaca", "Rectum"))
+
+tituloB <- expression(paste("Mean functional diversity (", italic("q"), "=1)"))
+HillNumb_q1 <- ggboxplot(Div_Funct, x= "SampleType", y= "MD_q1",fill="SampleType",
+                         color = "black",  width = 0.6, lwd=0.3,
+                         order = c("Stomach", "Small intestine", "Rectum", "Feces", "Cloaca")) +
+  labs(x = element_blank(), y = tituloB) +
+  theme_gray() + theme(text = element_text (size = 14)) +
+  theme(legend.position = "none",
+        axis.ticks.x = element_blank(),
+        axis.text.x = element_blank()) +
+  stat_compare_means(comparisons = my_comparisons_q1, label = "p.signif")+
+  scale_fill_manual(values =  c("#CC6677","#DDCC77","#44AA99", "#D55E00", "#888888"))
+print(HillNumb_q1)
+
+# Diversity order q=2
+my_comparisons_q2 <- list(c("Feces", "Stomach"),
+                          c("Cloaca", "Small intestine"),
+                          c("Cloaca", "Rectum"))
+
+tituloC <- expression(paste("Mean functional diversity (", italic("q"), "=2)"))
+HillNumb_q2 <- ggboxplot(Div_Funct, x= "SampleType", y= "MD_q2",fill="SampleType",
+                         color = "black",  width = 0.6, lwd=0.3,
+                         order = c("Stomach", "Small intestine", "Rectum", "Feces", "Cloaca")) +
+  labs(x = element_blank(), y = tituloC) +
+  theme_gray() + theme(text = element_text (size = 14)) +
+  theme(legend.position = "none",
+        axis.ticks.x = element_blank(),
+        axis.text.x = element_blank()) +
+  stat_compare_means(comparisons = my_comparisons_q2, label = "p.signif")+
+  scale_fill_manual(values =  c("#CC6677","#DDCC77","#44AA99", "#D55E00", "#888888"))
+print(HillNumb_q2)
+```
+
+
+```{r, fig.width=6, fig.height=11}
+library(cowplot)
+Boxplot_Final_FunctDiv <- plot_grid(HillNumb_q0, HillNumb_q1, HillNumb_q2, 
+                                    nrow = 3, ncol = 1,
+                                    label_size = 13, rel_heights = c(1, 1, 1))
+print(Boxplot_Final_FunctDiv)
+```
 
